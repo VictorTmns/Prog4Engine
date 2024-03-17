@@ -1,8 +1,11 @@
 #pragma once
+#include <memory>
 #include <SDL.h>
+#include <glm/vec2.hpp>
+
 #include "Singleton.h"
 
-namespace dae
+namespace minigin
 {
 	class Texture2D;
 	/**
@@ -20,6 +23,10 @@ namespace dae
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+
+
+		void RenderCircle(float xCenter, float yCenter, float radius);
+		void RenderRect(float left, float top, float width, float height);
 
 		SDL_Renderer* GetSDLRenderer() const;
 

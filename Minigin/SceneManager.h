@@ -4,7 +4,7 @@
 #include <memory>
 #include "Singleton.h"
 
-namespace dae
+namespace minigin
 {
 	class Scene;
 	class SceneManager final : public Singleton<SceneManager>
@@ -14,6 +14,8 @@ namespace dae
 
 		void Update();
 		void Render();
+		void FixedUpdate();
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

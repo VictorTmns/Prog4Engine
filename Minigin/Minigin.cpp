@@ -5,10 +5,14 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "Minigin.h"
+
+#include <chrono>
+
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "Time.h"
 
 SDL_Window* g_window{};
 
@@ -40,7 +44,7 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-dae::Minigin::Minigin(const std::string &dataPath)
+minigin::Minigin::Minigin(const std::string &dataPath)
 {
 	PrintSDLVersion();
 	
@@ -65,9 +69,11 @@ dae::Minigin::Minigin(const std::string &dataPath)
 	Renderer::GetInstance().Init(g_window);
 
 	ResourceManager::GetInstance().Init(dataPath);
+
+	Time::GetInstance().Init(0.02);
 }
 
-dae::Minigin::~Minigin()
+minigin::Minigin::~Minigin()
 {
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(g_window);
@@ -75,19 +81,28 @@ dae::Minigin::~Minigin()
 	SDL_Quit();
 }
 
-void dae::Minigin::Run(const std::function<void()>& load)
+void minigin::Minigin::Run(const std::function<void()>& load)
 {
 	load();
 
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
+	auto& time = Time::GetInstance();
 
-	// todo: this update loop could use some work.
+
+	
 	bool doContinue = true;
 	while (doContinue)
 	{
+		time.Update();
+
 		doContinue = input.ProcessInput();
+		while (time.LagRemaining())
+		{
+			sceneManager.FixedUpdate();
+		}
+
 		sceneManager.Update();
 		renderer.Render();
 	}

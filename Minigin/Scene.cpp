@@ -3,42 +3,51 @@
 
 #include <algorithm>
 
-using namespace dae;
+using namespace minigin;
 
 unsigned int Scene::m_idCounter = 0;
 
-Scene::Scene(const std::string& name) : m_name(name) {}
+Scene::Scene(const std::string& name)
+	:m_name(name)
+{}
 
 Scene::~Scene() = default;
 
-void Scene::Add(std::shared_ptr<GameObject> object)
+
+void Scene::AddGameObject(std::unique_ptr<GameObject>&& gameObject)
 {
-	m_objects.emplace_back(std::move(object));
+	m_GameObjectPtrs.emplace_back(std::move(gameObject));
 }
 
-void Scene::Remove(std::shared_ptr<GameObject> object)
+void Scene::DeleteAll()
 {
-	m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object), m_objects.end());
-}
-
-void Scene::RemoveAll()
-{
-	m_objects.clear();
+	for (auto& gameObjectPtr : m_GameObjectPtrs)
+	{
+		gameObjectPtr.reset();
+	}
 }
 
 void Scene::Update()
 {
-	for(auto& object : m_objects)
+	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
-		object->Update();
+		gameObjectPtr->Update();
+	}
+}
+
+void Scene::FixedUpdate()
+{
+	for (auto& gameObjectPtr : m_GameObjectPtrs)
+	{
+		gameObjectPtr->FixedUpdate();
 	}
 }
 
 void Scene::Render() const
 {
-	for (const auto& object : m_objects)
+	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
-		object->Render();
+		gameObjectPtr->Render();
 	}
 }
 

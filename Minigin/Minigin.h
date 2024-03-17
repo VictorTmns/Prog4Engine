@@ -2,7 +2,7 @@
 #include <string>
 #include <functional>
 
-namespace dae
+namespace minigin
 {
 	class Minigin
 	{
@@ -15,5 +15,7 @@ namespace dae
 		Minigin(Minigin&& other) = delete;
 		Minigin& operator=(const Minigin& other) = delete;
 		Minigin& operator=(Minigin&& other) = delete;
+
+
 	};
 }

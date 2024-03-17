@@ -1,24 +1,177 @@
 #include <string>
 #include "GameObject.h"
-#include "ResourceManager.h"
-#include "Renderer.h"
 
-dae::GameObject::~GameObject() = default;
+#include <memory>
+#include "SceneManager.h"
 
-void dae::GameObject::Update(){}
-
-void dae::GameObject::Render() const
+namespace minigin
 {
-	const auto& pos = m_transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
-}
 
-void dae::GameObject::SetTexture(const std::string& filename)
-{
-	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
-}
+	
+	GameObject::~GameObject()
+	{
+		for (int idx = 0; idx < static_cast<int>(m_ComponentPtrs.size()); ++idx)
+		{
+			m_ComponentPtrs[idx].reset();
+		}
+	}
+	
+	// ---- FUNCTIONALITY ----
+	
+	void GameObject::Update()
+	{
+		for (auto& pComponent : m_ComponentPtrs)
+		{
+			pComponent->Update();
+		}
+	}
+	
+	void GameObject::FixedUpdate()
+	{
+		for (auto& pComponent : m_ComponentPtrs)
+		{
+			pComponent->FixedUpdate();
+		}
+	}
+	
+	void GameObject::Render() const
+	{
+		for (const auto& pComponent : m_ComponentPtrs)
+		{
+			pComponent->Render();
+		}
+	}
 
-void dae::GameObject::SetPosition(float x, float y)
-{
-	m_transform.SetPosition(x, y, 0.0f);
+	// ---- TRANSFORM ----
+	//TODO add this to the transform
+	void GameObject::SetLocalTransform(const Transform& newTransform)
+	{
+		m_LocalTransform = newTransform;
+		SetTransformDirty();
+	}
+	void GameObject::SetLocalTranslate(float x, float y)
+	{
+		m_LocalTransform.SetPosition(x, y);
+		SetTransformDirty();
+	}
+	void GameObject::SetLocalRotation(double rot)
+	{
+		m_LocalTransform.SetRotation(rot);
+		SetTransformDirty();
+	}
+	void GameObject::AddLocalTranslate(float x, float y)
+	{
+		m_LocalTransform.AddPosition(x, y);
+		SetTransformDirty();
+	}
+	void GameObject::AddLocalRotation(double rot)
+	{
+		m_LocalTransform.AddRotation(rot);
+		SetTransformDirty();
+	}
+
+	Transform GameObject::GetLocalTransform()
+	{
+		return m_LocalTransform;
+	}
+	
+	Transform GameObject::GetWorldTransform()
+	{
+		if (m_WorldTransformDirty)
+		{
+			m_WorldTransform = CalculateWorldTransform();
+			m_WorldTransformDirty = false;
+		}
+	
+		return m_WorldTransform;
+	}
+	
+	// ---- GAME OBJECT / SCENE GRAPH----
+	
+	bool GameObject::SetParent(GameObject* newParentPtr, bool keepWorldPosition = false)
+	{
+		// 1 check if parent is valid
+		if (newParentPtr == nullptr
+			|| newParentPtr == this
+			|| newParentPtr == m_ParentPtr
+			|| IsChild(newParentPtr)) 
+			return false;
+
+		// 2 Remove self from current parent
+		if (m_ParentPtr)
+			m_ParentPtr->RemoveChild(this);
+	
+
+		// 3 Change own parentPtr
+		m_ParentPtr = newParentPtr;
+
+		// 4 Add self to new parent
+		m_ParentPtr->AddChild(this);
+
+
+		// 5 Update Transforms
+		if (keepWorldPosition)
+			SetLocalTransform(GetWorldTransform() - newParentPtr->GetWorldTransform());
+		else
+			SetTransformDirty();
+
+
+
+		return true;
+	}
+	
+	Transform GameObject::CalculateWorldTransform() const
+	{
+		if (m_ParentPtr == nullptr) 
+			return m_LocalTransform;
+		return m_LocalTransform.Multiply(m_ParentPtr->CalculateWorldTransform());
+	}
+	
+	void GameObject::AddChild(GameObject* newChildPtr)
+	{
+		m_ChilderenPtrs.push_back(newChildPtr);
+	}
+
+	void GameObject::RemoveChild(GameObject* childToRemovePtr)
+	{
+		for (auto childIt = m_ChilderenPtrs.begin(); childIt != m_ChilderenPtrs.end(); ++childIt)
+		{
+			if (*childIt == childToRemovePtr)
+			{
+				m_ChilderenPtrs.erase(childIt);
+				return;
+			}
+		}
+
+		assert(false && "parent thinks it doesn't own child");
+		return;
+	}
+	
+	
+	bool GameObject::IsChild(GameObject* gameObject) const
+	{
+		for (auto& childPtr : m_ChilderenPtrs)
+		{
+			if (childPtr == gameObject) return true; //check if the child is that gameObject
+			if (childPtr->IsChild(gameObject)) return true; //recursivly checks if one of its childeren is that gameObject
+		}
+	
+		return false;
+	}
+
+
+
+	// ---- COMPONENTS ----
+
+	
+	
+	
+	void GameObject::SetTransformDirty()
+	{
+		m_WorldTransformDirty = true;
+		for (auto& childPtr : m_ChilderenPtrs)
+		{
+			childPtr->SetTransformDirty();
+		}
+	}
 }

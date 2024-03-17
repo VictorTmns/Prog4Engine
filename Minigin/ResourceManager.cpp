@@ -3,10 +3,8 @@
 #include <SDL_ttf.h>
 #include "ResourceManager.h"
 #include "Renderer.h"
-#include "Texture2D.h"
-#include "Font.h"
 
-void dae::ResourceManager::Init(const std::string& dataPath)
+void minigin::ResourceManager::Init(const std::string& dataPath)
 {
 	m_dataPath = dataPath;
 
@@ -14,20 +12,36 @@ void dae::ResourceManager::Init(const std::string& dataPath)
 	{
 		throw std::runtime_error(std::string("Failed to load support for fonts: ") + SDL_GetError());
 	}
+
 }
 
-std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::string& file) const
+minigin::Texture2D* minigin::ResourceManager::GetTexture(const std::string& file)
 {
+	auto textureIt = m_LoadedTextures.find(file);
+	if (textureIt != m_LoadedTextures.end())
+		return textureIt->second.get();
+
+
 	const auto fullPath = m_dataPath + file;
 	auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr)
 	{
 		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
 	}
-	return std::make_shared<Texture2D>(texture);
+
+	auto emplaceResult = m_LoadedTextures.emplace(file, std::make_unique<Texture2D>(texture));
+	return emplaceResult.first->second.get();
 }
 
-std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
+minigin::Font* minigin::ResourceManager::GetFont(const std::string& file, unsigned int size)
 {
-	return std::make_shared<Font>(m_dataPath + file, size);
+	auto textureIt = m_LoadedFonts.find(file);
+	if (textureIt != m_LoadedFonts.end())
+		return textureIt->second.get();
+
+
+	const auto fullPath = m_dataPath + file;
+
+	auto emplaceResult = m_LoadedFonts.emplace(file + std::to_string(size), std::make_unique<Font>(m_dataPath + file, size));
+	return emplaceResult.first->second.get();
 }
