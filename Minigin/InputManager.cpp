@@ -1,6 +1,7 @@
 #include "InputManager.h"
 
 #include "Commands.h"
+#include "KeyboardTestComponent.h"
 
 bool minigin::InputManager::ProcessInput()
 {
@@ -10,72 +11,62 @@ bool minigin::InputManager::ProcessInput()
 	return false;
 }
 
-void minigin::InputManager::BindToKeyboard(BaseComponent* componentPtr,
-	std::function<void(BaseComponent* actor)> function, SDL_KeyCode keyCode, ClickType clickType)
+void minigin::InputManager::BindToKeyboard(
+	minigin::BaseComponent* componentPtr, std::function<void()> function, SDL_KeyCode keyCode, minigin::ClickType
+	clickType)
 {
-	auto bindedFunction = std::bind(function, componentPtr);
-	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(bindedFunction) };
 
+	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(function) };
 	m_SdlManager.AddKeyBoardCommand(keyCode, clickType, buttonCommand.get());
 	componentPtr->AddCommand(std::move(buttonCommand));
+	function();
 }
 
-void minigin::InputManager::BindToMouseWheel(BaseComponent* componentPtr,
-	std::function<void(BaseComponent* actor, float x)> function)
+void minigin::InputManager::BindToMouseWheel(
+	minigin::BaseComponent* componentPtr, std::function<void(float x)> function)
 {
-	auto bindedFunction = std::bind(function, componentPtr, std::placeholders::_1);
-	std::unique_ptr<ScalarCommand> scalarCommand{ std::make_unique<ScalarCommand>(bindedFunction) };
-
+	std::unique_ptr<ScalarCommand> scalarCommand{ std::make_unique<ScalarCommand>(function) };
 	m_SdlManager.AddMouseWheelCommand(scalarCommand.get());
 	componentPtr->AddCommand(std::move(scalarCommand));
 }
 
-void minigin::InputManager::BindToMouseMovement(BaseComponent* componentPtr,
-	std::function<void(BaseComponent* actor, float x, float y)> function)
+void minigin::InputManager::BindToMouseMovement(
+	minigin::BaseComponent* componentPtr, std::function<void(float x, float y)> function)
 {
-	auto bindedFunction = std::bind(function, componentPtr, std::placeholders::_1, std::placeholders::_2);
-	std::unique_ptr<VectorCommand> vectorCommand{ std::make_unique<VectorCommand>(bindedFunction) };
-
+	std::unique_ptr<VectorCommand> vectorCommand{ std::make_unique<VectorCommand>(function) };
 	m_SdlManager.AddMouseMovementCommand(vectorCommand.get());
 	componentPtr->AddCommand(std::move(vectorCommand));
 }
 
-void minigin::InputManager::BindToMouseClick(BaseComponent* componentPtr, std::function<void(BaseComponent* actor)> function,
-	MouseButton mouseButton, ClickType clickType)
+void minigin::InputManager::BindToMouseClick(minigin::BaseComponent* componentPtr,
+                                             std::function<void()> function, minigin::MouseButton mouseButton, minigin::ClickType clickType)
 {
-	auto bindedFunction = std::bind(function, componentPtr);
-	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(bindedFunction) };
-
+	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(function) };
 	m_SdlManager.AddMouseButtonCommand(mouseButton, clickType, buttonCommand.get());
 	componentPtr->AddCommand(std::move(buttonCommand));
 }
 
-void minigin::InputManager::BindToControllerButton(BaseComponent* componentPtr,
-	std::function<void(BaseComponent* actor)> function, int controllerIdx, ControllerButton button, ClickType clickType)
+void minigin::InputManager::BindToControllerButton(
+	minigin::BaseComponent* componentPtr, std::function<void()> function, int controllerIdx, minigin::ControllerButton
+	button, minigin::ClickType clickType)
 {
-	auto bindedFunction = std::bind(function, componentPtr);
-	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(bindedFunction) };
-
+	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(function) };
 	m_ControllerManager.AddButtonCommand(controllerIdx, button, clickType, buttonCommand.get());
 	componentPtr->AddCommand(std::move(buttonCommand));
 }
 
-void minigin::InputManager::BindToControllerTrigger(BaseComponent* componentPtr,
-	std::function<void(BaseComponent* actor, float x)> function, int controllerIdx, bool isLeft)
+void minigin::InputManager::BindToControllerTrigger(
+	minigin::BaseComponent* componentPtr, std::function<void(float x)> function, int controllerIdx, bool isLeft)
 {
-	auto bindedFunction = std::bind(function, componentPtr, std::placeholders::_1);
-	std::unique_ptr<ScalarCommand> buttonCommand{ std::make_unique<ScalarCommand>(bindedFunction) };
-
+	std::unique_ptr<ScalarCommand> buttonCommand{ std::make_unique<ScalarCommand>(function) };
 	m_ControllerManager.AddTriggerCommand(controllerIdx, isLeft, buttonCommand.get());
 	componentPtr->AddCommand(std::move(buttonCommand));
 }
 
-void minigin::InputManager::BindToControllerThumbStick(BaseComponent* componentPtr,
-	std::function<void(BaseComponent* actor, float x, float y)> function, int controllerIdx, bool isLeft)
+void minigin::InputManager::BindToControllerThumbStick(
+	minigin::BaseComponent* componentPtr, std::function<void(float x, float y)> function, int controllerIdx, bool isLeft)
 {
-	auto bindedFunction = std::bind(function, componentPtr, std::placeholders::_1, std::placeholders::_2);
-	std::unique_ptr<VectorCommand> buttonCommand{ std::make_unique<VectorCommand>(bindedFunction) };
-
+	std::unique_ptr<VectorCommand> buttonCommand{ std::make_unique<VectorCommand>(function) };
 	m_ControllerManager.AddThumbStickCommand(controllerIdx, isLeft, buttonCommand.get());
 	componentPtr->AddCommand(std::move(buttonCommand));
 }

@@ -95,8 +95,11 @@ void minigin::Renderer::RenderTexture(const Texture2D& texture, const float x, c
 }
 
 
-void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius)
+void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color)
 {
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+
 	const int32_t diameter { static_cast<int32_t>(radius * 2) };
 
 	const int32_t centerX{ static_cast<int32_t>(xCenter)};
@@ -135,10 +138,29 @@ void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius)
 	}
 }
 
-void minigin::Renderer::RenderRect(float left, float top, float width, float height)
+void minigin::Renderer::RenderRect(float left, float top, float width, float height, SDL_Color color)
 {
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
 	const SDL_Rect drawRect{ static_cast<int>(left), static_cast<int>(top), static_cast<int>(width), static_cast<int>(height) };
 	SDL_RenderDrawRect(m_renderer, &drawRect);
+}
+
+void minigin::Renderer::FillCircle(float x, float y, float radius, SDL_Color color)
+{
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+	for (int w = 0; w < radius * 2; w++)
+	{
+		for (int h = 0; h < radius * 2; h++)
+		{
+			float dx = radius - w; // horizontal offset
+			float dy = radius - h; // vertical offset
+			if ((dx * dx + dy * dy) <= (radius * radius))
+			{
+				SDL_RenderDrawPoint(m_renderer, static_cast<int>(x + dx), static_cast<int>(y + dy));
+			}
+		}
+	}
 }
 
 SDL_Renderer* minigin::Renderer::GetSDLRenderer() const { return m_renderer; }

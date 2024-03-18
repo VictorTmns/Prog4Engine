@@ -9,7 +9,7 @@ void minigin::TextureRenderComponent::Render() const
 {
 	const glm::vec2 pos = GetOwner()->GetWorldTransform().GetPosition() + m_Offset.GetPosition();
 
-	minigin::Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
+	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 }
 
 void minigin::TextureRenderComponent::SetTexture(const std::string& texturePath)

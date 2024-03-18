@@ -83,15 +83,16 @@ minigin::Minigin::~Minigin()
 
 void minigin::Minigin::Run(const std::function<void()>& load)
 {
-	load();
-
+	// make sure that Input gets initilized before the scene, otherwise this will mess with the cleanup of commands
+	auto& input = InputManager::GetInstance();
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
-	auto& input = InputManager::GetInstance();
 	auto& time = Time::GetInstance();
 
 
-	
+	load();
+
+
 	bool doContinue = true;
 	while (doContinue)
 	{

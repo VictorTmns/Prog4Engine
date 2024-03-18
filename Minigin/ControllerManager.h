@@ -87,6 +87,8 @@ namespace minigin
 			WORD buttonsReleasedThisFrame{};
 			XINPUT_STATE previousState{};
 			XINPUT_STATE currentState{};
+
+			float timeSinceCheck{};
 		};
 	
 		void ProcessNewControllerState();

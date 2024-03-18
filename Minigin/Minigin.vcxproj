@@ -186,10 +186,11 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_truetype.h" />
+    <ClInclude Include="CircleRenderComponent.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="ControllerManager.h" />
-    <ClInclude Include="GameActorComponent.h" />
+    <ClInclude Include="KeyboardTestComponent.h" />
     <ClInclude Include="InputTypes.h" />
     <ClInclude Include="OrbitComponent.h" />
     <ClInclude Include="Font.h" />
@@ -230,9 +231,10 @@
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_tables.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_widgets.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="CircleRenderComponent.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ControllerManager.cpp" />
-    <ClCompile Include="GameActorComponent.cpp" />
+    <ClCompile Include="KeyboardTestComponent.cpp" />
     <ClCompile Include="OrbitComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />

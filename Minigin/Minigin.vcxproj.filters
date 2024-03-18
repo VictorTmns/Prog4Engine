@@ -119,7 +119,7 @@
     <ClInclude Include="Commands.h">
       <Filter>Input\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="GameActorComponent.h">
+    <ClInclude Include="KeyboardTestComponent.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="SDLManager.h">
@@ -127,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="InputTypes.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleRenderComponent.h">
+      <Filter>components\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +214,7 @@
     <ClCompile Include="ControllerManager.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="GameActorComponent.cpp">
+    <ClCompile Include="KeyboardTestComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="SDLManager.cpp">
@@ -219,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="Commands.cpp">
       <Filter>Input\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleRenderComponent.cpp">
+      <Filter>components\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

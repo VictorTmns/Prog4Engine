@@ -48,18 +48,18 @@ namespace minigin
 			}
 		};
 
-			void HandleKeyButtonEvent(SDL_Event& e);
-			void CallAllMouseMovementCommands(float x, float y);
-			void CallAllMouseWheelCommands(float x);
-			//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_KeyboardUpCommands;
-			//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_KeyboardDownCommands;
-			//
-			//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_MouseButtonDownCommands;
-			//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_MouseButtonUpCommands;
-			//
-			//
-			//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_KeyboardPressedCommands;
+		std::unordered_multimap<CommandType, BaseCommand*, CommandTypeHash> m_Commands;
 
-			std::unordered_multimap<CommandType, BaseCommand*, CommandTypeHash> m_Commands;
-		};
+		void HandleKeyButtonEvent(SDL_Event& e);
+		void CallAllMouseMovementCommands(float x, float y);
+		void CallAllMouseWheelCommands(float x);
+		//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_KeyboardUpCommands;
+		//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_KeyboardDownCommands;
+		//
+		//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_MouseButtonDownCommands;
+		//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_MouseButtonUpCommands;
+		//
+		//
+		//std::unordered_multimap<SDL_Keycode, BaseCommand*> m_KeyboardPressedCommands;
+	};
 	};

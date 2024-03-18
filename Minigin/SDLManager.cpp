@@ -41,7 +41,7 @@ bool minigin::SDLManager::ProcessInput()
 		{
 		case InputType::keyboard:
 			if ((command.first.clickType == ClickType::hold)
-				&& keys[command.first.keycode])
+				&& keys[SDL_GetScancodeFromKey(command.first.keycode)])
 			{
 				ButtonCommand* buttonCommand{ dynamic_cast<ButtonCommand*>(command.second) };
 				assert(buttonCommand);
@@ -112,9 +112,10 @@ void minigin::SDLManager::HandleKeyButtonEvent(SDL_Event& e)
 
 	if (e.key.state == SDL_PRESSED)
 		searchCriterea.clickType = ClickType::pressed;
-	else
+	else if (e.key.state == SDL_RELEASED)
 		searchCriterea.clickType = ClickType::released;
-
+	else
+		return;
 
 	if (e.type == SDL_KEYUP || e.type == SDL_KEYDOWN)
 	{

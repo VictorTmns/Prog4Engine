@@ -2,9 +2,12 @@
 
 #include <cmath>
 #include "Commands.h"
+#include "Time.h"
 
 
-minigin::ControllerManager::ControllerManager(): m_InputDeadzone{0}
+minigin::ControllerManager::ControllerManager()
+	: m_InputDeadzone{0}
+	, m_Commands{}
 {
 	m_Controllers.resize(XUSER_MAX_COUNT);
 }
@@ -112,18 +115,32 @@ void minigin::ControllerManager::RemoveCommand(BaseCommand* commandPtr)
 
 void minigin::ControllerManager::ProcessNewControllerState()
 {
+	static float connectionTry{5.f};
+	for (auto& controller : m_Controllers)
+	{
+		if(controller.isActive) 
+			continue;
+
+		controller.timeSinceCheck += static_cast<float>(Time::GetInstance().GetDeltaTime());
+		if(controller.timeSinceCheck > connectionTry)
+		{
+			controller.isActive = true;
+			controller.timeSinceCheck = 0;
+		}
+	}
+
 
 	// TODO don't check unused controllers every frame for state
 	DWORD dwResult;
 	for (DWORD i = 0; i < XUSER_MAX_COUNT; i++)
 	{
+		if (!m_Controllers[i].isActive)
+			continue;
 
-
-		if (m_Controllers[i].isActive)
-		{
-			CopyMemory(&m_Controllers[i].previousState, &m_Controllers[i].currentState, sizeof(XINPUT_STATE));
-			ZeroMemory(&m_Controllers[i].currentState, sizeof(XINPUT_STATE));
-		}
+		
+		CopyMemory(&m_Controllers[i].previousState, &m_Controllers[i].currentState, sizeof(XINPUT_STATE));
+		ZeroMemory(&m_Controllers[i].currentState, sizeof(XINPUT_STATE));
+		
 
 		// Simply get the state of the controller from XInput.
 		dwResult = XInputGetState(i, &m_Controllers[i].currentState);
