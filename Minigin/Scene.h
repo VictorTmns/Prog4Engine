@@ -1,12 +1,12 @@
 #pragma once
 #include "SceneManager.h"
+#include "GameObject.h"
 
 namespace minigin
 {
-	class GameObject;
 	class Scene final
 	{
-		friend Scene& SceneManager::CreateScene(const std::string& name);
+		friend Scene* SceneManager::CreateScene(const std::string& name);
 	public:
 		void AddGameObject(std::unique_ptr<GameObject>&& gameObject);
 		void DeleteAll();
@@ -15,7 +15,7 @@ namespace minigin
 		void FixedUpdate();
 		void Render() const;
 
-		~Scene();
+		~Scene() = default;
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;
 		Scene& operator=(const Scene& other) = delete;

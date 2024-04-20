@@ -19,7 +19,6 @@ void minigin::InputManager::BindToKeyboard(
 	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(function) };
 	m_SdlManager.AddKeyBoardCommand(keyCode, clickType, buttonCommand.get());
 	componentPtr->AddCommand(std::move(buttonCommand));
-	function();
 }
 
 void minigin::InputManager::BindToMouseWheel(

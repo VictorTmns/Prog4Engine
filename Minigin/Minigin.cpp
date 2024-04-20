@@ -7,6 +7,7 @@
 #include "Minigin.h"
 
 #include <chrono>
+#include <steam_api_common.h>
 
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -45,6 +46,7 @@ void PrintSDLVersion()
 }
 
 minigin::Minigin::Minigin(const std::string &dataPath)
+	: m_Achievement{std::make_unique<AchievementManager>()}
 {
 	PrintSDLVersion();
 	
@@ -67,21 +69,21 @@ minigin::Minigin::Minigin(const std::string &dataPath)
 	}
 
 	Renderer::GetInstance().Init(g_window);
-
 	ResourceManager::GetInstance().Init(dataPath);
-
 	Time::GetInstance().Init(0.02);
 }
 
 minigin::Minigin::~Minigin()
 {
 	Renderer::GetInstance().Destroy();
+	
+	
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
 	SDL_Quit();
 }
 
-void minigin::Minigin::Run(const std::function<void()>& load)
+void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 {
 	// make sure that Input gets initilized before the scene, otherwise this will mess with the cleanup of commands
 	auto& input = InputManager::GetInstance();
@@ -90,7 +92,10 @@ void minigin::Minigin::Run(const std::function<void()>& load)
 	auto& time = Time::GetInstance();
 
 
-	load();
+	SteamAPI_RunCallbacks();
+	m_Achievement->RemoveAchievements();
+
+	load(this);
 
 
 	bool doContinue = true;
@@ -106,5 +111,12 @@ void minigin::Minigin::Run(const std::function<void()>& load)
 
 		sceneManager.Update();
 		renderer.Render();
+
+		SteamAPI_RunCallbacks();
 	}
+}
+
+AchievementManager* minigin::Minigin::GetAchievementManager() const
+{
+	return m_Achievement.get();
 }

@@ -104,7 +104,7 @@ namespace minigin
 	
 	
 	ControllerManager::ControllerImpl::ControllerImpl()
-		: m_InputDeadzone{0}
+		: m_InputDeadzone{1500}
 		, m_Commands{}
 	{
 		m_Controllers.resize(XUSER_MAX_COUNT);
@@ -171,7 +171,7 @@ namespace minigin
 		VectorCommand* vectorCommand{ dynamic_cast<VectorCommand*>(command.second) };
 		assert(vectorCommand);
 		glm::vec2 deltaMov{ GetThumbStickNormalized(command.first.controllerIdx, command.first.isLeft) };
-		vectorCommand->Execute(deltaMov.x, deltaMov.y);
+		vectorCommand->Execute(deltaMov.x, -deltaMov.y);
 	}
 	
 	void ControllerManager::ControllerImpl::AddButtonCommand(int controllerIdx ,ControllerButton button, ClickType clickType, ButtonCommand* commandPtr)
@@ -219,16 +219,14 @@ namespace minigin
 			if(controller.isActive) 
 				continue;
 	
-			controller.timeSinceCheck += static_cast<float>(Time::GetInstance().GetDeltaTime());
-			if(controller.timeSinceCheck > connectionTry)
+			controller.timeSinceCheck -= static_cast<float>(Time::GetInstance().GetDeltaTime());
+			if(controller.timeSinceCheck < 0)
 			{
 				controller.isActive = true;
-				controller.timeSinceCheck = 0;
+				controller.timeSinceCheck = connectionTry;
 			}
 		}
-	
-	
-		// TODO don't check unused controllers every frame for state
+
 		DWORD dwResult;
 		for (DWORD i = 0; i < XUSER_MAX_COUNT; i++)
 		{
@@ -243,18 +241,19 @@ namespace minigin
 			// Simply get the state of the controller from XInput.
 			dwResult = XInputGetState(i, &m_Controllers[i].currentState);
 	
-			if (dwResult == ERROR_SUCCESS
-				&& m_Controllers[i].currentState.dwPacketNumber == m_Controllers[i].previousState.dwPacketNumber)
+			if (!dwResult == ERROR_SUCCESS)
 			{
-				m_Controllers[i].isActive = true;
+				m_Controllers[i].isActive = false;
+				continue;
+			}
+
+			if( m_Controllers[i].currentState.dwPacketNumber == m_Controllers[i].previousState.dwPacketNumber)
+			{
 				auto buttonChanges = m_Controllers[i].currentState.Gamepad.wButtons ^ m_Controllers[i].previousState.Gamepad.wButtons;
 				m_Controllers[i].buttonsPressedThisFrame = buttonChanges & m_Controllers[i].currentState.Gamepad.wButtons;
 				m_Controllers[i].buttonsReleasedThisFrame = buttonChanges & (~m_Controllers[i].currentState.Gamepad.wButtons);
 			}
-			else
-			{
-				m_Controllers[i].isActive = false;
-			}
+
 		}
 	}
 	
@@ -280,8 +279,8 @@ namespace minigin
 		float magnitude = sqrt(LX * LX + LY * LY);
 	
 		//determine the direction the controller is pushed
-		float normalizedLX = LX / magnitude;
-		float normalizedLY = LY / magnitude;
+		const float normalizedLX = LX / magnitude;
+		const float normalizedLY = LY / magnitude;
 	
 		float normalizedMagnitude{};
 	
@@ -305,7 +304,7 @@ namespace minigin
 			return glm::vec2{};
 		}
 	
-		return glm::vec2{ normalizedLX * normalizedMagnitude, normalizedLY * normalizedLY };
+		return glm::vec2{ normalizedLX * normalizedMagnitude, normalizedLY * normalizedMagnitude };
 	}
 	float ControllerManager::ControllerImpl::GetTriggerNormalized(int controllerIdx, bool leftTrigger) const
 	{

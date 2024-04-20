@@ -4,11 +4,10 @@
 
 #include "Transform.h"
 #include "BaseComponent.h"
+#include "Observer.h"
 
 namespace minigin
 {
-	class Texture2D;
-
 	class GameObject final
 	{
 	public:
@@ -34,7 +33,7 @@ namespace minigin
 
 
 		//GameObjects
-		bool SetParent(GameObject* newParentPtr, bool keepWorldPosition);
+		bool SetParent(GameObject* newParentPtr, bool keepWorldPosition = false);
 
 		GameObject* GetParent() const { return m_ParentPtr; }
 		int GetChildCount() const { return static_cast<int>(m_ChilderenPtrs.size()); }
@@ -58,9 +57,10 @@ namespace minigin
 		std::vector<std::unique_ptr<BaseComponent>> m_ComponentPtrs;
 
 		GameObject* m_ParentPtr = nullptr;
-		std::vector<GameObject*> m_ChilderenPtrs;
+		std::vector<GameObject*> m_ChilderenPtrs {};
 
 		Transform CalculateWorldTransform() const;
+
 
 		void AddChild(GameObject* childPtr);
 		void RemoveChild(GameObject* childToRemovePtr);

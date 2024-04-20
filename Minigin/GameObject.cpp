@@ -6,7 +6,7 @@
 
 namespace minigin
 {
-
+	
 	
 	GameObject::~GameObject()
 	{
@@ -88,7 +88,7 @@ namespace minigin
 	
 	// ---- GAME OBJECT / SCENE GRAPH----
 	
-	bool GameObject::SetParent(GameObject* newParentPtr, bool keepWorldPosition = false)
+	bool GameObject::SetParent(GameObject* newParentPtr, bool keepWorldPosition)
 	{
 		// 1 check if parent is valid
 		if (newParentPtr == nullptr
@@ -129,7 +129,7 @@ namespace minigin
 	
 	void GameObject::AddChild(GameObject* newChildPtr)
 	{
-		m_ChilderenPtrs.push_back(newChildPtr);
+		m_ChilderenPtrs.emplace_back(newChildPtr);
 	}
 
 	void GameObject::RemoveChild(GameObject* childToRemovePtr)
@@ -163,8 +163,6 @@ namespace minigin
 
 	// ---- COMPONENTS ----
 
-	
-	
 	
 	void GameObject::SetTransformDirty()
 	{

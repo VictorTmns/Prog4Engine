@@ -150,7 +150,7 @@ void minigin::SDLManager::CallAllMouseMovementCommands(float x, float y) {
 	{
 		VectorCommand* vectorCommand{ dynamic_cast<VectorCommand*>(it->second) };
 		assert(vectorCommand);
-		vectorCommand->Execute(x, y);
+		vectorCommand->Execute(-x, y);
 	}
 }
 void minigin::SDLManager::CallAllMouseWheelCommands(float x) {

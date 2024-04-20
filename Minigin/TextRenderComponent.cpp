@@ -6,12 +6,13 @@
 #include "GameObject.h"
 #include "Texture2D.h"
 
-minigin::TextRenderComponent::TextRenderComponent(GameObject* owner, Font* font, const std::string& text)
+minigin::TextRenderComponent::TextRenderComponent(GameObject* owner, Font* font, const std::string& text, TextAlignment alignment)
 	: BaseComponent{owner}
 	, m_needsUpdate(true)
 	, m_text(text)
 	, m_font(font)
 	, m_textTexture(nullptr)
+	, m_Alignment{alignment}
 { }
 
 void minigin::TextRenderComponent::Update()
@@ -39,7 +40,19 @@ void minigin::TextRenderComponent::Render() const
 {
 	if (m_textTexture != nullptr)
 	{
-		const auto& pos = GetOwner()->GetWorldTransform().GetPosition();
+		auto pos = GetOwner()->GetWorldTransform().GetPosition();
+
+		switch (m_Alignment) {
+		case TextAlignment::center:
+			break;
+		case TextAlignment::left:
+			pos.x -= static_cast<float>(m_textTexture->GetSize().x) / 2.f;
+			break;
+		case TextAlignment::right:
+			pos.x += static_cast<float>(m_textTexture->GetSize().x) / 2.f;
+			break;
+		}
+
 		Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
 	}
 }
