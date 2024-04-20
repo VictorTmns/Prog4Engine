@@ -7,6 +7,7 @@
 #include "Minigin.h"
 
 #include <chrono>
+#include <iostream>
 #include <steam_api_common.h>
 
 #include "InputManager.h"
@@ -46,8 +47,19 @@ void PrintSDLVersion()
 }
 
 minigin::Minigin::Minigin(const std::string &dataPath)
-	: m_Achievement{std::make_unique<AchievementManager>()}
+	: m_Achievement{}
 {
+	if (!SteamAPI_Init())
+	{
+		std::cerr << "Fatal Error - Steam must be running to play this game (SteamAPI_Init() failed).";
+		return;
+	}
+	else
+	{
+		std::cout << "Successfully initialized steam." << std::endl;
+		m_Achievement = std::make_unique<AchievementManager>();
+	}
+
 	PrintSDLVersion();
 	
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
@@ -81,6 +93,8 @@ minigin::Minigin::~Minigin()
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
 	SDL_Quit();
+
+	SteamAPI_Shutdown();
 }
 
 void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
