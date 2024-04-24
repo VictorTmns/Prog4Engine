@@ -73,6 +73,7 @@ void minigin::Renderer::Destroy()
 		SDL_DestroyRenderer(m_renderer);
 		m_renderer = nullptr;
 	}
+
 }
 
 void minigin::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
@@ -95,7 +96,7 @@ void minigin::Renderer::RenderTexture(const Texture2D& texture, const float x, c
 }
 
 
-void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color)
+void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 
@@ -138,7 +139,7 @@ void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius,
 	}
 }
 
-void minigin::Renderer::RenderRect(float left, float top, float width, float height, SDL_Color color)
+void minigin::Renderer::RenderRect(float left, float top, float width, float height, SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 
@@ -146,7 +147,7 @@ void minigin::Renderer::RenderRect(float left, float top, float width, float hei
 	SDL_RenderDrawRect(m_renderer, &drawRect);
 }
 
-void minigin::Renderer::FillCircle(float x, float y, float radius, SDL_Color color)
+void minigin::Renderer::FillCircle(float x, float y, float radius, SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 	for (int w = 0; w < radius * 2; w++)

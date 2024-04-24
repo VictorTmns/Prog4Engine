@@ -26,26 +26,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -121,6 +121,10 @@ xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\*.dll" "$(OutputPat
 
 xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>XInput.lib; steam_api.lib; </AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin; $(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -153,6 +157,10 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
 
 </Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>XInput.lib; steam_api64.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin\win64;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -187,6 +195,10 @@ xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\*.dll" "$(OutputPat
 
 xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>XInput.lib; steam_api.lib; </AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin; $(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -223,6 +235,10 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
 
 </Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>XInput.lib; steam_api64.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin\win64;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\3rdParty\imgui-1.90.4\backends\imgui_impl_opengl3.h" />
@@ -235,25 +251,16 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_truetype.h" />
     <ClInclude Include="AchievementManager.h" />
-    <ClInclude Include="CircleRenderComponent.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="ControllerManager.h" />
     <ClInclude Include="CSteamAchievements.h" />
-    <ClInclude Include="KeyboardTestComponent.h" />
     <ClInclude Include="InputTypes.h" />
-    <ClInclude Include="LivesComponent.h" />
-    <ClInclude Include="LivesDisplayComponent.h" />
     <ClInclude Include="Observer.h" />
-    <ClInclude Include="OrbitComponent.h" />
     <ClInclude Include="Font.h" />
-    <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
-    <ClInclude Include="ScoreComponent.h" />
-    <ClInclude Include="ScoreDisplayComponent.h" />
-    <ClInclude Include="ScoreTestComponent.h" />
     <ClInclude Include="SDLManager.h" />
     <ClInclude Include="TextureRenderComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -263,8 +270,6 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TextRenderComponent.h" />
     <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="ThrashTheCacheComponent.h" />
-    <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -288,24 +293,15 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_widgets.cpp" />
     <ClCompile Include="AchievementManager.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
-    <ClCompile Include="CircleRenderComponent.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ControllerManager.cpp" />
     <ClCompile Include="CSteamAchievements.cpp" />
-    <ClCompile Include="KeyboardTestComponent.cpp" />
-    <ClCompile Include="LivesComponent.cpp" />
-    <ClCompile Include="LivesDisplayComponent.cpp" />
     <ClCompile Include="Observer.cpp" />
-    <ClCompile Include="OrbitComponent.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
-    <ClCompile Include="ScoreComponent.cpp" />
-    <ClCompile Include="ScoreDisplayComponent.cpp" />
-    <ClCompile Include="ScoreTestComponent.cpp" />
     <ClCompile Include="SDLManager.cpp" />
     <ClCompile Include="TextureRenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -314,8 +310,6 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TextRenderComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="ThrashTheCacheComponent.cpp" />
-    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

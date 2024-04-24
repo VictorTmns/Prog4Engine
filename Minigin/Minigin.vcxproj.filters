@@ -30,9 +30,6 @@
     <Filter Include="Input\Commands">
       <UniqueIdentifier>{dbe9896e-9414-45e1-96b2-54493717f2a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="components\Testing">
-      <UniqueIdentifier>{4c46d3dd-34a6-4ab3-af02-1f7e2ed5882c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h">
@@ -40,9 +37,6 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Resource Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Singeltons</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Singeltons</Filter>
@@ -79,9 +73,6 @@
     </ClInclude>
     <ClInclude Include="TextureRenderComponent.h">
       <Filter>components\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSComponent.h">
-      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imconfig.h">
       <Filter>imgui</Filter>
@@ -122,9 +113,6 @@
     <ClInclude Include="InputTypes.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="CircleRenderComponent.h">
-      <Filter>components\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>other</Filter>
     </ClInclude>
@@ -133,30 +121,6 @@
     </ClInclude>
     <ClInclude Include="AchievementManager.h">
       <Filter>other</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardTestComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="LivesDisplayComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="LivesComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="OrbitComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="ThrashTheCacheComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreTestComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreComponent.h">
-      <Filter>components\Testing</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreDisplayComponent.h">
-      <Filter>components\Testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,9 +145,6 @@
     <ClCompile Include="Font.cpp">
       <Filter>Resource Containers</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Singeltons</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Singeltons</Filter>
     </ClCompile>
@@ -204,9 +165,6 @@
     </ClCompile>
     <ClCompile Include="TextRenderComponent.cpp">
       <Filter>components\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSComponent.cpp">
-      <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui.cpp">
       <Filter>imgui</Filter>
@@ -241,9 +199,6 @@
     <ClCompile Include="Commands.cpp">
       <Filter>Input\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="CircleRenderComponent.cpp">
-      <Filter>components\Render</Filter>
-    </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>other</Filter>
     </ClCompile>
@@ -252,30 +207,6 @@
     </ClCompile>
     <ClCompile Include="AchievementManager.cpp">
       <Filter>other</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardTestComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="LivesDisplayComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="LivesComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="OrbitComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="ThrashTheCacheComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreTestComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreComponent.cpp">
-      <Filter>components\Testing</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreDisplayComponent.cpp">
-      <Filter>components\Testing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

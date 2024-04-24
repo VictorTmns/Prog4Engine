@@ -14,7 +14,7 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "Time.h"
+#include "GameTime.h"
 
 SDL_Window* g_window{};
 
@@ -47,42 +47,41 @@ void PrintSDLVersion()
 }
 
 minigin::Minigin::Minigin(const std::string &dataPath)
-	: m_Achievement{}
 {
-	if (!SteamAPI_Init())
+	try
 	{
-		std::cerr << "Fatal Error - Steam must be running to play this game (SteamAPI_Init() failed).";
-		return;
-	}
-	else
-	{
-		std::cout << "Successfully initialized steam." << std::endl;
 		m_Achievement = std::make_unique<AchievementManager>();
-	}
 
-	PrintSDLVersion();
-	
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+		PrintSDLVersion();
+
+		if (SDL_Init(SDL_INIT_VIDEO) != 0)
+		{
+			throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
+		}
+
+		g_window = SDL_CreateWindow(
+			"Programming 4 assignment",
+			SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED,
+			640,
+			480,
+			SDL_WINDOW_OPENGL
+		);
+		if (g_window == nullptr)
+		{
+			throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
+		}
+
+		Renderer::GetInstance().Init(g_window);
+		ResourceManager::GetInstance().Init(dataPath);
+		GameTime::GetInstance().Init(0.02);
+
+	}
+	catch (std::runtime_error& err)
 	{
-		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
+		std::cerr << err.what();
+		std::abort();
 	}
-
-	g_window = SDL_CreateWindow(
-		"Programming 4 assignment",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
-		SDL_WINDOW_OPENGL
-	);
-	if (g_window == nullptr) 
-	{
-		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-	}
-
-	Renderer::GetInstance().Init(g_window);
-	ResourceManager::GetInstance().Init(dataPath);
-	Time::GetInstance().Init(0.02);
 }
 
 minigin::Minigin::~Minigin()
@@ -94,7 +93,6 @@ minigin::Minigin::~Minigin()
 	g_window = nullptr;
 	SDL_Quit();
 
-	SteamAPI_Shutdown();
 }
 
 void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
@@ -103,11 +101,9 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 	auto& input = InputManager::GetInstance();
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
-	auto& time = Time::GetInstance();
+	auto& time = GameTime::GetInstance();
 
 
-	SteamAPI_RunCallbacks();
-	m_Achievement->RemoveAchievements();
 
 	load(this);
 

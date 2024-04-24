@@ -5,7 +5,7 @@
 
 #include "GameObject.h"
 #include "ResourceManager.h"
-#include "Time.h"
+#include "GameTime.h"
 
 
 minigin::FPSComponent::FPSComponent(GameObject* owner, Font* font)
@@ -19,7 +19,7 @@ minigin::FPSComponent::FPSComponent(GameObject* owner, Font* font)
 
 void minigin::FPSComponent::Update()
 {
-	m_delay += Time::GetInstance().GetDeltaTime();
+	m_delay += GameTime::GetInstance().GetDeltaTime();
 	m_count++;
 	if (m_delay >= m_maxDelay)
 	{

@@ -1,38 +1,44 @@
 ﻿#include "AchievementManager.h"
+#include "AchievementManager.h"
+#include "CSteamAchievements.h"
 
-#include "BaseComponent.h"
-#include "ScoreComponent.h"
-
-std::vector<Achievement_t> AchievementManager::m_Achievements
+std::vector<minigin::Achievement> minigin::AchievementManager::m_Achievements
 {
-	_ACH_ID(WinAGame, "ACH_WIN_ONE_GAME"),
+	_ACH_ID(int(minigin::AchievementManager::Achievements::WinAGame), "ACH_WIN_ONE_GAME"),
 };
 
-AchievementManager::AchievementManager()
-	: m_SteamApi{ new CSteamAchievements(m_Achievements.data(), static_cast<int>(m_Achievements.size())) }
+minigin::AchievementManager::AchievementManager()
+	: m_SteamApi{ std::make_unique<CSteamAchievements>() }
 {
 }
 
-void AchievementManager::RemoveAchievements()
+
+void minigin::AchievementManager::AddAchievements(std::vector<Achievement> achievements)
+{
+
+	m_SteamApi->AddAchievements(m_Achievements.data(), static_cast<int>(m_Achievements.size()));
+}
+
+minigin::AchievementManager::~AchievementManager()
+{
+
+}
+
+void minigin::AchievementManager::Notify(Event event, const minigin::BaseComponent* subject)
 {
 	for (const auto& achievement : m_Achievements)
 	{
-		m_SteamApi->ResetAchievement(achievement.m_pchAchievementID);
+		if (achievement.predicate(event, subject))
+		{
+			m_SteamApi->SetAchievement(achievement)
+		}
 	}
-}
 
-AchievementManager::~AchievementManager()
-{
-
-}
-
-void AchievementManager::Notify(Event event, const minigin::BaseComponent* subject)
-{
-	switch (event) {
-	case Event::scoreChange:
-		if(dynamic_cast<const ScoreComponent*>(subject)->GetScore() >= 500)
-			m_SteamApi->SetAchievement("ACH_WIN_ONE_GAME");
-		break;
-	default: ;
+	for (const auto& achievement : m_Achievements)
+	{
+		if (achievement.predicate(event, subject))
+		{
+			m_SteamApi->SetAchievement(achievement.rgchName);
+		}
 	}
 }

@@ -1,7 +1,6 @@
 #include "InputManager.h"
 
 #include "Commands.h"
-#include "KeyboardTestComponent.h"
 
 bool minigin::InputManager::ProcessInput()
 {

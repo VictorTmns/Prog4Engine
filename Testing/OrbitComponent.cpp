@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "Time.h"
+#include "GameTime.h"
 
 minigin::OrbitComponent::OrbitComponent(GameObject* ownerPtr, float orbitingSpeed)
 	: BaseComponent{ownerPtr}
@@ -15,5 +15,5 @@ minigin::OrbitComponent::OrbitComponent(GameObject* ownerPtr, float orbitingSpee
 
 void minigin::OrbitComponent::Update()
 {
-	GetOwner()->AddLocalRotation(m_OrbitingSpeed * Time::GetInstance().GetDeltaTime());
+	GetOwner()->AddLocalRotation(m_OrbitingSpeed * GameTime::GetInstance().GetDeltaTime());
 }

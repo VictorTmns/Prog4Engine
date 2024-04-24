@@ -1,7 +1,7 @@
 ﻿#include "KeyboardTestComponent.h"
 
 #include "GameObject.h"
-#include "Time.h"
+#include "GameTime.h"
 
 KeyboardTestComponent::KeyboardTestComponent(minigin::GameObject* owner)
 	: BaseComponent{owner}
@@ -12,7 +12,7 @@ KeyboardTestComponent::KeyboardTestComponent(minigin::GameObject* owner)
 void KeyboardTestComponent::Move(float x, float y)
 {
 	GetOwner()->AddLocalTranslate(
-		x * m_Speed * static_cast<float>(Time::GetInstance().GetDeltaTime()),
-		y * m_Speed * static_cast<float>(Time::GetInstance().GetDeltaTime())
+		x * m_Speed * static_cast<float>(GameTime::GetInstance().GetDeltaTime()),
+		y * m_Speed * static_cast<float>(GameTime::GetInstance().GetDeltaTime())
 	);
 }

@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include "Commands.h"
-#include "Time.h"
+#include "GameTime.h"
 
 #include <windows.h>
 #include <Xinput.h>
@@ -219,7 +219,7 @@ namespace minigin
 			if(controller.isActive) 
 				continue;
 	
-			controller.timeSinceCheck -= static_cast<float>(Time::GetInstance().GetDeltaTime());
+			controller.timeSinceCheck -= static_cast<float>(GameTime::GetInstance().GetDeltaTime());
 			if(controller.timeSinceCheck < 0)
 			{
 				controller.isActive = true;
