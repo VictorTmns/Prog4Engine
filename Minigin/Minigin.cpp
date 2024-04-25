@@ -126,7 +126,7 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 	}
 }
 
-AchievementManager* minigin::Minigin::GetAchievementManager() const
+minigin::AchievementManager* minigin::Minigin::GetAchievementManager() const
 {
 	return m_Achievement.get();
 }

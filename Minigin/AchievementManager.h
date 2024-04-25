@@ -3,8 +3,9 @@
 #include <vector>
 #include "Observer.h"
 #include <functional>
+#include <string>
+
 #include "BaseComponent.h"
-#include "Observer.h"
 
 namespace minigin
 {
@@ -12,33 +13,36 @@ class CSteamAchievements;
 
 struct Achievement
 {
+	Achievement(int id, std::string charID, const std::function<bool(const BaseComponent*)>& condition, Observer::Event event)
+		: achievementID{id}, pchAchievementID{charID}, rgchName{}, rgchDescription{}, bAchieved{false}, iIconImage{0},
+		  predicate{condition}, event{event}
+	{
+	}
+
+	Achievement() = delete;
 	int achievementID;
-	const char* pchAchievementID;
+	std::string pchAchievementID;
 	char rgchName[128];
-	char m_rgchDescription[256];
-	bool m_bAchieved;
-	int m_iIconImage;
-	std::function<bool(Observer::Event, const BaseComponent*)> predicate;
+	char rgchDescription[256];
+	bool bAchieved;
+	int iIconImage;
+	std::function<bool(const BaseComponent*)> predicate;
+	Observer::Event event;
 };
 
 #define _ACH_ID( id, name ) { id, #id, name, "", 0, 0 }
+
 class AchievementManager : public Observer
 {
 public:
 	AchievementManager();
-	void AddAchievements(std::vector<Achievement> achievements);
+	void AddAchievements(std::vector<Achievement>&& achievements);
 	~AchievementManager() override;
 	void Notify(Event event, const BaseComponent* subject) override;
 
 private:
 
-
-	enum class Achievements
-	{
-		WinAGame = 0,
-	};
-
 	std::unique_ptr<CSteamAchievements> m_SteamApi;
-	static std::vector<Achievement> m_Achievements;
+	std::vector<Achievement> m_Achievements;
 };
 }

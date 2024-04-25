@@ -40,7 +40,17 @@ void load(minigin::Minigin* engine)
 	auto scene = minigin::SceneManager::GetInstance().CreateScene("Demo");
 	auto font = minigin::ResourceManager::GetInstance().GetFont("Lingua.otf", 36);
 	auto smallFont = minigin::ResourceManager::GetInstance().GetFont("Lingua.otf", 15);
+	auto achievementsManager = engine->GetAchievementManager();
 
+	std::function func = [](const minigin::BaseComponent* subject)
+		{
+			return (dynamic_cast<const ScoreComponent*>(subject)->GetScore() >= 500);
+		};
+
+	std::vector<minigin::Achievement> achievements{
+		minigin::Achievement{0, std::string{"ACH_WIN_ONE_GAME"}, func, minigin::Observer::Event::scoreChange}
+	};
+	achievementsManager->AddAchievements(std::move(achievements));
 
 	// FPS GAME OBJECT
 	auto go = std::make_unique<minigin::GameObject>();

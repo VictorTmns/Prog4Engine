@@ -56,7 +56,4 @@
     <ClInclude Include="ScoreTestComponent.h" />
     <ClInclude Include="ThrashTheCacheComponent.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="imgui.ini" />
-  </ItemGroup>
 </Project>

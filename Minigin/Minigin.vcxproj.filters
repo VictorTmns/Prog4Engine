@@ -133,9 +133,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>other</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>other</Filter>
-    </ClCompile>
     <ClCompile Include="Minigin.cpp">
       <Filter>other</Filter>
     </ClCompile>

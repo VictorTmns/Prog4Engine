@@ -86,7 +86,7 @@ bool minigin::CSteamAchievements::ResetAchievement(const char* ID)
 
 bool minigin::CSteamAchievements::AchievementCompleted(int idx)
 {
-	return m_pAchievements[idx].m_bAchieved;
+	return m_pAchievements[idx].bAchieved;
 }
 
 void minigin::CSteamAchievements::OnUserStatsReceived(UserStatsReceived_t* pCallback)
@@ -104,12 +104,12 @@ void minigin::CSteamAchievements::OnUserStatsReceived(UserStatsReceived_t* pCall
 			{
 				Achievement& ach = m_pAchievements[iAch];
 
-				SteamUserStats()->GetAchievement(ach.pchAchievementID, &ach.m_bAchieved);
+				SteamUserStats()->GetAchievement(ach.pchAchievementID.data(), &ach.bAchieved);
 				_snprintf_s(ach.rgchName, sizeof(ach.rgchName), "%s",
-					SteamUserStats()->GetAchievementDisplayAttribute(ach.pchAchievementID,
+					SteamUserStats()->GetAchievementDisplayAttribute(ach.pchAchievementID.data(),
 						"name"));
-				_snprintf_s(ach.m_rgchDescription, sizeof(ach.m_rgchDescription), "%s",
-					SteamUserStats()->GetAchievementDisplayAttribute(ach.pchAchievementID,
+				_snprintf_s(ach.rgchDescription, sizeof(ach.rgchDescription), "%s",
+					SteamUserStats()->GetAchievementDisplayAttribute(ach.pchAchievementID.data(),
 						"desc"));
 			}
 		}

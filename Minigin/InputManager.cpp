@@ -1,5 +1,4 @@
 #include "InputManager.h"
-
 #include "Commands.h"
 
 bool minigin::InputManager::ProcessInput()
@@ -11,7 +10,7 @@ bool minigin::InputManager::ProcessInput()
 }
 
 void minigin::InputManager::BindToKeyboard(
-	minigin::BaseComponent* componentPtr, std::function<void()> function, SDL_KeyCode keyCode, minigin::ClickType
+	BaseComponent* componentPtr, std::function<void()> function, SDL_KeyCode keyCode, ClickType
 	clickType)
 {
 
@@ -21,7 +20,7 @@ void minigin::InputManager::BindToKeyboard(
 }
 
 void minigin::InputManager::BindToMouseWheel(
-	minigin::BaseComponent* componentPtr, std::function<void(float x)> function)
+	BaseComponent* componentPtr, std::function<void(float x)> function)
 {
 	std::unique_ptr<ScalarCommand> scalarCommand{ std::make_unique<ScalarCommand>(function) };
 	m_SdlManager.AddMouseWheelCommand(scalarCommand.get());
@@ -29,15 +28,15 @@ void minigin::InputManager::BindToMouseWheel(
 }
 
 void minigin::InputManager::BindToMouseMovement(
-	minigin::BaseComponent* componentPtr, std::function<void(float x, float y)> function)
+	BaseComponent* componentPtr, std::function<void(float x, float y)> function)
 {
 	std::unique_ptr<VectorCommand> vectorCommand{ std::make_unique<VectorCommand>(function) };
 	m_SdlManager.AddMouseMovementCommand(vectorCommand.get());
 	componentPtr->AddCommand(std::move(vectorCommand));
 }
 
-void minigin::InputManager::BindToMouseClick(minigin::BaseComponent* componentPtr,
-                                             std::function<void()> function, minigin::MouseButton mouseButton, minigin::ClickType clickType)
+void minigin::InputManager::BindToMouseClick(BaseComponent* componentPtr,
+                                             std::function<void()> function, MouseButton mouseButton, ClickType clickType)
 {
 	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(function) };
 	m_SdlManager.AddMouseButtonCommand(mouseButton, clickType, buttonCommand.get());
@@ -45,8 +44,8 @@ void minigin::InputManager::BindToMouseClick(minigin::BaseComponent* componentPt
 }
 
 void minigin::InputManager::BindToControllerButton(
-	minigin::BaseComponent* componentPtr, std::function<void()> function, int controllerIdx, minigin::ControllerButton
-	button, minigin::ClickType clickType)
+	BaseComponent* componentPtr, std::function<void()> function, int controllerIdx, ControllerButton
+	button, ClickType clickType)
 {
 	std::unique_ptr<ButtonCommand> buttonCommand{ std::make_unique<ButtonCommand>(function) };
 	m_ControllerManager.AddButtonCommand(controllerIdx, button, clickType, buttonCommand.get());
@@ -54,7 +53,7 @@ void minigin::InputManager::BindToControllerButton(
 }
 
 void minigin::InputManager::BindToControllerTrigger(
-	minigin::BaseComponent* componentPtr, std::function<void(float x)> function, int controllerIdx, bool isLeft)
+	BaseComponent* componentPtr, std::function<void(float x)> function, int controllerIdx, bool isLeft)
 {
 	std::unique_ptr<ScalarCommand> buttonCommand{ std::make_unique<ScalarCommand>(function) };
 	m_ControllerManager.AddTriggerCommand(controllerIdx, isLeft, buttonCommand.get());
@@ -62,7 +61,7 @@ void minigin::InputManager::BindToControllerTrigger(
 }
 
 void minigin::InputManager::BindToControllerThumbStick(
-	minigin::BaseComponent* componentPtr, std::function<void(float x, float y)> function, int controllerIdx, bool isLeft)
+	BaseComponent* componentPtr, std::function<void(float x, float y)> function, int controllerIdx, bool isLeft)
 {
 	std::unique_ptr<VectorCommand> buttonCommand{ std::make_unique<VectorCommand>(function) };
 	m_ControllerManager.AddThumbStickCommand(controllerIdx, isLeft, buttonCommand.get());

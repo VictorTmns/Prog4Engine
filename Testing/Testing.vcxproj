@@ -72,9 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\minigin;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\steamworks\steam;$(SolutionDir)\3rdParty\glm;$(SolutionDir)\3rdParty\imgui-1.90.4;%(AdditionalIncludeDirectories)</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\minigin;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\steamworks\steam;$(SolutionDir)\3rdParty\glm;$(SolutionDir)\3rdParty\imgui-1.90.4;%(AdditionalIncludeDirectories)</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories)</IncludePath>
@@ -226,9 +230,6 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Co
     <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="ScoreTestComponent.h" />
     <ClInclude Include="ThrashTheCacheComponent.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
