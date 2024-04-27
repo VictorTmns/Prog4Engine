@@ -43,6 +43,9 @@
     <ClCompile Include="ThrashTheCacheComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="PlaySoundComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LivesDisplayComponent.h" />
@@ -55,5 +58,6 @@
     <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="ScoreTestComponent.h" />
     <ClInclude Include="ThrashTheCacheComponent.h" />
+    <ClInclude Include="PlaySoundComponent.h" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <SDL_mixer.h>
 #include "Minigin.h"
 
 #include <chrono>
@@ -16,6 +15,8 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "GameTime.h"
+#include "ServiceLocator.h"
+#include "SoundSystemSDL.h"
 
 SDL_Window* g_window{};
 
@@ -47,36 +48,11 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-minigin::Minigin::Minigin(const std::string &dataPath)
+minigin::Minigin::Minigin(const std::string &resourceDataPath)
 {
 	try
 	{
-		m_Achievement = std::make_unique<AchievementManager>();
-
-		PrintSDLVersion();
-
-		if (SDL_Init(SDL_INIT_VIDEO) != 0)
-		{
-			throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
-		}
-
-		g_window = SDL_CreateWindow(
-			"Programming 4 assignment",
-			SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED,
-			640,
-			480,
-			SDL_WINDOW_OPENGL
-		);
-		if (g_window == nullptr)
-		{
-			throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-		}
-
-		Renderer::GetInstance().Init(g_window);
-		ResourceManager::GetInstance().Init(dataPath);
-		GameTime::GetInstance().Init(0.02);
-
+		Init(resourceDataPath);
 	}
 	catch (std::runtime_error& err)
 	{
@@ -93,12 +69,11 @@ minigin::Minigin::~Minigin()
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
 	SDL_Quit();
-
 }
 
 void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 {
-	// make sure that Input gets initilized before the scene, otherwise this will mess with the cleanup of commands
+	// make sure that Input gets initialized before the scene, otherwise this will mess with the cleanup of commands
 	auto& input = InputManager::GetInstance();
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
@@ -130,4 +105,36 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 minigin::AchievementManager* minigin::Minigin::GetAchievementManager() const
 {
 	return m_Achievement.get();
+}
+
+void minigin::Minigin::Init(const std::string& resourceDataPath)
+{
+	m_Achievement = std::make_unique<AchievementManager>();
+
+	PrintSDLVersion();
+
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
+	}
+
+	g_window = SDL_CreateWindow(
+		"Programming 4 assignment",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		640,
+		480,
+		SDL_WINDOW_OPENGL
+	);
+	if (g_window == nullptr)
+	{
+		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
+	}
+
+	Renderer::GetInstance().Init(g_window);
+	ResourceManager::GetInstance().Init(resourceDataPath);
+	GameTime::GetInstance().Init(0.02);
+
+	ServiceLocator::RegisterSoundSystem(std::make_unique<SoundSystemSDL>());
+
 }

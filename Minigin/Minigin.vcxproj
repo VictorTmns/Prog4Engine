@@ -112,21 +112,22 @@
       <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;XInput.lib;steam_api.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
+    <PostBuildEvent />
+    <Lib>
+      <AdditionalDependencies>XInput.lib;SDL2_mixer.lib; steam_api.lib; ;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget);$(SolutionDir)3rdParty\steamworks\redistributable_bin;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+      <Command> xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
-xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Command>
     </PostBuildEvent>
-    <Lib>
-      <AdditionalDependencies>XInput.lib; steam_api.lib; </AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin; $(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -147,21 +148,19 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Co
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+      <Command> xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
-xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\win64\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
-xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
-
-</Command>
+xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>XInput.lib; steam_api64.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin\win64;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XInput.lib;SDL2_mixer.lib; steam_api64.lib;;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget);$(SolutionDir)\3rdParty\steamworks\redistributable_bin\win64;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -186,21 +185,22 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
       <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;XInput.lib;steam_api.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
+    <PostBuildEvent />
+    <Lib>
+      <AdditionalDependencies>XInput.lib;SDL2_mixer.lib; steam_api.lib; ;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget);$(SolutionDir)3rdParty\steamworks\redistributable_bin;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+      <Command> xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
-xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Command>
     </PostBuildEvent>
-    <Lib>
-      <AdditionalDependencies>XInput.lib; steam_api.lib; </AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin; $(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -225,21 +225,19 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Co
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+      <Command> xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
-xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\win64\*.dll" "$(OutputPath)" /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 
-xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
-
-</Command>
+xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>XInput.lib; steam_api64.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\steamworks\redistributable_bin\win64;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>XInput.lib;SDL2_mixer.lib; steam_api64.lib;;%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget);$(SolutionDir)\3rdParty\steamworks\redistributable_bin\win64;$(SolutionDir)3rdParty\steamworks\steam;%(AdditionalIncludeDirectories);C:\Program Files (x86)\Visual Leak Detector\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -257,13 +255,20 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="ControllerManager.h" />
     <ClInclude Include="CSteamAchievements.h" />
+    <ClInclude Include="GameTime.h" />
     <ClInclude Include="InputTypes.h" />
+    <ClInclude Include="ISoundSystem.h" />
+    <ClInclude Include="ServiceLocator.h" />
+    <ClInclude Include="SoundLogWrapper.h" />
+    <ClInclude Include="SoundNull.h" />
+    <ClInclude Include="ThreadQueueWorker.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="SDLManager.h" />
+    <ClInclude Include="SoundSystemSDL.h" />
     <ClInclude Include="TextureRenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -283,7 +288,6 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TurnOffAllWarnings</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_demo.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_draw.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_plot.cpp">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
@@ -298,12 +302,15 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ControllerManager.cpp" />
     <ClCompile Include="CSteamAchievements.cpp" />
+    <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="SDLManager.cpp" />
+    <ClCompile Include="ServiceLocator.cpp" />
+    <ClCompile Include="SoundSystemSDL.cpp" />
     <ClCompile Include="TextureRenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -311,6 +318,7 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TextRenderComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="ThreadQueueWorker.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

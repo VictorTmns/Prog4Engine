@@ -11,7 +11,7 @@ namespace minigin
 {
 	
 
-	class SDLManager
+	class SDLManager final
 	{
 	public:
 

@@ -6,10 +6,10 @@
 
 namespace minigin
 {
-	class Minigin
+	class Minigin final
 	{
 	public:
-		explicit Minigin(const std::string& dataPath);
+		explicit Minigin(const std::string& resourceDataPath);
 		~Minigin();
 		void Run(const std::function<void(Minigin*)>& load);
 
@@ -21,6 +21,8 @@ namespace minigin
 		Minigin& operator=(Minigin&& other) = delete;
 
 	private:
+		void Init(const std::string& resourceDataPath);
+
 		std::unique_ptr<AchievementManager> m_Achievement;
 	};
 }

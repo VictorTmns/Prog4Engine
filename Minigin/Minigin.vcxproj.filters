@@ -30,6 +30,21 @@
     <Filter Include="Input\Commands">
       <UniqueIdentifier>{dbe9896e-9414-45e1-96b2-54493717f2a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="other\Achievements">
+      <UniqueIdentifier>{869d7cb1-ba58-473c-9225-02d9ae458ec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{448015c1-83ba-4f84-9a37-66cf44d5c2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Output">
+      <UniqueIdentifier>{bd9472c8-2e4a-4fce-9d81-cfd7d9a141c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Output\Rendering">
+      <UniqueIdentifier>{ce15f6de-733b-4c6b-ab2b-679ff648dbf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Output\Sound">
+      <UniqueIdentifier>{c633a3e2-4b04-41a2-80d5-cc31f3eed128}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h">
@@ -38,35 +53,8 @@
     <ClInclude Include="Font.h">
       <Filter>Resource Containers</Filter>
     </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Singeltons</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Singeltons</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Singeltons</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Singeltons</Filter>
-    </ClInclude>
     <ClInclude Include="Texture2D.h">
       <Filter>Resource Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Singeltons</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>other</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>other</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>other</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin.h">
-      <Filter>other</Filter>
     </ClInclude>
     <ClInclude Include="TextRenderComponent.h">
       <Filter>components\Render</Filter>
@@ -113,49 +101,69 @@
     <ClInclude Include="InputTypes.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="CSteamAchievements.h">
+      <Filter>other\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="AchievementManager.h">
+      <Filter>other\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Output\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Minigin.h" />
     <ClInclude Include="Observer.h">
       <Filter>other</Filter>
     </ClInclude>
-    <ClInclude Include="CSteamAchievements.h">
+    <ClInclude Include="Singleton.h">
       <Filter>other</Filter>
     </ClInclude>
-    <ClInclude Include="AchievementManager.h">
+    <ClInclude Include="ResourceManager.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundSystem.h">
+      <Filter>Output\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystemSDL.h">
+      <Filter>Output\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadQueueWorker.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundLogWrapper.h">
+      <Filter>Output\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h" />
+    <ClInclude Include="SoundNull.h">
+      <Filter>Output\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
       <Filter>other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>other</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>other</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>other</Filter>
-    </ClCompile>
-    <ClCompile Include="Minigin.cpp">
-      <Filter>other</Filter>
-    </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Resource Containers</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Singeltons</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Singeltons</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Singeltons</Filter>
-    </ClCompile>
     <ClCompile Include="Texture2D.cpp">
       <Filter>Resource Containers</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Singeltons</Filter>
     </ClCompile>
     <ClCompile Include="TextureRenderComponent.cpp">
       <Filter>components\Render</Filter>
@@ -164,9 +172,6 @@
       <Filter>components\Render</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_demo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_draw.cpp">
@@ -196,13 +201,47 @@
     <ClCompile Include="Commands.cpp">
       <Filter>Input\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="AchievementManager.cpp">
+      <Filter>other\Achievements</Filter>
+    </ClCompile>
+    <ClCompile Include="CSteamAchievements.cpp">
+      <Filter>other\Achievements</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Output\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>other</Filter>
     </ClCompile>
-    <ClCompile Include="CSteamAchievements.cpp">
+    <ClCompile Include="Minigin.cpp" />
+    <ClCompile Include="ResourceManager.cpp">
       <Filter>other</Filter>
     </ClCompile>
-    <ClCompile Include="AchievementManager.cpp">
+    <ClCompile Include="ThreadQueueWorker.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystemSDL.cpp">
+      <Filter>Output\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
       <Filter>other</Filter>
     </ClCompile>
   </ItemGroup>

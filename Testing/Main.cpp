@@ -11,18 +11,18 @@
 #pragma warning (disable: 4996)
 #pragma warning (pop)
 
+#include "Minigin.h"
+#include "Scene.h"
+#include "ResourceManager.h"
+
 #include "CircleRenderComponent.h"
 #include "FPSComponent.h"
-#include "GameObject.h"
 #include "InputManager.h"
 #include "KeyboardTestComponent.h"
 #include "LivesComponent.h"
 #include "LivesDisplayComponent.h"
-#include "Minigin.h"
 #include "OrbitComponent.h"
-#include "ResourceManager.h"
-#include "Scene.h"
-#include "SceneManager.h"
+#include "PlaySoundComponent.h"
 #include "ScoreComponent.h"
 #include "ScoreDisplayComponent.h"
 #include "ScoreTestComponent.h"
@@ -132,6 +132,14 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 		SDLK_i,
 		minigin::ClickType::pressed);
 
+	// SOUND COMPONENT
+	PlaySoundComponent* comp = go->AddComponent<PlaySoundComponent>();
+	inputManager.BindToKeyboard(comp, 
+		std::bind(&PlaySoundComponent::PlaySound, comp),
+		SDLK_t,
+		minigin::ClickType::pressed);
+
+
 	scene->AddGameObject(std::move(go));
 
 
@@ -155,6 +163,9 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 	go->SetLocalTranslate(0, 15);
 	minigin::ScoreDisplayComponent* scoreDisplay = go->AddComponent<minigin::ScoreDisplayComponent>(smallFont);
 	scoreComponent->AttachObserver(scoreDisplay);
+
+	
+
 
 	scene->AddGameObject(std::move(go));
 }
@@ -254,7 +265,7 @@ void MakeManuel(minigin::Scene* scene, [[maybe_unused]] minigin::Minigin* engine
 int main(int, char* []) {
 
 
-	minigin::Minigin engine("../Data/");
+	minigin::Minigin engine("../Data/Testing/");
 	engine.Run(load);
 
 
