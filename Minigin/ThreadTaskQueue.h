@@ -11,16 +11,16 @@ namespace minigin
 
 template <typename Task>
 
-class ThreadQueueWorker
+class ThreadTaskQueue
 {
 public:
-	explicit ThreadQueueWorker(std::function<bool(const Task&)> taskProcessFunc);
-	~ThreadQueueWorker();
+	explicit ThreadTaskQueue(std::function<bool(const Task&)> taskProcessFunc);
+	~ThreadTaskQueue();
 
-	ThreadQueueWorker(const ThreadQueueWorker& other) = delete;
-	ThreadQueueWorker(ThreadQueueWorker&& other) noexcept = delete;
-	ThreadQueueWorker& operator=(const ThreadQueueWorker& other) = delete;
-	ThreadQueueWorker& operator=(ThreadQueueWorker&& other) noexcept = delete;
+	ThreadTaskQueue(const ThreadTaskQueue& other) = delete;
+	ThreadTaskQueue(ThreadTaskQueue&& other) noexcept = delete;
+	ThreadTaskQueue& operator=(const ThreadTaskQueue& other) = delete;
+	ThreadTaskQueue& operator=(ThreadTaskQueue&& other) noexcept = delete;
 
 	void AddTask(Task&& task) requires std::equality_comparable<Task>;
 
@@ -45,7 +45,7 @@ namespace minigin
 {
 
 	template<typename Task>
-	ThreadQueueWorker<Task>::ThreadQueueWorker(std::function<bool(const Task&)> taskProcessFunc)
+	ThreadTaskQueue<Task>::ThreadTaskQueue(std::function<bool(const Task&)> taskProcessFunc)
 		: m_JThread{}
 		, m_EndThread{ false }
 		, m_TaskProcesFunc{ taskProcessFunc }
@@ -54,7 +54,7 @@ namespace minigin
 	}
 
 	template <typename Task>
-	ThreadQueueWorker<Task>::ThreadQueueWorker::~ThreadQueueWorker()
+	ThreadTaskQueue<Task>::ThreadTaskQueue::~ThreadTaskQueue()
 	{
 		{
 			std::lock_guard<std::mutex> lock(m_Mutex);
@@ -65,7 +65,7 @@ namespace minigin
 	}
 
 	template <typename Task> 
-	void ThreadQueueWorker<Task>::AddTask(Task&& task) requires std::equality_comparable<Task>
+	void ThreadTaskQueue<Task>::AddTask(Task&& task) requires std::equality_comparable<Task>
 	{
 		std::lock_guard<std::mutex> lock(m_Mutex);
 		if (m_TaskQueue.empty() || m_TaskQueue.back() != task)
@@ -76,7 +76,7 @@ namespace minigin
 	}
 
 	template <typename Task>
-	void ThreadQueueWorker<Task>::TaskProcessor()
+	void ThreadTaskQueue<Task>::TaskProcessor()
 	{
 		while (!m_EndThread)
 		{

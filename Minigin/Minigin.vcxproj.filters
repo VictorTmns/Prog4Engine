@@ -141,7 +141,7 @@
     <ClInclude Include="SoundSystemSDL.h">
       <Filter>Output\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="ThreadQueueWorker.h">
+    <ClInclude Include="ThreadTaskQueue.h">
       <Filter>other</Filter>
     </ClInclude>
     <ClInclude Include="SoundLogWrapper.h">
@@ -234,7 +234,7 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>other</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadQueueWorker.cpp">
+    <ClCompile Include="ThreadTaskQueue.cpp">
       <Filter>other</Filter>
     </ClCompile>
     <ClCompile Include="GameTime.cpp">

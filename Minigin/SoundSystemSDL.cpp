@@ -5,7 +5,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <stdexcept>
-#include "ThreadQueueWorker.h"
+#include "ThreadTaskQueue.h"
 
 #include <unordered_map>
 
@@ -44,7 +44,7 @@ namespace minigin
 
 
 
-		std::unique_ptr<ThreadQueueWorker<SoundCommand>> m_ThreadedTaskProcessor;
+		std::unique_ptr<ThreadTaskQueue<SoundCommand>> m_ThreadedTaskProcessor;
 
 		std::unordered_map<std::string, unsigned int> m_SoundTable;
 		std::vector<Mix_Chunk*> m_LoadedSounds;
@@ -69,7 +69,7 @@ namespace minigin
 			{ return this->ProcessSoundRequest(task); };
 
 		m_ThreadedTaskProcessor
-			= std::make_unique<ThreadQueueWorker<SoundCommand>>(soundProcessFunc);
+			= std::make_unique<ThreadTaskQueue<SoundCommand>>(soundProcessFunc);
 	}
 
 	SoundSystemSDL::SDLImpl::~SDLImpl()

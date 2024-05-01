@@ -233,7 +233,7 @@
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="SoundLogWrapper.h" />
     <ClInclude Include="SoundNull.h" />
-    <ClInclude Include="ThreadQueueWorker.h" />
+    <ClInclude Include="ThreadTaskQueue.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
@@ -290,7 +290,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TextRenderComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="ThreadQueueWorker.cpp" />
+    <ClCompile Include="ThreadTaskQueue.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
