@@ -91,22 +91,22 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 	KeyboardTestComponent* actorComponent = go->AddComponent<KeyboardTestComponent>();
 	inputManager.BindToKeyboard(
 		actorComponent,
-		std::function<void()>(std::bind(&KeyboardTestComponent::Move, actorComponent, -1.f, 0.f)),
+		std::function<void()>([actorComponent] { actorComponent->Move(-1.f, 0.f); }),
 		SDLK_a,
 		minigin::ClickType::hold);
 	inputManager.BindToKeyboard(
 		actorComponent,
-		std::function<void()>(std::bind(&KeyboardTestComponent::Move, actorComponent, 0.f, 1.f)),
+		std::function<void()>([actorComponent] { actorComponent->Move(0.f, 1.f); }),
 		SDLK_s,
 		minigin::ClickType::hold);
 	inputManager.BindToKeyboard(
 		actorComponent,
-		std::function<void()>(std::bind(&KeyboardTestComponent::Move, actorComponent, 0.f, -1.f)),
+		std::function<void()>([actorComponent] { actorComponent->Move(0.f, -1.f); }),
 		SDLK_w,
 		minigin::ClickType::hold);
 	inputManager.BindToKeyboard(
 		actorComponent,
-		std::bind(&KeyboardTestComponent::Move, actorComponent, 1.f, 0.f),
+		[actorComponent] { actorComponent->Move(1.f, 0.f); },
 		SDLK_d,
 		minigin::ClickType::hold);
 
@@ -114,7 +114,7 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 
 	minigin::LivesComponent* livesComponent = go->AddComponent<minigin::LivesComponent>(3);
 	inputManager.BindToKeyboard(livesComponent,
-		std::bind(&minigin::LivesComponent::TakeDamage, livesComponent),
+	                            [livesComponent] { livesComponent->TakeDamage(); },
 		SDLK_p,
 		minigin::ClickType::pressed);
 
@@ -124,20 +124,20 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 
 	ScoreTestComponent* scoreTestComponent = go->AddComponent<ScoreTestComponent>(scoreComponent);
 	inputManager.BindToKeyboard(scoreTestComponent,
-		std::bind(&ScoreTestComponent::PickUpItem, scoreTestComponent),
-		SDLK_o,
-		minigin::ClickType::pressed);
+	                            [scoreTestComponent] { scoreTestComponent->PickUpItem(); },
+								SDLK_o,
+								minigin::ClickType::pressed);
 	inputManager.BindToKeyboard(scoreTestComponent,
-		std::bind(&ScoreTestComponent::KillEnemy, scoreTestComponent),
+	                            [scoreTestComponent] { scoreTestComponent->KillEnemy(); },
 		SDLK_i,
 		minigin::ClickType::pressed);
 
 	// SOUND COMPONENT
-	PlaySoundComponent* comp = go->AddComponent<PlaySoundComponent>();
-	inputManager.BindToKeyboard(comp, 
-		std::bind(&PlaySoundComponent::PlaySound, comp),
-		SDLK_t,
-		minigin::ClickType::pressed);
+	PlaySoundComponent* playSoundComponent = go->AddComponent<PlaySoundComponent>();
+	inputManager.BindToKeyboard(playSoundComponent,
+	                            [playSoundComponent] { playSoundComponent->PlaySound(); },
+								SDLK_t,
+								minigin::ClickType::pressed);
 
 
 	scene->AddGameObject(std::move(go));
@@ -191,7 +191,7 @@ void MakePlayer2(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 
 	minigin::LivesComponent* livesComponent = go->AddComponent<minigin::LivesComponent>(3);
 	inputManager.BindToKeyboard(livesComponent,
-		std::bind(&minigin::LivesComponent::TakeDamage, livesComponent),
+	                            [livesComponent] { livesComponent->TakeDamage(); },
 		SDLK_m,
 		minigin::ClickType::pressed);
 
@@ -201,11 +201,11 @@ void MakePlayer2(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 
 	ScoreTestComponent* scoreTestComponent = go->AddComponent<ScoreTestComponent>(scoreComponent);
 	inputManager.BindToKeyboard(scoreTestComponent,
-		std::bind(&ScoreTestComponent::PickUpItem, scoreTestComponent),
+	                            [scoreTestComponent] { scoreTestComponent->PickUpItem(); },
 		SDLK_k,
 		minigin::ClickType::pressed);
 	inputManager.BindToKeyboard(scoreTestComponent,
-		std::bind(&ScoreTestComponent::KillEnemy, scoreTestComponent),
+	                            [scoreTestComponent] { scoreTestComponent->KillEnemy(); },
 		SDLK_l,
 		minigin::ClickType::pressed);
 
