@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ImportGroup Label="PropertySheets" />
+	<PropertyGroup Label="UserMacros" />
+	<PropertyGroup>
+		<!-- Output Directory -->
+		<OutDir>$(SolutionDir)out\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+
+		<!-- Intermediate Directory -->
+		<IntDir>$(Platform)\$(Configuration)\</IntDir>
+
+		<!-- C++ Version -->
+		<PlatformToolset>v142</PlatformToolset>
+		<CppLanguageStandard>c++20</CppLanguageStandard>
+
+		<!-- Include Directories -->
+		<AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)\minigin;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\glm;$(SolutionDir)\3rdParty\imgui-1.90.4;</AdditionalIncludeDirectories>
+
+		<!-- Warning Level -->
+		<WarningLevel>Level4</WarningLevel>
+
+		<!-- Treat Warnings as Errors -->
+		<TreatWarningAsError>true</TreatWarningAsError>
+
+		<!-- Additional Library Directories -->
+		<AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget);$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget);$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)out\$(PlatformTarget)\$(Configuration);$(SolutionDir)out\Minigin\$(PlatformTarget)\$(TargetName);</AdditionalLibraryDirectories>
+
+		<!-- Additional Dependencies -->
+		<AdditionalDependencies>Minigin.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;</AdditionalDependencies>
+	</PropertyGroup>
+</Project>

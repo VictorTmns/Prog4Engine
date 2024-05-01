@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing", "Testing\Testing.
 		{41B0EC47-D48C-4B0F-951B-D98595FFAE0A} = {41B0EC47-D48C-4B0F-951B-D98595FFAE0A}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TronTanks", "TronTanks\TronTanks.vcxproj", "{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +36,14 @@ Global
 		{7273DC61-421B-4687-9DC0-427E120A6CEF}.Release|x64.Build.0 = Release|x64
 		{7273DC61-421B-4687-9DC0-427E120A6CEF}.Release|x86.ActiveCfg = Release|Win32
 		{7273DC61-421B-4687-9DC0-427E120A6CEF}.Release|x86.Build.0 = Release|Win32
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Debug|x64.ActiveCfg = Debug|x64
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Debug|x64.Build.0 = Debug|x64
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Debug|x86.ActiveCfg = Debug|Win32
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Debug|x86.Build.0 = Debug|Win32
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Release|x64.ActiveCfg = Release|x64
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Release|x64.Build.0 = Release|x64
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Release|x86.ActiveCfg = Release|Win32
+		{021EC09B-85A4-47E3-B74A-1EF6F9E1200D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
