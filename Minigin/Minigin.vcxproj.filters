@@ -147,11 +147,13 @@
     <ClInclude Include="SoundLogWrapper.h">
       <Filter>Output\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="GameTime.h" />
     <ClInclude Include="SoundNull.h">
       <Filter>Output\Sound</Filter>
     </ClInclude>
     <ClInclude Include="ServiceLocator.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
       <Filter>other</Filter>
     </ClInclude>
   </ItemGroup>

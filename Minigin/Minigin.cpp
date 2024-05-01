@@ -9,6 +9,7 @@
 #include <chrono>
 #include <iostream>
 #include <steam_api_common.h>
+#include <thread>
 
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -83,7 +84,6 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 
 	load(this);
 
-
 	bool doContinue = true;
 	while (doContinue)
 	{
@@ -98,7 +98,10 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 		sceneManager.Update();
 		renderer.Render();
 
+
 		SteamAPI_RunCallbacks();
+
+		std::this_thread::sleep_for(GameTime::GetInstance().SleepTime());
 	}
 }
 
@@ -133,7 +136,7 @@ void minigin::Minigin::Init(const std::string& resourceDataPath)
 
 	Renderer::GetInstance().Init(g_window);
 	ResourceManager::GetInstance().Init(resourceDataPath);
-	GameTime::GetInstance().Init(0.02);
+	GameTime::GetInstance().Init(0.02, 120);
 
 	ServiceLocator::RegisterSoundSystem(std::make_unique<SoundSystemSDL>());
 
