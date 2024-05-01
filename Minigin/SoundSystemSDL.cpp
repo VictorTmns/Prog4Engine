@@ -31,6 +31,11 @@ namespace minigin
 		{
 			unsigned int id;
 			float volume;
+
+			bool operator==(const SoundCommand& other) const
+			{
+				return (this->id == other.id);
+			}
 		};
 
 		bool ProcessSoundRequest(const SoundCommand& command) const;
