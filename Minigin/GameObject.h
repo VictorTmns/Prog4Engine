@@ -21,26 +21,30 @@ namespace minigin
 		void SetLocalRotation(double rot);
 		void AddLocalTranslate(float x, float y);
 		void AddLocalRotation(double rot);
-		Transform GetLocalTransform();
+		Transform& GetLocalTransform();
 		Transform GetWorldTransform();
 
 		//Components
 
-		template <typename T, typename ... Args> T* AddComponent(Args&& ... args);
-		template<typename T> void RemoveComponent();
-		template<typename T> T* GetComponent();
-		template<typename T> bool HasComponent();
+		template <typename T, typename ... Args> T* AddComponent(Args&& ... args)
+			requires std::is_base_of_v<BaseComponent, T>;
+		template<typename T> void RemoveComponent()
+			requires std::is_base_of_v<BaseComponent, T>;
+		template<typename T> T* GetComponent()
+			requires std::is_base_of_v<BaseComponent, T>;
+		template<typename T> bool HasComponent()
+			requires std::is_base_of_v<BaseComponent, T>;
 
 
 		//GameObjects
 		bool SetParent(GameObject* newParentPtr, bool keepWorldPosition = false);
 
 		GameObject* GetParent() const { return m_ParentPtr; }
-		int GetChildCount() const { return static_cast<int>(m_ChilderenPtrs.size()); }
-		GameObject* GetChildAt(int index) const { return m_ChilderenPtrs[index]; }
+		int GetChildCount() const { return static_cast<int>(m_ChildPtrs.size()); }
+		GameObject* GetChildAt(int index) const { return m_ChildPtrs[index]; }
 		bool IsChild(GameObject* gameObject) const;
 
-		//Consturctors and destructors
+		//Constructors and destructors
 
 		GameObject() = default;
 		~GameObject();
@@ -57,7 +61,7 @@ namespace minigin
 		std::vector<std::unique_ptr<BaseComponent>> m_ComponentPtrs;
 
 		GameObject* m_ParentPtr = nullptr;
-		std::vector<GameObject*> m_ChilderenPtrs {};
+		std::vector<GameObject*> m_ChildPtrs {};
 
 		Transform CalculateWorldTransform() const;
 
@@ -70,7 +74,9 @@ namespace minigin
 	};
 
 	template<typename T, typename... Args>
-	T* GameObject::AddComponent(Args&&... args) {
+	T* GameObject::AddComponent(Args&&... args)
+		requires std::is_base_of_v<BaseComponent, T>
+	{
 
 		static_assert(std::is_base_of_v<BaseComponent, T>, "T must derive from BaseComponent");
 		std::unique_ptr<T> newComponent = std::make_unique<T>(this, std::forward<Args>(args)...);
@@ -81,6 +87,7 @@ namespace minigin
 
 	template<typename T>
 	void GameObject::RemoveComponent()
+		requires std::is_base_of_v<BaseComponent, T>
 	{
 		for (auto componentPtr = m_ComponentPtrs.begin(); componentPtr != m_ComponentPtrs.end(); ++componentPtr)
 		{
@@ -95,6 +102,7 @@ namespace minigin
 
 	template <typename T>
 	T* GameObject::GetComponent()
+		requires std::is_base_of_v<BaseComponent, T>
 	{
 		for (auto componentPtr = m_ComponentPtrs.begin(); componentPtr != m_ComponentPtrs.end(); ++componentPtr)
 		{
@@ -108,6 +116,7 @@ namespace minigin
 	}
 	template <typename T>
 	bool GameObject::HasComponent()
+		requires std::is_base_of_v<BaseComponent, T>
 	{
 		for (auto componentPtr = m_ComponentPtrs.begin(); componentPtr != m_ComponentPtrs.end(); ++componentPtr)
 		{
