@@ -2,11 +2,11 @@
 #include "GameObject.h"
 
 #include <memory>
-#include "SceneManager.h"
+#include "Scene.h"
 
 namespace minigin
 {
-	
+
 	
 	GameObject::~GameObject()
 	{
@@ -70,7 +70,7 @@ namespace minigin
 		SetTransformDirty();
 	}
 
-	Transform GameObject::GetLocalTransform()
+	Transform& GameObject::GetLocalTransform()
 	{
 		return m_LocalTransform;
 	}
@@ -129,16 +129,16 @@ namespace minigin
 	
 	void GameObject::AddChild(GameObject* newChildPtr)
 	{
-		m_ChilderenPtrs.emplace_back(newChildPtr);
+		m_ChildPtrs.emplace_back(newChildPtr);
 	}
 
 	void GameObject::RemoveChild(GameObject* childToRemovePtr)
 	{
-		for (auto childIt = m_ChilderenPtrs.begin(); childIt != m_ChilderenPtrs.end(); ++childIt)
+		for (auto childIt = m_ChildPtrs.begin(); childIt != m_ChildPtrs.end(); ++childIt)
 		{
 			if (*childIt == childToRemovePtr)
 			{
-				m_ChilderenPtrs.erase(childIt);
+				m_ChildPtrs.erase(childIt);
 				return;
 			}
 		}
@@ -150,7 +150,7 @@ namespace minigin
 	
 	bool GameObject::IsChild(GameObject* gameObject) const
 	{
-		for (auto& childPtr : m_ChilderenPtrs)
+		for (auto& childPtr : m_ChildPtrs)
 		{
 			if (childPtr == gameObject) return true; //check if the child is that gameObject
 			if (childPtr->IsChild(gameObject)) return true; //recursivly checks if one of its childeren is that gameObject
@@ -167,7 +167,7 @@ namespace minigin
 	void GameObject::SetTransformDirty()
 	{
 		m_WorldTransformDirty = true;
-		for (auto& childPtr : m_ChilderenPtrs)
+		for (auto& childPtr : m_ChildPtrs)
 		{
 			childPtr->SetTransformDirty();
 		}

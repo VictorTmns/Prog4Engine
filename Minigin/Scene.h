@@ -8,7 +8,7 @@ namespace minigin
 	{
 		friend Scene* SceneManager::CreateScene(const std::string& name);
 	public:
-		void AddGameObject(std::unique_ptr<GameObject>&& gameObject);
+		GameObject& CreateGameObject();
 		void DeleteAll();
 
 		void Update();

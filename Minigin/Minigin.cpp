@@ -105,14 +105,9 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 	}
 }
 
-minigin::AchievementManager* minigin::Minigin::GetAchievementManager() const
-{
-	return m_Achievement.get();
-}
 
 void minigin::Minigin::Init(const std::string& resourceDataPath)
 {
-	m_Achievement = std::make_unique<AchievementManager>();
 
 	PrintSDLVersion();
 

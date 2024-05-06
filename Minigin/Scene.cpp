@@ -12,9 +12,10 @@ Scene::Scene(const std::string& name)
 
 
 
-void Scene::AddGameObject(std::unique_ptr<GameObject>&& gameObject)
+GameObject& Scene::CreateGameObject()
 {
-	m_GameObjectPtrs.emplace_back(std::move(gameObject));
+	m_GameObjectPtrs.emplace_back(std::make_unique<GameObject>());
+	return *m_GameObjectPtrs.back();
 }
 
 void Scene::DeleteAll()

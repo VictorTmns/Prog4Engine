@@ -8,6 +8,8 @@
 
 namespace minigin
 {
+	class Scene;
+
 	class GameObject final
 	{
 	public:

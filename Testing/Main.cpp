@@ -33,6 +33,7 @@
 void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, minigin::Font* font, minigin::Font* smallFont);
 void MakePlayer2(minigin::Scene* scene, minigin::Minigin* engine, minigin::Font* font, minigin::Font* smallFont);
 void MakeManuel(minigin::Scene* scene, minigin::Minigin* engine, minigin::Font* font, minigin::Font* smallFont);
+void MakeRotatingBalls(minigin::Scene* scene, minigin::Minigin* engine);
 
 void load(minigin::Minigin* engine)
 {
@@ -40,55 +41,48 @@ void load(minigin::Minigin* engine)
 	auto scene = minigin::SceneManager::GetInstance().CreateScene("Demo");
 	auto font = minigin::ResourceManager::GetInstance().GetFont("Lingua.otf", 36);
 	auto smallFont = minigin::ResourceManager::GetInstance().GetFont("Lingua.otf", 15);
-	auto achievementsManager = engine->GetAchievementManager();
-
 	std::function func = [](const minigin::BaseComponent* subject)
 		{
 			return (dynamic_cast<const ScoreComponent*>(subject)->GetScore() >= 500);
 		};
 
-	std::vector<minigin::Achievement> achievements{
-		minigin::Achievement{0, std::string{"ACH_WIN_ONE_GAME"}, func, minigin::Observer::Event::scoreChange}
-	};
-	achievementsManager->AddAchievements(std::move(achievements));
 
 	// FPS GAME OBJECT
-	auto go = std::make_unique<minigin::GameObject>();
-	go->AddComponent<minigin::FPSComponent>(font);
-	go->SetLocalTranslate(20.f, 430.f);
-	scene->AddGameObject(std::move(go));
+	minigin::GameObject& go = scene->CreateGameObject();
+	go.AddComponent<minigin::FPSComponent>(font);
+	go.SetLocalTranslate(20.f, 430.f);
 
 	// DAE LOGO
-	go = std::make_unique<minigin::GameObject>();
-	auto texture = go->AddComponent<minigin::TextureRenderComponent>();
+	minigin::GameObject& go2 = scene->CreateGameObject();
+	auto texture = go2.AddComponent<minigin::TextureRenderComponent>();
 	texture->SetTexture("logo.tga");
-	go->SetLocalTranslate(216, 180);
-	scene->AddGameObject(std::move(go));
+	go2.SetLocalTranslate(216, 180);
 
 	// TEXT
-	go = std::make_unique<minigin::GameObject>();
-	go->AddComponent<minigin::TextRenderComponent>(font, "Programming 4 Assignment");
-	go->SetLocalTranslate(80, 20);
-	scene->AddGameObject(std::move(go));
+	minigin::GameObject& go3 = scene->CreateGameObject();
+	go3.AddComponent<minigin::TextRenderComponent>(font, "Programming 4 Assignment");
+	go3.SetLocalTranslate(80, 20);
 
 
 	MakePlayer1(scene, engine, font, smallFont);
 	MakePlayer2(scene, engine, font, smallFont);
 	MakeManuel(scene, engine, font, smallFont);
+
+	MakeRotatingBalls(scene, engine);
 }
 
-void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused]] minigin::Font* font, minigin::Font* smallFont)
+void MakePlayer1(minigin::Scene* scene, minigin::Minigin* ,  minigin::Font*, minigin::Font* smallFont)
 {
 	auto& inputManager = minigin::InputManager::GetInstance();
 
 	//PLAYER CHARACTER
-	auto go = std::make_unique<minigin::GameObject>();
-	go->SetLocalTranslate(100, 230);
+	minigin::GameObject& go{scene->CreateGameObject()};
+	go.SetLocalTranslate(100, 230);
 
-	go->AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
+	go.AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
 
 
-	KeyboardTestComponent* actorComponent = go->AddComponent<KeyboardTestComponent>();
+	KeyboardTestComponent* actorComponent = go.AddComponent<KeyboardTestComponent>();
 	inputManager.BindToKeyboard(
 		actorComponent,
 		std::function<void()>([actorComponent] { actorComponent->Move(-1.f, 0.f); }),
@@ -112,17 +106,16 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 
 
 
-	minigin::LivesComponent* livesComponent = go->AddComponent<minigin::LivesComponent>(3);
+	minigin::LivesComponent* livesComponent = go.AddComponent<minigin::LivesComponent>(3);
 	inputManager.BindToKeyboard(livesComponent,
 	                            [livesComponent] { livesComponent->TakeDamage(); },
 		SDLK_p,
 		minigin::ClickType::pressed);
 
 
-	ScoreComponent* scoreComponent = go->AddComponent<ScoreComponent>();
-	scoreComponent->AttachObserver(engine->GetAchievementManager());
+	ScoreComponent* scoreComponent = go.AddComponent<ScoreComponent>();
 
-	ScoreTestComponent* scoreTestComponent = go->AddComponent<ScoreTestComponent>(scoreComponent);
+	ScoreTestComponent* scoreTestComponent = go.AddComponent<ScoreTestComponent>(scoreComponent);
 	inputManager.BindToKeyboard(scoreTestComponent,
 	                            [scoreTestComponent] { scoreTestComponent->PickUpItem(); },
 								SDLK_o,
@@ -133,54 +126,49 @@ void MakePlayer1(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 		minigin::ClickType::pressed);
 
 	// SOUND COMPONENT
-	PlaySoundComponent* playSoundComponent = go->AddComponent<PlaySoundComponent>();
+	PlaySoundComponent* playSoundComponent = go.AddComponent<PlaySoundComponent>();
 	inputManager.BindToKeyboard(playSoundComponent,
 	                            [playSoundComponent] { playSoundComponent->PlaySound(); },
 								SDLK_t,
 								minigin::ClickType::pressed);
 
 
-	scene->AddGameObject(std::move(go));
 
 
-	go = std::make_unique<minigin::GameObject>();
-	minigin::GameObject* goHolderPtr = go.get();
-	go->SetLocalTranslate(0, 200);
-	scene->AddGameObject(std::move(go));
+	minigin::GameObject& go2 = scene->CreateGameObject();
+	go.SetLocalTranslate(0, 200);
 
 
 	// LIVES DISPLAY 1
-	go = std::make_unique<minigin::GameObject>();
-	go->SetParent(goHolderPtr, false);
-	minigin::LivesDisplayComponent* livesDisplay = go->AddComponent<minigin::LivesDisplayComponent>(smallFont);
+	minigin::GameObject& go3 = scene->CreateGameObject();
+	go3.SetParent(&go2, false);
+	minigin::LivesDisplayComponent* livesDisplay = go3.AddComponent<minigin::LivesDisplayComponent>(smallFont);
 	livesComponent->AttachObserver(livesDisplay);
 
-	scene->AddGameObject(std::move(go));
 
 	// SCORE DISPLAY 1
-	go = std::make_unique<minigin::GameObject>();
-	go->SetParent(goHolderPtr, false);
-	go->SetLocalTranslate(0, 15);
-	minigin::ScoreDisplayComponent* scoreDisplay = go->AddComponent<minigin::ScoreDisplayComponent>(smallFont);
+	minigin::GameObject& go4 = scene->CreateGameObject();
+	go4.SetParent(&go2, false);
+	go4.SetLocalTranslate(0, 15);
+	minigin::ScoreDisplayComponent* scoreDisplay = go4.AddComponent<minigin::ScoreDisplayComponent>(smallFont);
 	scoreComponent->AttachObserver(scoreDisplay);
 
 	
 
 
-	scene->AddGameObject(std::move(go));
 }
 
-void MakePlayer2(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused]] minigin::Font* font, minigin::Font* smallFont)
+void MakePlayer2(minigin::Scene* scene, minigin::Minigin*, minigin::Font* , minigin::Font* smallFont)
 {
 	auto& inputManager = minigin::InputManager::GetInstance();
 
 	// PLAYER CHARACTER 2
-	auto go = std::make_unique<minigin::GameObject>();
-	go->SetLocalTranslate(80, 300);
+	minigin::GameObject& go{ scene->CreateGameObject() };
+	go.SetLocalTranslate(80, 300);
 
-	go->AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
+	go.AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
 
-	KeyboardTestComponent* newComponent = go->AddComponent<KeyboardTestComponent>();
+	KeyboardTestComponent* newComponent = go.AddComponent<KeyboardTestComponent>();
 	inputManager.BindToControllerThumbStick(
 		newComponent,
 		std::bind_front(&KeyboardTestComponent::Move, newComponent),
@@ -189,17 +177,16 @@ void MakePlayer2(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 
 
 
-	minigin::LivesComponent* livesComponent = go->AddComponent<minigin::LivesComponent>(3);
+	minigin::LivesComponent* livesComponent = go.AddComponent<minigin::LivesComponent>(3);
 	inputManager.BindToKeyboard(livesComponent,
 	                            [livesComponent] { livesComponent->TakeDamage(); },
 		SDLK_m,
 		minigin::ClickType::pressed);
 
 
-	ScoreComponent* scoreComponent = go->AddComponent<ScoreComponent>();
-	scoreComponent->AttachObserver(engine->GetAchievementManager());
+	ScoreComponent* scoreComponent = go.AddComponent<ScoreComponent>();
 
-	ScoreTestComponent* scoreTestComponent = go->AddComponent<ScoreTestComponent>(scoreComponent);
+	ScoreTestComponent* scoreTestComponent = go.AddComponent<ScoreTestComponent>(scoreComponent);
 	inputManager.BindToKeyboard(scoreTestComponent,
 	                            [scoreTestComponent] { scoreTestComponent->PickUpItem(); },
 		SDLK_k,
@@ -209,58 +196,52 @@ void MakePlayer2(minigin::Scene* scene, minigin::Minigin* engine, [[maybe_unused
 		SDLK_l,
 		minigin::ClickType::pressed);
 
-	scene->AddGameObject(std::move(go));
 
 
-	go = std::make_unique<minigin::GameObject>();
-	minigin::GameObject* goHolderPtr = go.get();
-	go->SetLocalTranslate(0, 240);
-	scene->AddGameObject(std::move(go));
+	minigin::GameObject& go2{ scene->CreateGameObject() };
+	go.SetLocalTranslate(0, 240);
 
 
 	// LIVES DISPLAY 2
-	go = std::make_unique<minigin::GameObject>();
-	go->SetParent(goHolderPtr, false);
-	minigin::LivesDisplayComponent* livesDisplay = go->AddComponent<minigin::LivesDisplayComponent>(smallFont);
+	minigin::GameObject& go3{ scene->CreateGameObject() };
+	go3.SetParent(&go2, false);
+	minigin::LivesDisplayComponent* livesDisplay = go3.AddComponent<minigin::LivesDisplayComponent>(smallFont);
 	livesComponent->AttachObserver(livesDisplay);
 
-	scene->AddGameObject(std::move(go));
 
 	// SCORE DISPLAY 2
-	go = std::make_unique<minigin::GameObject>();
-	go->SetParent(goHolderPtr, false);
-	go->SetLocalTranslate(0, 15);
-	minigin::ScoreDisplayComponent* scoreDisplay = go->AddComponent<minigin::ScoreDisplayComponent>(smallFont);
+	minigin::GameObject& go4{ scene->CreateGameObject() };
+	go4.SetParent(&go2, false);
+	go4.SetLocalTranslate(0, 15);
+	minigin::ScoreDisplayComponent* scoreDisplay = go4.AddComponent<minigin::ScoreDisplayComponent>(smallFont);
 	scoreComponent->AttachObserver(scoreDisplay);
-
-	scene->AddGameObject(std::move(go));
 
 }
 
 void MakeManuel(minigin::Scene* scene, [[maybe_unused]] minigin::Minigin* engine, [[maybe_unused]] minigin::Font* font, minigin::Font* smallFont)
 {
-	auto go = std::make_unique<minigin::GameObject>();
-	auto goHolder = go.get();
-	go->SetLocalTranslate(300, 80);
-	scene->AddGameObject(std::move(go));
+	minigin::GameObject& go{ scene->CreateGameObject() };
+	go.SetLocalTranslate(300, 80);
 
-	go = std::make_unique<minigin::GameObject>();
-	go->AddComponent<minigin::TextRenderComponent>(
+	minigin::GameObject& go2{ scene->CreateGameObject() };
+	go2.AddComponent<minigin::TextRenderComponent>(
 		smallFont, "use the WASD to move the first player, use P to to take damage and I&O to get points",
 		minigin::TextRenderComponent::TextAlignment::left);
-	go->SetParent(goHolder);
-	scene->AddGameObject(std::move(go));
+	go2.SetParent(&go);
 
-	go = std::make_unique<minigin::GameObject>();
-	go->SetLocalTranslate(10, 20);
-	go->AddComponent<minigin::TextRenderComponent>(
+	minigin::GameObject& go3{ scene->CreateGameObject() };
+	go3.SetLocalTranslate(10, 20);
+	go3.AddComponent<minigin::TextRenderComponent>(
 		smallFont, "use the D-Pad to move the second player, use M to to take damage and K&L to get points",
 		minigin::TextRenderComponent::TextAlignment::left);
-	go->SetParent(goHolder);
-	scene->AddGameObject(std::move(go));
+	go3.SetParent(&go);
 
 }
 
+void MakeRotatingBalls(minigin::Scene* , minigin::Minigin* )
+{
+
+}
 
 int main(int, char* []) {
 
