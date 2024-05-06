@@ -37,6 +37,7 @@ class AchievementManager : public Observer
 public:
 	AchievementManager();
 	void AddAchievements(std::vector<Achievement>&& achievements);
+	void Update();
 	~AchievementManager() override;
 	void Notify(Event event, const BaseComponent* subject) override;
 

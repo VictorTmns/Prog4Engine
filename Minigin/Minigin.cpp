@@ -8,7 +8,6 @@
 
 #include <chrono>
 #include <iostream>
-#include <steam_api_common.h>
 #include <thread>
 
 #include "InputManager.h"
@@ -99,7 +98,6 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 		renderer.Render();
 
 
-		SteamAPI_RunCallbacks();
 
 		std::this_thread::sleep_for(GameTime::GetInstance().SleepTime());
 	}

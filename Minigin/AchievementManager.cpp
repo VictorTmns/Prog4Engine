@@ -17,6 +17,11 @@ void minigin::AchievementManager::AddAchievements(std::vector<Achievement>&& ach
 	m_SteamApi->AddAchievements(m_Achievements.data(), static_cast<int>(m_Achievements.size()));
 }
 
+void minigin::AchievementManager::Update()
+{
+	SteamAPI_RunCallbacks();
+}
+
 minigin::AchievementManager::~AchievementManager()
 {
 
