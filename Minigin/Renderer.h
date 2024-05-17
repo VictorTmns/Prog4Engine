@@ -9,9 +9,9 @@ namespace minigin
 	{
 	public:
 		Renderer();
+		~Renderer();
 
 		void Render() const;
-		void Destroy();
 
 
 		void RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color) const;

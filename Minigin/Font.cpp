@@ -17,7 +17,7 @@ minigin::Font::Font(SDL_Renderer* renderer, std::string fullPath, unsigned int s
 
 minigin::Font::~Font()
 {
-	FC_ClearFont(m_font);
+	FC_FreeFont(m_font);
 }
 
 void minigin::Font::Draw(const std::string& text, const Renderer* renderer, float x, float y) const

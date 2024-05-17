@@ -20,7 +20,7 @@ void minigin::TextRenderComponent::Render(const Renderer* renderer) const
 {
 	if (!m_text.empty())
 	{
-		const auto pos = GetOwner()->GetWorldTransform().GetPosition();
+		const auto& pos = GetOwner()->GetWorldTransform().GetPosition();
 
 		m_font->Draw(m_text, renderer, pos.x, pos.y);
 	}

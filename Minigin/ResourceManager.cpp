@@ -32,12 +32,13 @@ minigin::Texture2D* minigin::ResourceManager::LoadTexture(const std::string& fil
 
 minigin::Font* minigin::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
-	auto fondIt = m_LoadedFonts.find(file + std::to_string(size));
+	const std::string key{ file + std::to_string(size) };
+	auto fondIt = m_LoadedFonts.find(key);
 	if (fondIt != m_LoadedFonts.end())
 		return fondIt->second.get();
 
 
-	auto emplaceResult = m_LoadedFonts.emplace(file, std::make_unique<Font>(m_RendererPtr->GetSDLRenderer(), m_dataPath + file, size));
+	auto emplaceResult{ m_LoadedFonts.emplace(key, std::make_unique<Font>(m_RendererPtr->GetSDLRenderer(), m_dataPath + file, size)) };
 
 	return emplaceResult.first->second.get();
 }

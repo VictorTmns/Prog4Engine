@@ -7,7 +7,7 @@ See SDL_FontCache.h for license info.
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(push)
-#pragma warning(disable : 6387 6011 6001 6386 4081 4244 4100 4701 4702)     
+#pragma warning(disable : 6387 6011 6001 6386 4081 4244 4100 4701 4702 4267 26495)     
 
 #include "SDL_FontCache.h"
 

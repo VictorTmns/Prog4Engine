@@ -58,6 +58,17 @@ minigin::Renderer::Renderer()
 	ImGui::NewFrame();
 }
 
+minigin::Renderer::~Renderer()
+{
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
+	if (m_renderer != nullptr)
+	{
+		SDL_DestroyRenderer(m_renderer);
+		m_renderer = nullptr;
+	}
+}
 
 
 void minigin::Renderer::Render() const
@@ -80,21 +91,6 @@ void minigin::Renderer::Render() const
 	ImGui::NewFrame();
 
 }
-
-void minigin::Renderer::Destroy()
-{
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
-	if (m_renderer != nullptr)
-	{
-		SDL_DestroyRenderer(m_renderer);
-		m_renderer = nullptr;
-	}
-
-}
-
-
 
 
 void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color) const
