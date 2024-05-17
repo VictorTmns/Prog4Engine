@@ -22,5 +22,6 @@ namespace minigin
 	private:
 		void Init(const std::string& resourceDataPath);
 
+		std::unique_ptr<Renderer> m_Renderer;
 	};
 }

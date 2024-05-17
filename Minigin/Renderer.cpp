@@ -20,11 +20,29 @@ int GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
-void minigin::Renderer::Init(SDL_Window* window)
+
+minigin::Renderer::Renderer()
 {
-	m_window = window;
-	m_renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);
-	if (m_renderer == nullptr) 
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
+	}
+
+	m_window = SDL_CreateWindow(
+		"Programming 4 assignment",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		640,
+		480,
+		SDL_WINDOW_OPENGL
+	);
+	if (m_window == nullptr)
+	{
+		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
+	}
+
+	m_renderer = SDL_CreateRenderer(m_window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);
+	if (m_renderer == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
@@ -32,14 +50,14 @@ void minigin::Renderer::Init(SDL_Window* window)
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
+	ImGui_ImplSDL2_InitForOpenGL(m_window, SDL_GL_GetCurrentContext());
 	ImGui_ImplOpenGL3_Init();
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
-
 }
+
 
 
 void minigin::Renderer::Render() const
@@ -50,7 +68,7 @@ void minigin::Renderer::Render() const
 
 
 
-	SceneManager::GetInstance().Render();
+	SceneManager::GetInstance().Render(this);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -76,24 +94,7 @@ void minigin::Renderer::Destroy()
 
 }
 
-void minigin::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
-{
-	SDL_Rect dst{};
-	dst.x = static_cast<int>(x);
-	dst.y = static_cast<int>(y);
-	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
-}
 
-void minigin::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
-{
-	SDL_Rect dst{};
-	dst.x = static_cast<int>(x);
-	dst.y = static_cast<int>(y);
-	dst.w = static_cast<int>(width);
-	dst.h = static_cast<int>(height);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
-}
 
 
 void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color) const
@@ -165,3 +166,8 @@ void minigin::Renderer::FillCircle(float x, float y, float radius, SDL_Color col
 }
 
 SDL_Renderer* minigin::Renderer::GetSDLRenderer() const { return m_renderer; }
+
+void minigin::Renderer::SetDrawColor(int r, int g, int b, int a) const
+{
+	SDL_SetRenderDrawColor(m_renderer, static_cast<uint8_t>(r), static_cast<uint8_t>(g), static_cast<uint8_t>(b), static_cast<uint8_t>(a));
+}

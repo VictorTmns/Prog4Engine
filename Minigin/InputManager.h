@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include "ControllerManager.h"
-#include "SDLManager.h"
+#include "SDLInputManager.h"
 #include "Singleton.h"
 
 
@@ -26,7 +26,7 @@ namespace minigin
 
 	private:
 		ControllerManager m_ControllerManager;
-		SDLManager m_SdlManager;
+		SDLInputManager m_SdlManager;
 	};
 
 }

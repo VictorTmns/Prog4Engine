@@ -42,11 +42,11 @@ void Scene::FixedUpdate()
 	}
 }
 
-void Scene::Render() const
+void Scene::Render(const Renderer* renderer) const
 {
 	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
-		gameObjectPtr->Render();
+		gameObjectPtr->Render(renderer);
 	}
 }
 

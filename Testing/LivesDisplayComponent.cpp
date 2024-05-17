@@ -8,7 +8,7 @@
 
 namespace minigin
 {
-	LivesDisplayComponent::LivesDisplayComponent(GameObject* owner, Font* font) 
+	LivesDisplayComponent::LivesDisplayComponent(GameObject* owner, Font* font)
 	: BaseComponent{owner}
 	, Observer{}
 	, m_TextRenderer{owner->AddComponent<TextRenderComponent>(font)}

@@ -1,4 +1,7 @@
 #pragma once
+#include <xstring>
+
+#include "Renderer.h"
 #include "glm/vec2.hpp"
 
 struct SDL_Texture;
@@ -11,8 +14,11 @@ namespace minigin
 	{
 	public:
 		SDL_Texture* GetSDLTexture() const;
-		explicit Texture2D(SDL_Texture* texture);
+		Texture2D(const std::string& fullPath, SDL_Renderer* renderer);
 		~Texture2D();
+
+		void Draw(const Renderer* renderer, float x, float y) const;
+		void Draw(const Renderer* renderer, float x, float y, float width, float height) const;
 
 		glm::ivec2 GetSize() const;
 
@@ -20,6 +26,7 @@ namespace minigin
 		Texture2D(Texture2D &&) = delete;
 		Texture2D & operator= (const Texture2D &) = delete;
 		Texture2D & operator= (const Texture2D &&) = delete;
+
 	private:
 		SDL_Texture* m_texture;
 	};

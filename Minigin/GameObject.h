@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "BaseComponent.h"
 #include "Observer.h"
+#include "Renderer.h"
 
 namespace minigin
 {
@@ -15,7 +16,7 @@ namespace minigin
 	public:
 		void Update();
 		void FixedUpdate();
-		void Render() const;
+		void Render(const Renderer* renderer) const;
 		void SetLocalTransform(const Transform& newTransform);
 
 

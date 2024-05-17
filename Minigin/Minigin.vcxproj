@@ -230,6 +230,7 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="InputTypes.h" />
     <ClInclude Include="ISoundSystem.h" />
+    <ClInclude Include="SDL_FontCache.h" />
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="SoundLogWrapper.h" />
     <ClInclude Include="SoundNull.h" />
@@ -239,7 +240,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
-    <ClInclude Include="SDLManager.h" />
+    <ClInclude Include="SDLInputManager.h" />
     <ClInclude Include="SoundSystemSDL.h" />
     <ClInclude Include="TextureRenderComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -280,7 +281,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Minigin.cpp" />
-    <ClCompile Include="SDLManager.cpp" />
+    <ClCompile Include="SDLInputManager.cpp" />
+    <ClCompile Include="SDL_FontCache.c" />
     <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="SoundSystemSDL.cpp" />
     <ClCompile Include="TextureRenderComponent.cpp" />

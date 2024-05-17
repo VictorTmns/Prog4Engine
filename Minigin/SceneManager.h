@@ -6,6 +6,7 @@
 
 namespace minigin
 {
+	class Renderer;
 	class Scene;
 
 	class SceneManager final : public Singleton<SceneManager>
@@ -14,7 +15,7 @@ namespace minigin
 		Scene* CreateScene(const std::string& name);
 
 		void Update();
-		void Render();
+		void Render(const Renderer* renderer);
 		void FixedUpdate();
 
 

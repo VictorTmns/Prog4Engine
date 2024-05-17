@@ -63,8 +63,6 @@ minigin::Minigin::Minigin(const std::string &resourceDataPath)
 
 minigin::Minigin::~Minigin()
 {
-	Renderer::GetInstance().Destroy();
-	
 	
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
@@ -75,7 +73,6 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 {
 	// make sure that Input gets initialized before the scene, otherwise this will mess with the cleanup of commands
 	auto& input = InputManager::GetInstance();
-	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& time = GameTime::GetInstance();
 
@@ -95,7 +92,7 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 		}
 
 		sceneManager.Update();
-		renderer.Render();
+		m_Renderer->Render();
 
 
 
@@ -109,26 +106,9 @@ void minigin::Minigin::Init(const std::string& resourceDataPath)
 
 	PrintSDLVersion();
 
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
-	{
-		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
-	}
+	m_Renderer = std::make_unique<Renderer>();
 
-	g_window = SDL_CreateWindow(
-		"Programming 4 assignment",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
-		SDL_WINDOW_OPENGL
-	);
-	if (g_window == nullptr)
-	{
-		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-	}
-
-	Renderer::GetInstance().Init(g_window);
-	ResourceManager::GetInstance().Init(resourceDataPath);
+	ResourceManager::GetInstance().Init(resourceDataPath, m_Renderer.get());
 	GameTime::GetInstance().Init(0.02, 120);
 
 	ServiceLocator::RegisterSoundSystem(std::make_unique<SoundSystemSDL>());

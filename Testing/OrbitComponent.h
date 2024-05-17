@@ -1,17 +1,16 @@
 #pragma once
 #include "BaseComponent.h"
 
-namespace minigin
-{
-	class OrbitComponent final :public BaseComponent
-	{
-	public:
-		OrbitComponent(GameObject* ownerPtr, float orbitingSpeed);
 
-		void Update() override;
-	private:
-		float m_OrbitingSpeed;
-	};
-}
+class OrbitComponent final :public minigin::BaseComponent
+{
+public:
+	OrbitComponent(minigin::GameObject* ownerPtr, float orbitingSpeed);
+
+	void Update() override;
+private:
+	float m_OrbitingSpeed;
+};
+
 
 

@@ -2,6 +2,7 @@
 #include "BaseComponent.h"
 #include "Font.h"
 #include "Observer.h"
+#include "ResourceManager.h"
 
 namespace minigin
 {

@@ -13,7 +13,7 @@ namespace minigin
 
 		void Update();
 		void FixedUpdate();
-		void Render() const;
+		void Render(const Renderer* renderer) const;
 
 		~Scene() = default;
 		Scene(const Scene& other) = delete;

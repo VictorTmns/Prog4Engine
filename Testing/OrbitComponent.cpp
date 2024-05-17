@@ -5,7 +5,7 @@
 #include "ResourceManager.h"
 #include "GameTime.h"
 
-minigin::OrbitComponent::OrbitComponent(GameObject* ownerPtr, float orbitingSpeed)
+OrbitComponent::OrbitComponent(minigin::GameObject* ownerPtr, float orbitingSpeed)
 	: BaseComponent{ownerPtr}
 	, m_OrbitingSpeed{ orbitingSpeed }
 {
@@ -13,7 +13,7 @@ minigin::OrbitComponent::OrbitComponent(GameObject* ownerPtr, float orbitingSpee
 }
 
 
-void minigin::OrbitComponent::Update()
+void OrbitComponent::Update()
 {
 	GetOwner()->AddLocalRotation(m_OrbitingSpeed * GameTime::GetInstance().GetDeltaTime());
 }

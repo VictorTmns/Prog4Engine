@@ -13,11 +13,11 @@ void minigin::SceneManager::Update()
 	}
 }
 
-void minigin::SceneManager::Render()
+void minigin::SceneManager::Render(const minigin::Renderer* renderer)
 {
 	for (const auto& scene : m_scenes)
 	{
-		scene->Render();
+		scene->Render(renderer);
 	}
 }
 

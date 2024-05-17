@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="components">
       <UniqueIdentifier>{c0fced8a-8df3-4b31-bc75-18cd65d5f843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Containers">
-      <UniqueIdentifier>{666011d8-575f-495d-99ee-1c06165b8ac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Singeltons">
-      <UniqueIdentifier>{506031fe-3d4d-49a8-8503-e9b15ed10ad9}</UniqueIdentifier>
     </Filter>
     <Filter Include="components\Render">
       <UniqueIdentifier>{e17faf91-a945-429c-8fd4-16a81a1bb3fe}</UniqueIdentifier>
@@ -45,16 +35,16 @@
     <Filter Include="Output\Sound">
       <UniqueIdentifier>{c633a3e2-4b04-41a2-80d5-cc31f3eed128}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{666011d8-575f-495d-99ee-1c06165b8ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\ResourceContainers">
+      <UniqueIdentifier>{0e9092e9-3a5d-4561-b1c7-d856d8a81d59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h">
       <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Resource Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Resource Containers</Filter>
     </ClInclude>
     <ClInclude Include="TextRenderComponent.h">
       <Filter>components\Render</Filter>
@@ -95,7 +85,7 @@
     <ClInclude Include="Commands.h">
       <Filter>Input\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="SDLManager.h">
+    <ClInclude Include="SDLInputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="InputTypes.h">
@@ -132,9 +122,6 @@
     <ClInclude Include="Singleton.h">
       <Filter>other</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>other</Filter>
-    </ClInclude>
     <ClInclude Include="ISoundSystem.h">
       <Filter>Output\Sound</Filter>
     </ClInclude>
@@ -156,16 +143,22 @@
     <ClInclude Include="GameTime.h">
       <Filter>other</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_FontCache.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Resources\ResourceContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Resources\ResourceContainers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp">
       <Filter>components</Filter>
-    </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Resource Containers</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Resource Containers</Filter>
     </ClCompile>
     <ClCompile Include="TextureRenderComponent.cpp">
       <Filter>components\Render</Filter>
@@ -197,7 +190,7 @@
     <ClCompile Include="ControllerManager.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="SDLManager.cpp">
+    <ClCompile Include="SDLInputManager.cpp">
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="Commands.cpp">
@@ -231,9 +224,6 @@
       <Filter>other</Filter>
     </ClCompile>
     <ClCompile Include="Minigin.cpp" />
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>other</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadTaskQueue.cpp">
       <Filter>other</Filter>
     </ClCompile>
@@ -245,6 +235,18 @@
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL_FontCache.c">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Resources\ResourceContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Resources\ResourceContainers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

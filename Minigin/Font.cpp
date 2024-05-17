@@ -1,21 +1,27 @@
 #include <stdexcept>
-#include <SDL_ttf.h>
 #include "Font.h"
 
-TTF_Font* minigin::Font::GetFont() const {
-	return m_font;
-}
+#include <memory>
 
-minigin::Font::Font(const std::string& fullPath, unsigned int size) : m_font(nullptr)
+#include "SDL_FontCache.h"
+
+minigin::Font::Font(SDL_Renderer* renderer, std::string fullPath, unsigned int size) 
+	: m_font(nullptr)
 {
-	m_font = TTF_OpenFont(fullPath.c_str(), size);
-	if (m_font == nullptr) 
+	m_font = FC_CreateFont();
+	if (FC_LoadFont(m_font, renderer, fullPath.data(), size, SDL_Color{ 255, 255, 255, 255 }, TTF_STYLE_NORMAL) == 0)
 	{
-		throw std::runtime_error(std::string("Failed to load font: ") + SDL_GetError());
+		throw std::runtime_error("SDL_FontCache error: failed to load font: \" " + fullPath + " \" \n");
 	}
 }
 
 minigin::Font::~Font()
 {
-	TTF_CloseFont(m_font);
+	FC_ClearFont(m_font);
 }
+
+void minigin::Font::Draw(const std::string& text, const Renderer* renderer, float x, float y) const
+{
+	FC_Draw(m_font, renderer->GetSDLRenderer(),x, y, text.data());
+}
+

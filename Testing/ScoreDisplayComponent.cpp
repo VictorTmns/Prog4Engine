@@ -4,16 +4,15 @@
 
 #include "GameObject.h"
 #include "ScoreComponent.h"
-#include "TextRenderComponent.h"
 
-minigin::ScoreDisplayComponent::ScoreDisplayComponent(GameObject* owner, Font* font)
+ScoreDisplayComponent::ScoreDisplayComponent(minigin::GameObject* owner, minigin::Font* font)
 	: BaseComponent{owner}
 	, Observer{}
-	, m_TextRenderer{ owner->AddComponent<TextRenderComponent>(font) }
+	, m_TextRenderer{ owner->AddComponent<minigin::TextRenderComponent>(font) }
 {
 }
 
-void minigin::ScoreDisplayComponent::Notify(Event event, const minigin::BaseComponent* actorComponent)
+void ScoreDisplayComponent::Notify(Event event, const minigin::BaseComponent* actorComponent)
 {
 	if (event != Event::scoreChange && event != Event::subjectAttached)
 		return;

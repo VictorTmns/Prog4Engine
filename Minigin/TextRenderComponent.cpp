@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <utility>
 #include <SDL_ttf.h>
 #include "TextRenderComponent.h"
 #include "Renderer.h"
@@ -11,49 +12,17 @@ minigin::TextRenderComponent::TextRenderComponent(GameObject* owner, Font* font,
 	, m_needsUpdate(true)
 	, m_text(text)
 	, m_font(font)
-	, m_textTexture(nullptr)
 	, m_Alignment{alignment}
 { }
 
-void minigin::TextRenderComponent::Update()
+
+void minigin::TextRenderComponent::Render(const Renderer* renderer) const
 {
-	if (m_needsUpdate && !m_text.empty())
+	if (!m_text.empty())
 	{
-		const SDL_Color color = { 255,255,255,255 }; // only white text is supported now
-		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), color);
-		if (surf == nullptr) 
-		{
-			throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
-		}
-		auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
-		if (texture == nullptr) 
-		{
-			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
-		}
-		SDL_FreeSurface(surf);
-		m_textTexture = std::make_unique<Texture2D>(texture);
-		m_needsUpdate = false;
-	}
-}
+		const auto pos = GetOwner()->GetWorldTransform().GetPosition();
 
-void minigin::TextRenderComponent::Render() const
-{
-	if (m_textTexture != nullptr)
-	{
-		auto pos = GetOwner()->GetWorldTransform().GetPosition();
-
-		switch (m_Alignment) {
-		case TextAlignment::center:
-			break;
-		case TextAlignment::left:
-			pos.x -= static_cast<float>(m_textTexture->GetSize().x) / 2.f;
-			break;
-		case TextAlignment::right:
-			pos.x += static_cast<float>(m_textTexture->GetSize().x) / 2.f;
-			break;
-		}
-
-		Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
+		m_font->Draw(m_text, renderer, pos.x, pos.y);
 	}
 }
 

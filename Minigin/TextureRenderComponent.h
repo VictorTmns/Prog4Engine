@@ -3,6 +3,7 @@
 #include <string>
 
 #include "BaseComponent.h"
+#include "ResourceManager.h"
 #include "Texture2D.h"
 #include "Transform.h"
 
@@ -12,12 +13,15 @@ namespace minigin
 	{
 	public:
 
-		void Render() const override;
+		void Render(const Renderer* renderer) const override;
 
 		void SetTexture(const std::string& texturePath);
 
-		TextureRenderComponent(GameObject* owner) : BaseComponent{owner} {}
+		TextureRenderComponent(GameObject* owner)
+		: BaseComponent{owner}
+		, m_Texture{}
+		{}
 	private:
-		Texture2D* m_Texture{};
+		Texture2D* m_Texture;
 	};
 }

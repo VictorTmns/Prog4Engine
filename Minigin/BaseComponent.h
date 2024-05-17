@@ -8,6 +8,7 @@
 
 namespace minigin
 {
+	class Renderer;
 	class GameObject;
 
 	class BaseComponent
@@ -17,7 +18,7 @@ namespace minigin
 
 		virtual void Update() {}
 		virtual void FixedUpdate() {}
-		virtual void Render() const {}
+		virtual void Render(const Renderer*) const {}
 
 		void AddCommand(std::unique_ptr<BaseCommand>&& baseCommand);
 		void AttachObserver(Observer* observer);

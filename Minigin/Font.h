@@ -1,24 +1,26 @@
 #pragma once
+#include <SDL_render.h>
 #include <string>
 
-struct _TTF_Font;
+#include "Renderer.h"
+
+struct FC_Font;
 namespace minigin
 {
-	/**
-	 * Simple RAII wrapper for a _TTF_Font
-	 */
 	class Font final
 	{
 	public:
-		_TTF_Font* GetFont() const;
-		explicit Font(const std::string& fullPath, unsigned int size);
+		Font(SDL_Renderer* renderer, std::string fullPath, unsigned size);
 		~Font();
+
+		void Draw(const std::string& text, const Renderer* renderer, float x, float y) const;
 
 		Font(const Font &) = delete;
 		Font(Font &&) = delete;
 		Font & operator= (const Font &) = delete;
 		Font & operator= (const Font &&) = delete;
+
 	private:
-		_TTF_Font* m_font;
+		FC_Font* m_font;
 	};
 }

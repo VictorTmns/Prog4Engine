@@ -34,11 +34,11 @@ namespace minigin
 		}
 	}
 	
-	void GameObject::Render() const
+	void GameObject::Render(const Renderer* renderer) const
 	{
 		for (const auto& pComponent : m_ComponentPtrs)
 		{
-			pComponent->Render();
+			pComponent->Render(renderer);
 		}
 	}
 

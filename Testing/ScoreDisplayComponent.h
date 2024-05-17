@@ -1,19 +1,17 @@
 ﻿#pragma once
 #include "BaseComponent.h"
+#include "TextRenderComponent.h"
 
-namespace minigin
+
+
+
+class ScoreDisplayComponent final : public minigin::BaseComponent, public minigin::Observer
 {
-	class Font;
-	class TextRenderComponent;
+public:
+	ScoreDisplayComponent(minigin::GameObject* owner, minigin::Font* font);
 
-	class ScoreDisplayComponent final : public BaseComponent, public Observer
-	{
-	public:
-		ScoreDisplayComponent(GameObject* owner, Font* font);
+	void Notify(Event event, const minigin::BaseComponent* actorComponent) override;
 
-		void Notify(Event event, const minigin::BaseComponent* actorComponent) override;
-
-	private:
-		TextRenderComponent* m_TextRenderer;
-	};
-}
+private:
+	minigin::TextRenderComponent* m_TextRenderer;
+};

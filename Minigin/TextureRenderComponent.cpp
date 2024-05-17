@@ -5,14 +5,14 @@
 #include "ResourceManager.h"
 
 
-void minigin::TextureRenderComponent::Render() const
+void minigin::TextureRenderComponent::Render(const Renderer* renderer) const
 {
 	const glm::vec2 pos = GetOwner()->GetWorldTransform().GetPosition();
 
-	Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
+	m_Texture->Draw(renderer, pos.x, pos.y);
 }
 
 void minigin::TextureRenderComponent::SetTexture(const std::string& texturePath)
 {
-	m_Texture = ResourceManager::GetInstance().GetTexture(texturePath);
+	m_Texture = ResourceManager::GetInstance().LoadTexture(texturePath);
 }

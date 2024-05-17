@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "BaseComponent.h"
+#include "ResourceManager.h"
 #include "Texture2D.h"
 #include "Transform.h"
 
@@ -19,8 +20,8 @@ namespace minigin
 			right
 		};
 
-		void Update() override;
-		void Render() const override;
+
+		void Render(const Renderer* renderer) const override;
 
 		void SetText(const std::string& text);
 
@@ -29,7 +30,6 @@ namespace minigin
 		bool m_needsUpdate;
 		std::string m_text;
 		Font* m_font;
-		std::unique_ptr<Texture2D> m_textTexture;
 		TextAlignment m_Alignment;
 	};
 }

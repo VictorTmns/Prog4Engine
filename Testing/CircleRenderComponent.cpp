@@ -10,12 +10,11 @@ CircleRenderComponent::CircleRenderComponent(minigin::GameObject* owner, float r
 {
 }
 
-void CircleRenderComponent::Render() const
+void CircleRenderComponent::Render(const minigin::Renderer* renderer) const
 {
 	const glm::vec2 pos = GetOwner()->GetWorldTransform().GetPosition();
 
-	SDL_SetRenderDrawColor(minigin::Renderer::GetInstance().GetSDLRenderer(),
-		0, 0, 255, 255);
-	minigin::Renderer::GetInstance().FillCircle(pos.x, pos.y, m_Radius, m_Color);
+	renderer->SetDrawColor(0, 0, 255, 0);
+	renderer->FillCircle(pos.x, pos.y, m_Radius, m_Color);
 
 }
