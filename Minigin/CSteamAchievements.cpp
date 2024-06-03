@@ -3,7 +3,7 @@
 #include <SDL_syswm.h>
 #include <iostream>
 
-minigin::CSteamAchievements::CSteamAchievements() :
+vic::CSteamAchievements::CSteamAchievements() :
     m_iAppID(0),
     m_pAchievements{},
     m_iNumAchievements{},
@@ -22,20 +22,20 @@ minigin::CSteamAchievements::CSteamAchievements() :
     m_iAppID = SteamUtils()->GetAppID();
 }
 
-minigin::CSteamAchievements::~CSteamAchievements()
+vic::CSteamAchievements::~CSteamAchievements()
 {
 
 	SteamAPI_Shutdown();
 }
 
-void minigin::CSteamAchievements::AddAchievements(Achievement* Achievements, int NumAchievements)
+void vic::CSteamAchievements::AddAchievements(Achievement* Achievements, int NumAchievements)
 {
 	m_pAchievements = Achievements;
 	m_iNumAchievements = NumAchievements;
 	RequestStats();
 }
 
-bool minigin::CSteamAchievements::RequestStats()
+bool vic::CSteamAchievements::RequestStats()
 {
 	// Is Steam loaded? If not we can't get stats.
 	if (NULL == SteamUserStats() || NULL == SteamUser())
@@ -51,7 +51,7 @@ bool minigin::CSteamAchievements::RequestStats()
 	return SteamUserStats()->RequestCurrentStats();
 }
 
-bool minigin::CSteamAchievements::SetAchievement(const char* ID)
+bool vic::CSteamAchievements::SetAchievement(const char* ID)
 {
 	// Have we received a call back from Steam yet?
 	if (m_bInitialized)
@@ -65,7 +65,7 @@ bool minigin::CSteamAchievements::SetAchievement(const char* ID)
 	return false;
 }
 
-bool minigin::CSteamAchievements::ResetAchievement(const char* ID)
+bool vic::CSteamAchievements::ResetAchievement(const char* ID)
 {
 	// Have we received a call back from Steam yet?
 	if (m_bInitialized)
@@ -84,12 +84,12 @@ bool minigin::CSteamAchievements::ResetAchievement(const char* ID)
 	return false;
 }
 
-bool minigin::CSteamAchievements::AchievementCompleted(int idx)
+bool vic::CSteamAchievements::AchievementCompleted(int idx)
 {
 	return m_pAchievements[idx].bAchieved;
 }
 
-void minigin::CSteamAchievements::OnUserStatsReceived(UserStatsReceived_t* pCallback)
+void vic::CSteamAchievements::OnUserStatsReceived(UserStatsReceived_t* pCallback)
 {
 	// we may get callbacks for other games' stats arriving, ignore them
 	if (m_iAppID == static_cast<int64>(pCallback->m_nGameID))
@@ -122,7 +122,7 @@ void minigin::CSteamAchievements::OnUserStatsReceived(UserStatsReceived_t* pCall
 	}
 }
 
-void minigin::CSteamAchievements::OnUserStatsStored(UserStatsStored_t* pCallback)
+void vic::CSteamAchievements::OnUserStatsStored(UserStatsStored_t* pCallback)
 {
 	// we may get callbacks for other games' stats arriving, ignore them
 	if (m_iAppID == static_cast<int64>(pCallback->m_nGameID))
@@ -140,7 +140,7 @@ void minigin::CSteamAchievements::OnUserStatsStored(UserStatsStored_t* pCallback
 	}
 }
 
-void minigin::CSteamAchievements::OnAchievementStored(UserAchievementStored_t* pCallback)
+void vic::CSteamAchievements::OnAchievementStored(UserAchievementStored_t* pCallback)
 {
 	// we may get callbacks for other games' stats arriving, ignore them
 	if (m_iAppID == static_cast<int64>(pCallback->m_nGameID))

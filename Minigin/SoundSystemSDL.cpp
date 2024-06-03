@@ -9,7 +9,7 @@
 
 #include <unordered_map>
 
-namespace minigin
+namespace vic
 {
 	// PIPMP IMPL
 	class SoundSystemSDL::SDLImpl final : public ISoundSystem

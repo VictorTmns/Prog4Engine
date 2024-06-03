@@ -2,7 +2,7 @@
 #include "BaseComponent.h"
 
 
-minigin::Observer::~Observer()
+vic::Observer::~Observer()
 {
 	for (BaseComponent* subject : m_Subjects)
 	{
@@ -10,7 +10,7 @@ minigin::Observer::~Observer()
 	}
 }
 
-void minigin::Observer::AddSubject(BaseComponent* subject)
+void vic::Observer::AddSubject(BaseComponent* subject)
 {
 	m_Subjects.emplace_back(subject);
 }

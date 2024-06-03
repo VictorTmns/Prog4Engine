@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-namespace minigin
+namespace vic
 {
 
 	enum class InputType

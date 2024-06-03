@@ -6,7 +6,7 @@
 #include "Commands.h"
 #include "Observer.h"
 
-namespace minigin
+namespace vic
 {
 	class Renderer;
 	class GameObject;

@@ -4,7 +4,7 @@
 #include <memory>
 #include "Scene.h"
 
-namespace minigin
+namespace vic
 {
 
 	

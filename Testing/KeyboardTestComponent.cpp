@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "GameTime.h"
 
-KeyboardTestComponent::KeyboardTestComponent(minigin::GameObject* owner)
+KeyboardTestComponent::KeyboardTestComponent(vic::GameObject* owner)
 	: BaseComponent{owner}
 	, m_Speed{80.f}
 {

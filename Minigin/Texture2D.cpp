@@ -7,24 +7,24 @@
 
 #include "Renderer.h"
 
-minigin::Texture2D::~Texture2D()
+vic::Texture2D::~Texture2D()
 {
 	SDL_DestroyTexture(m_texture);
 }
 
-glm::ivec2 minigin::Texture2D::GetSize() const
+glm::ivec2 vic::Texture2D::GetSize() const
 {
 	SDL_Rect dst{};
 	SDL_QueryTexture(GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
 	return { dst.w,dst.h };
 }
 
-SDL_Texture* minigin::Texture2D::GetSDLTexture() const
+SDL_Texture* vic::Texture2D::GetSDLTexture() const
 {
 	return m_texture;
 }
 
-minigin::Texture2D::Texture2D(const std::string& fullPath, SDL_Renderer* sdlRenderer)
+vic::Texture2D::Texture2D(const std::string& fullPath, SDL_Renderer* sdlRenderer)
 {
 	m_texture = IMG_LoadTexture(sdlRenderer, fullPath.c_str());
 	if (m_texture == nullptr)
@@ -34,7 +34,7 @@ minigin::Texture2D::Texture2D(const std::string& fullPath, SDL_Renderer* sdlRend
 }
 
 
-void minigin::Texture2D::Draw(const Renderer* renderer, float x, float y) const
+void vic::Texture2D::Draw(const Renderer* renderer, float x, float y) const
 {
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);
@@ -43,7 +43,7 @@ void minigin::Texture2D::Draw(const Renderer* renderer, float x, float y) const
 	SDL_RenderCopy(renderer->GetSDLRenderer(), m_texture, nullptr, &dst);
 }
 
-void minigin::Texture2D::Draw(const Renderer* renderer, float x, float y, float width, float height) const
+void vic::Texture2D::Draw(const Renderer* renderer, float x, float y, float width, float height) const
 {
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);

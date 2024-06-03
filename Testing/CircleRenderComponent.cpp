@@ -3,14 +3,14 @@
 #include "GameObject.h"
 #include "Renderer.h"
 
-CircleRenderComponent::CircleRenderComponent(minigin::GameObject* owner, float radius, SDL_Color color)
+CircleRenderComponent::CircleRenderComponent(vic::GameObject* owner, float radius, SDL_Color color)
 	: BaseComponent{owner}
 	, m_Radius{radius}
 	, m_Color{ color }
 {
 }
 
-void CircleRenderComponent::Render(const minigin::Renderer* renderer) const
+void CircleRenderComponent::Render(const vic::Renderer* renderer) const
 {
 	const glm::vec2 pos = GetOwner()->GetWorldTransform().GetPosition();
 

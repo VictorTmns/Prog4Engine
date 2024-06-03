@@ -4,7 +4,7 @@
 #include "InputTypes.h"
 
 
-namespace minigin
+namespace vic
 {
 	class BaseCommand;
 

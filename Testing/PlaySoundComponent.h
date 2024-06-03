@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "BaseComponent.h"
 
-class PlaySoundComponent : public minigin::BaseComponent
+class PlaySoundComponent : public vic::BaseComponent
 {
 public:
-	PlaySoundComponent(minigin::GameObject* owner);
+	PlaySoundComponent(vic::GameObject* owner);
 	void PlaySound();
 
 private:

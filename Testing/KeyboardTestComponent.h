@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "BaseComponent.h"
 
-class KeyboardTestComponent final : public minigin::BaseComponent
+class KeyboardTestComponent final : public vic::BaseComponent
 {
 public:
-	KeyboardTestComponent(minigin::GameObject* owner);
+	KeyboardTestComponent(vic::GameObject* owner);
 
 	void Move(float x, float y);
 private:

@@ -21,7 +21,7 @@ int GetOpenGLDriverIndex()
 }
 
 
-minigin::Renderer::Renderer()
+vic::Renderer::Renderer()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
@@ -58,7 +58,7 @@ minigin::Renderer::Renderer()
 	ImGui::NewFrame();
 }
 
-minigin::Renderer::~Renderer()
+vic::Renderer::~Renderer()
 {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
@@ -71,7 +71,7 @@ minigin::Renderer::~Renderer()
 }
 
 
-void minigin::Renderer::Render() const
+void vic::Renderer::Render() const
 {
 	const auto& color = GetBackgroundColor();
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
@@ -93,7 +93,7 @@ void minigin::Renderer::Render() const
 }
 
 
-void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color) const
+void vic::Renderer::RenderCircle(float xCenter, float yCenter, float radius, SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 
@@ -136,7 +136,7 @@ void minigin::Renderer::RenderCircle(float xCenter, float yCenter, float radius,
 	}
 }
 
-void minigin::Renderer::RenderRect(float left, float top, float width, float height, SDL_Color color) const
+void vic::Renderer::RenderRect(float left, float top, float width, float height, SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 
@@ -144,7 +144,7 @@ void minigin::Renderer::RenderRect(float left, float top, float width, float hei
 	SDL_RenderDrawRect(m_renderer, &drawRect);
 }
 
-void minigin::Renderer::FillCircle(float x, float y, float radius, SDL_Color color) const
+void vic::Renderer::FillCircle(float x, float y, float radius, SDL_Color color) const
 {
 	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 	for (int w = 0; w < radius * 2; w++)
@@ -161,9 +161,9 @@ void minigin::Renderer::FillCircle(float x, float y, float radius, SDL_Color col
 	}
 }
 
-SDL_Renderer* minigin::Renderer::GetSDLRenderer() const { return m_renderer; }
+SDL_Renderer* vic::Renderer::GetSDLRenderer() const { return m_renderer; }
 
-void minigin::Renderer::SetDrawColor(int r, int g, int b, int a) const
+void vic::Renderer::SetDrawColor(int r, int g, int b, int a) const
 {
 	SDL_SetRenderDrawColor(m_renderer, static_cast<uint8_t>(r), static_cast<uint8_t>(g), static_cast<uint8_t>(b), static_cast<uint8_t>(a));
 }

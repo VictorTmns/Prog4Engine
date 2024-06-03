@@ -7,7 +7,7 @@
 #include "Texture2D.h"
 #include "Font.h"
 
-namespace minigin
+namespace vic
 {
 	class ResourceManager final : public Singleton<ResourceManager>
 	{

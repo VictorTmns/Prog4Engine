@@ -7,7 +7,7 @@
 
 #include "BaseComponent.h"
 
-namespace minigin
+namespace vic
 {
 class CSteamAchievements;
 

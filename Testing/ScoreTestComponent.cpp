@@ -1,6 +1,6 @@
 ﻿#include "ScoreTestComponent.h"
 
-ScoreTestComponent::ScoreTestComponent(minigin::GameObject* owner, ScoreComponent* scoreComponent)
+ScoreTestComponent::ScoreTestComponent(vic::GameObject* owner, ScoreComponent* scoreComponent)
 	: BaseComponent{owner}
 	, m_ScoreComponent{ scoreComponent }
 {

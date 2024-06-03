@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "Texture2D.h"
 
-minigin::TextRenderComponent::TextRenderComponent(GameObject* owner, Font* font, const std::string& text, TextAlignment alignment)
+vic::TextRenderComponent::TextRenderComponent(GameObject* owner, Font* font, const std::string& text, TextAlignment alignment)
 	: BaseComponent{owner}
 	, m_needsUpdate(true)
 	, m_text(text)
@@ -16,7 +16,7 @@ minigin::TextRenderComponent::TextRenderComponent(GameObject* owner, Font* font,
 { }
 
 
-void minigin::TextRenderComponent::Render(const Renderer* renderer) const
+void vic::TextRenderComponent::Render(const Renderer* renderer) const
 {
 	if (!m_text.empty())
 	{
@@ -27,7 +27,7 @@ void minigin::TextRenderComponent::Render(const Renderer* renderer) const
 }
 
 // This implementation uses the "dirty flag" pattern
-void minigin::TextRenderComponent::SetText(const std::string& text)
+void vic::TextRenderComponent::SetText(const std::string& text)
 {
 	m_text = text;
 	m_needsUpdate = true;

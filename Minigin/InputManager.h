@@ -5,7 +5,7 @@
 #include "Singleton.h"
 
 
-namespace minigin
+namespace vic
 {
 	class InputManager final : public Singleton<InputManager>
 	{

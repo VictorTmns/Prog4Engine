@@ -1,6 +1,6 @@
 #include "LivesComponent.h"
 
-LivesComponent::LivesComponent(minigin::GameObject* owner, int maxLives)
+LivesComponent::LivesComponent(vic::GameObject* owner, int maxLives)
 	: BaseComponent{owner}
 	, m_MaxNrOfLives{maxLives}
 	, m_NrOfRemainingLives{maxLives}
@@ -13,5 +13,5 @@ void LivesComponent::TakeDamage()
 		return;
 
 	m_NrOfRemainingLives--;
-	NotifyObservers(minigin::Observer::Event::playerHealthChanges);
+	NotifyObservers(vic::Observer::Event::playerHealthChanges);
 }

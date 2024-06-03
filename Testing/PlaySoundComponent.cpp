@@ -2,14 +2,14 @@
 
 #include "ServiceLocator.h"
 
-PlaySoundComponent::PlaySoundComponent(minigin::GameObject* owner)
+PlaySoundComponent::PlaySoundComponent(vic::GameObject* owner)
 	: BaseComponent{owner}
-	, m_SoundId{minigin::ServiceLocator::GetSoundSystem().LoadSound("../Data/Testing/testWav.wav")}
+	, m_SoundId{vic::ServiceLocator::GetSoundSystem().LoadSound("../Data/Testing/testWav.wav")}
 {
 }
 
 
 void PlaySoundComponent::PlaySound()
 {
-	minigin::ServiceLocator::GetSoundSystem().PlaySound(m_SoundId, 1);
+	vic::ServiceLocator::GetSoundSystem().PlaySound(m_SoundId, 1);
 }

@@ -8,7 +8,7 @@
 #include "GameTime.h"
 
 
-minigin::FPSComponent::FPSComponent(GameObject* owner, Font* font)
+vic::FPSComponent::FPSComponent(GameObject* owner, Font* font)
 	: BaseComponent{owner}
 	, m_delay{0}
 	, m_count{0}
@@ -17,7 +17,7 @@ minigin::FPSComponent::FPSComponent(GameObject* owner, Font* font)
 	m_TextRenderer = owner->AddComponent<TextRenderComponent>(font);
 }
 
-void minigin::FPSComponent::Update()
+void vic::FPSComponent::Update()
 {
 	m_delay += GameTime::GetInstance().GetDeltaTime();
 	m_count++;
@@ -29,7 +29,7 @@ void minigin::FPSComponent::Update()
 	}
 }
 
-std::string minigin::FPSComponent::floatToString(float value) const
+std::string vic::FPSComponent::floatToString(float value) const
 {
 	std::ostringstream stream;
 	stream << std::fixed << std::setprecision(2) << value;

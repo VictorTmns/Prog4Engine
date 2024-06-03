@@ -2,10 +2,10 @@
 #include "BaseComponent.h"
 
 
-class OrbitComponent final :public minigin::BaseComponent
+class OrbitComponent final :public vic::BaseComponent
 {
 public:
-	OrbitComponent(minigin::GameObject* ownerPtr, float orbitingSpeed);
+	OrbitComponent(vic::GameObject* ownerPtr, float orbitingSpeed);
 
 	void Update() override;
 private:

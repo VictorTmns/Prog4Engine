@@ -5,7 +5,7 @@
 #include "TextRenderComponent.h"
 #include "GameTime.h"
 
-namespace minigin
+namespace vic
 {
 	class FPSComponent : public BaseComponent
 	{

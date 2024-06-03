@@ -3,7 +3,7 @@
 #include <memory>
 #include "ISoundSystem.h"
 
-namespace minigin
+namespace vic
 {
 
 	class SoundSystemSDL final : public ISoundSystem

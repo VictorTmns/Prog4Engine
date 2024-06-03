@@ -6,7 +6,7 @@
 
 
 // ----- BASECOMMAND -----
-inline minigin::BaseCommand::~BaseCommand()
+inline vic::BaseCommand::~BaseCommand()
 {
 	InputManager::GetInstance().RemoveCommand(this);
 }
@@ -14,11 +14,11 @@ inline minigin::BaseCommand::~BaseCommand()
 
 
 // ----- BUTTONCOMMAND -----
-minigin::ButtonCommand::ButtonCommand(std::function<void()> function)
+vic::ButtonCommand::ButtonCommand(std::function<void()> function)
 	:m_Command{std::move(function)}
 {}
 
-void minigin::ButtonCommand::Execute()
+void vic::ButtonCommand::Execute()
 {
 	m_Command();
 }
@@ -27,11 +27,11 @@ void minigin::ButtonCommand::Execute()
 
 
 // ----- VECTORCOMMAND -----
-minigin::VectorCommand::VectorCommand(std::function<void( float deltaX, float deltaY)> function)
+vic::VectorCommand::VectorCommand(std::function<void( float deltaX, float deltaY)> function)
 	:m_Command{std::move(function)}
 {}
 
-void minigin::VectorCommand::Execute(float x, float y)
+void vic::VectorCommand::Execute(float x, float y)
 {
 	m_Command(x, y);
 }
@@ -40,11 +40,11 @@ void minigin::VectorCommand::Execute(float x, float y)
 
 
 // ----- SCALARCOMMAND -----
-minigin::ScalarCommand::ScalarCommand(std::function<void( float x)> function)
+vic::ScalarCommand::ScalarCommand(std::function<void( float x)> function)
 	:m_Command{std::move(function)}
 {}
 
-void minigin::ScalarCommand::Execute(float x)
+void vic::ScalarCommand::Execute(float x)
 {
 	m_Command(x);
 }

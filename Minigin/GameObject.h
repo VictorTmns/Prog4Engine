@@ -7,7 +7,7 @@
 #include "Observer.h"
 #include "Renderer.h"
 
-namespace minigin
+namespace vic
 {
 	class Scene;
 

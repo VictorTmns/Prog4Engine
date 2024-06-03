@@ -5,7 +5,7 @@
 #include "ResourceManager.h"
 #include "GameTime.h"
 
-OrbitComponent::OrbitComponent(minigin::GameObject* ownerPtr, float orbitingSpeed)
+OrbitComponent::OrbitComponent(vic::GameObject* ownerPtr, float orbitingSpeed)
 	: BaseComponent{ownerPtr}
 	, m_OrbitingSpeed{ orbitingSpeed }
 {

@@ -48,7 +48,7 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-minigin::Minigin::Minigin(const std::string &resourceDataPath)
+vic::Minigin::Minigin(const std::string &resourceDataPath)
 {
 	try
 	{
@@ -61,7 +61,7 @@ minigin::Minigin::Minigin(const std::string &resourceDataPath)
 	}
 }
 
-minigin::Minigin::~Minigin()
+vic::Minigin::~Minigin()
 {
 	
 	SDL_DestroyWindow(g_window);
@@ -69,7 +69,7 @@ minigin::Minigin::~Minigin()
 	SDL_Quit();
 }
 
-void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
+void vic::Minigin::Run(const std::function<void(Minigin*)>& load)
 {
 	// make sure that Input gets initialized before the scene, otherwise this will mess with the cleanup of commands
 	auto& input = InputManager::GetInstance();
@@ -101,7 +101,7 @@ void minigin::Minigin::Run(const std::function<void(Minigin*)>& load)
 }
 
 
-void minigin::Minigin::Init(const std::string& resourceDataPath)
+void vic::Minigin::Init(const std::string& resourceDataPath)
 {
 
 	PrintSDLVersion();

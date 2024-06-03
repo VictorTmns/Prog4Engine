@@ -5,7 +5,7 @@
 #include "BaseComponent.h"
 #include "Singleton.h"
 
-class GameTime : public minigin::Singleton<GameTime>
+class GameTime : public vic::Singleton<GameTime>
 {
 public:
 	void Init(double fixedTimeStep, int frameCap)

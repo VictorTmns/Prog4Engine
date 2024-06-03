@@ -5,7 +5,7 @@
 #include <queue>
 #include <shared_mutex>
 
-namespace minigin
+namespace vic
 {
 
 
@@ -41,7 +41,7 @@ private:
 
 //IMPLEMENTATION
 
-namespace minigin
+namespace vic
 {
 
 	template<typename Task>

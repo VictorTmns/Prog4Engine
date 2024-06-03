@@ -2,7 +2,7 @@
 #include <glm/vec2.hpp>
 #include <glm/ext/vector_float3.hpp>
 
-namespace minigin
+namespace vic
 {
 	class Transform final
 	{
@@ -25,7 +25,7 @@ namespace minigin
 
 		Transform operator+(const Transform& other) const;
 		Transform operator-(const Transform& other) const;
-		minigin::Transform Multiply(const Transform& other, bool inheritRotation = true) const;
+		vic::Transform Multiply(const Transform& other, bool inheritRotation = true) const;
 
 	private:
 		glm::vec2 m_Translation{};

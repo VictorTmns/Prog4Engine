@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include <glm/vec2.hpp>
 
-namespace minigin
+namespace vic
 {
 	class Renderer final
 	{

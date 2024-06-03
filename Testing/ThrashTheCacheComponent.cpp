@@ -8,7 +8,7 @@
 #include "../3rdParty/imgui-1.90.4/imgui_plot.h"
 
 
-ThrashTheCacheComponent::ThrashTheCacheComponent(minigin::GameObject* parentPtr) :
+ThrashTheCacheComponent::ThrashTheCacheComponent(vic::GameObject* parentPtr) :
 	BaseComponent{parentPtr}
 {
 }

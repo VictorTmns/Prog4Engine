@@ -3,4 +3,4 @@
 #include "SoundNull.h"
 
 
-std::unique_ptr<ISoundSystem> minigin::ServiceLocator::m_SoundSystemInstance{ std::make_unique<SoundNull>() };
+std::unique_ptr<ISoundSystem> vic::ServiceLocator::m_SoundSystemInstance{ std::make_unique<SoundNull>() };

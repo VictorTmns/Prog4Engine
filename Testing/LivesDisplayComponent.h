@@ -4,7 +4,7 @@
 #include "Observer.h"
 #include "ResourceManager.h"
 
-namespace minigin
+namespace vic
 {
 	class TextRenderComponent;
 
@@ -13,7 +13,7 @@ namespace minigin
 	public:
 		LivesDisplayComponent(GameObject* owner, Font* font);
 
-		void Notify(Event event, const minigin::BaseComponent* actorComponent) override;
+		void Notify(Event event, const vic::BaseComponent* actorComponent) override;
 
 	private:
 		TextRenderComponent* m_TextRenderer;

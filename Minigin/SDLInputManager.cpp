@@ -6,7 +6,7 @@
 #include "InputManager.h"
 
 
-bool minigin::SDLInputManager::ProcessInput()
+bool vic::SDLInputManager::ProcessInput()
 {
 	const Uint8* keys = SDL_GetKeyboardState(nullptr);
 	const Uint32 mouseButtons = SDL_GetMouseState(nullptr, nullptr);
@@ -65,28 +65,28 @@ bool minigin::SDLInputManager::ProcessInput()
 	return true;
 }
 
-void minigin::SDLInputManager::AddKeyBoardCommand(SDL_KeyCode keyCode, ClickType clickType, ButtonCommand* commandPtr)
+void vic::SDLInputManager::AddKeyBoardCommand(SDL_KeyCode keyCode, ClickType clickType, ButtonCommand* commandPtr)
 {
 	m_Commands.insert(std::pair<CommandType, BaseCommand*>{
 		CommandType{  InputType::keyboard, clickType, keyCode },
 			commandPtr
 	});
 }
-void minigin::SDLInputManager::AddMouseButtonCommand(MouseButton mouseButton, ClickType clickType, ButtonCommand* commandPtr)
+void vic::SDLInputManager::AddMouseButtonCommand(MouseButton mouseButton, ClickType clickType, ButtonCommand* commandPtr)
 {
 	m_Commands.insert(std::pair<CommandType, BaseCommand*>{
 		CommandType{ InputType::mouseButton, clickType, static_cast<int>( mouseButton) },
 			commandPtr
 	});
 }
-void minigin::SDLInputManager::AddMouseMovementCommand(VectorCommand* commandPtr)
+void vic::SDLInputManager::AddMouseMovementCommand(VectorCommand* commandPtr)
 {
 	m_Commands.insert(std::pair<CommandType, BaseCommand*>{
 		CommandType{ InputType::mouseMovement, {}, {} },
 			commandPtr
 	});
 }
-void minigin::SDLInputManager::AddMouseWheelCommand(ScalarCommand* commandPtr)
+void vic::SDLInputManager::AddMouseWheelCommand(ScalarCommand* commandPtr)
 {
 	m_Commands.insert(std::pair<CommandType, BaseCommand*>{
 		CommandType{ InputType::mouseWheel, {}, {} },
@@ -94,7 +94,7 @@ void minigin::SDLInputManager::AddMouseWheelCommand(ScalarCommand* commandPtr)
 	});
 }
 
-void minigin::SDLInputManager::RemoveCommand(BaseCommand* commandPtr)
+void vic::SDLInputManager::RemoveCommand(BaseCommand* commandPtr)
 {
 	for (auto it = m_Commands.begin(); it != m_Commands.end(); ) {
 		if (it->second == commandPtr) {
@@ -106,7 +106,7 @@ void minigin::SDLInputManager::RemoveCommand(BaseCommand* commandPtr)
 	}
 }
 
-void minigin::SDLInputManager::HandleKeyButtonEvent(SDL_Event& e)
+void vic::SDLInputManager::HandleKeyButtonEvent(SDL_Event& e)
 {
 	CommandType searchCriterea{};
 
@@ -142,7 +142,7 @@ void minigin::SDLInputManager::HandleKeyButtonEvent(SDL_Event& e)
 	}
 }
 
-void minigin::SDLInputManager::CallAllMouseMovementCommands(float x, float y) {
+void vic::SDLInputManager::CallAllMouseMovementCommands(float x, float y) {
 	static CommandType searchCriterea{InputType::mouseMovement};
 	auto range = m_Commands.equal_range(searchCriterea);
 
@@ -153,7 +153,7 @@ void minigin::SDLInputManager::CallAllMouseMovementCommands(float x, float y) {
 		vectorCommand->Execute(-x, y);
 	}
 }
-void minigin::SDLInputManager::CallAllMouseWheelCommands(float x) {
+void vic::SDLInputManager::CallAllMouseWheelCommands(float x) {
 	static CommandType searchCriterea{ InputType::mouseWheel };
 	auto range = m_Commands.equal_range(searchCriterea);
 

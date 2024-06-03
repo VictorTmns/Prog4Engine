@@ -2,10 +2,10 @@
 #include "BaseComponent.h"
 
 
-class ScoreComponent : public minigin::BaseComponent
+class ScoreComponent : public vic::BaseComponent
 {
 public:
-	ScoreComponent(minigin::GameObject* owner);
+	ScoreComponent(vic::GameObject* owner);
 
 	void ChangeScore(int scoreChange);
 	int GetScore() const { return m_Score; }

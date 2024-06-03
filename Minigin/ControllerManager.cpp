@@ -12,7 +12,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-namespace minigin
+namespace vic
 {
 	//========================================================
 	//================= IMPLEMENTATION =======================

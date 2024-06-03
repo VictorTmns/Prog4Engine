@@ -5,10 +5,10 @@
 
 
 
-class ThrashTheCacheComponent final : public minigin::BaseComponent
+class ThrashTheCacheComponent final : public vic::BaseComponent
 {
 public:
-	ThrashTheCacheComponent(minigin::GameObject* parentPtr);
+	ThrashTheCacheComponent(vic::GameObject* parentPtr);
 	void Update() override;
 private:
 	void Calculate3DGameobjectData();

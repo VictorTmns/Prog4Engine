@@ -4,7 +4,7 @@
 #include "steam_api.h"
 #pragma warning (pop)
 
-namespace minigin
+namespace vic
 {
 struct Achievement;
 

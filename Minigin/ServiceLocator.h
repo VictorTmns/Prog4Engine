@@ -3,7 +3,7 @@
 
 #include "ISoundSystem.h"
 
-namespace minigin
+namespace vic
 {
 	class ServiceLocator final
 	{

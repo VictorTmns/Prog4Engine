@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <vector>
 
-namespace minigin
+namespace vic
 {
 	class BaseComponent;
 

@@ -4,7 +4,7 @@
 #include <memory>
 #include "Singleton.h"
 
-namespace minigin
+namespace vic
 {
 	class Renderer;
 	class Scene;

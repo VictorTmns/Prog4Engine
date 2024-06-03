@@ -4,7 +4,7 @@
 
 #include "AchievementManager.h"
 
-namespace minigin
+namespace vic
 {
 	class Minigin final
 	{

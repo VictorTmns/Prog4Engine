@@ -7,7 +7,7 @@
 #include "Texture2D.h"
 #include "Transform.h"
 
-namespace minigin
+namespace vic
 {
 	class TextureRenderComponent : public BaseComponent
 	{

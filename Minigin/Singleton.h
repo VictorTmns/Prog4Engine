@@ -1,5 +1,5 @@
 #pragma once
-namespace minigin
+namespace vic
 {
 	template <typename T>
 	class Singleton

@@ -2,10 +2,10 @@
 #include "BaseComponent.h"
 
 
-class LivesComponent final : public minigin::BaseComponent
+class LivesComponent final : public vic::BaseComponent
 {
 public:
-	LivesComponent(minigin::GameObject* owner, int maxLives);
+	LivesComponent(vic::GameObject* owner, int maxLives);
 
 	int GetNrOfLives() const { return m_NrOfRemainingLives; }
 

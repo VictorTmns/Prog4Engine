@@ -4,11 +4,11 @@
 void ScoreComponent::ChangeScore(int scoreChange)
 {
 	m_Score += scoreChange;
-	NotifyObservers(minigin::Observer::Event::scoreChange);
+	NotifyObservers(vic::Observer::Event::scoreChange);
 }
 
 
-ScoreComponent::ScoreComponent(minigin::GameObject* owner)
+ScoreComponent::ScoreComponent(vic::GameObject* owner)
 	: BaseComponent{owner}
 	, m_Score{0}
 {

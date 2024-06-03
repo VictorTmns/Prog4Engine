@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "GameObject.h"
 
-namespace minigin
+namespace vic
 {
 	class Scene final
 	{

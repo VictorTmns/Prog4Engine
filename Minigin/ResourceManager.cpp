@@ -5,7 +5,7 @@
 #include "Renderer.h"
 
 
-void minigin::ResourceManager::Init(const std::string& dataPath, Renderer* renderer)
+void vic::ResourceManager::Init(const std::string& dataPath, Renderer* renderer)
 {
 	m_dataPath = dataPath;
 	m_RendererPtr = renderer;
@@ -17,7 +17,7 @@ void minigin::ResourceManager::Init(const std::string& dataPath, Renderer* rende
 
 }
 
-minigin::Texture2D* minigin::ResourceManager::LoadTexture(const std::string& file)
+vic::Texture2D* vic::ResourceManager::LoadTexture(const std::string& file)
 {
 	auto textureIt = m_LoadedTextures.find(file);
 
@@ -30,7 +30,7 @@ minigin::Texture2D* minigin::ResourceManager::LoadTexture(const std::string& fil
 }
 
 
-minigin::Font* minigin::ResourceManager::LoadFont(const std::string& file, unsigned int size)
+vic::Font* vic::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
 	const std::string key{ file + std::to_string(size) };
 	auto fondIt = m_LoadedFonts.find(key);

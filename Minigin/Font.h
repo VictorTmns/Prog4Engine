@@ -5,7 +5,7 @@
 #include "Renderer.h"
 
 struct FC_Font;
-namespace minigin
+namespace vic
 {
 	class Font final
 	{

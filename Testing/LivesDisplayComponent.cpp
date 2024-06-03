@@ -6,7 +6,7 @@
 #include "TextRenderComponent.h"
 
 
-namespace minigin
+namespace vic
 {
 	LivesDisplayComponent::LivesDisplayComponent(GameObject* owner, Font* font)
 	: BaseComponent{owner}
@@ -15,7 +15,7 @@ namespace minigin
 	{
 	}
 
-	void LivesDisplayComponent::Notify(Event event, const minigin::BaseComponent* actorComponent)
+	void LivesDisplayComponent::Notify(Event event, const vic::BaseComponent* actorComponent)
 	{
 		if(event != Event::playerHealthChanges && event != Event::subjectAttached)
 			return;

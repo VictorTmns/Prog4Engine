@@ -2,10 +2,10 @@
 #include "Scene.h"
 
 
-minigin::SceneManager::~SceneManager() = default;
-minigin::SceneManager::SceneManager() = default;
+vic::SceneManager::~SceneManager() = default;
+vic::SceneManager::SceneManager() = default;
 
-void minigin::SceneManager::Update()
+void vic::SceneManager::Update()
 {
 	for(auto& scene : m_scenes)
 	{
@@ -13,7 +13,7 @@ void minigin::SceneManager::Update()
 	}
 }
 
-void minigin::SceneManager::Render(const minigin::Renderer* renderer)
+void vic::SceneManager::Render(const vic::Renderer* renderer)
 {
 	for (const auto& scene : m_scenes)
 	{
@@ -21,7 +21,7 @@ void minigin::SceneManager::Render(const minigin::Renderer* renderer)
 	}
 }
 
-void minigin::SceneManager::FixedUpdate()
+void vic::SceneManager::FixedUpdate()
 {
 	for (auto& scene : m_scenes)
 	{
@@ -31,7 +31,7 @@ void minigin::SceneManager::FixedUpdate()
 
 
 
-minigin::Scene* minigin::SceneManager::CreateScene(const std::string& name)
+vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 {
 	auto scene = std::unique_ptr<Scene>(new Scene(name));
 	m_scenes.push_back(std::move(scene));

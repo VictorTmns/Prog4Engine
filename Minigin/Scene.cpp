@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-using namespace minigin;
+using namespace vic;
 
 unsigned int Scene::m_idCounter = 0;
 

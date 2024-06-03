@@ -7,7 +7,7 @@
 #include "Commands.h"
 #include "InputTypes.h"
 
-namespace minigin
+namespace vic
 {
 	
 

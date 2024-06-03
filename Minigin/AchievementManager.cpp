@@ -5,29 +5,29 @@
 
 
 
-minigin::AchievementManager::AchievementManager()
+vic::AchievementManager::AchievementManager()
 	: m_SteamApi{ std::make_unique<CSteamAchievements>() }
 {
 }
 
 
-void minigin::AchievementManager::AddAchievements(std::vector<Achievement>&& achievements)
+void vic::AchievementManager::AddAchievements(std::vector<Achievement>&& achievements)
 {
 	m_Achievements = std::move(achievements);
 	m_SteamApi->AddAchievements(m_Achievements.data(), static_cast<int>(m_Achievements.size()));
 }
 
-void minigin::AchievementManager::Update()
+void vic::AchievementManager::Update()
 {
 	SteamAPI_RunCallbacks();
 }
 
-minigin::AchievementManager::~AchievementManager()
+vic::AchievementManager::~AchievementManager()
 {
 
 }
 
-void minigin::AchievementManager::Notify(Event event, const minigin::BaseComponent* subject)
+void vic::AchievementManager::Notify(Event event, const vic::BaseComponent* subject)
 {
 	for (const auto& achievement : m_Achievements)
 	{

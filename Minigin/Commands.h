@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <functional>
 
-namespace minigin
+namespace vic
 {
 
     class BaseCommand

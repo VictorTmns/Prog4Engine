@@ -4,33 +4,33 @@
 #include <SDL_stdinc.h>
 #include <glm/gtx/rotate_vector.hpp>
 
-void minigin::Transform::SetPosition(const float x, const float y)
+void vic::Transform::SetPosition(const float x, const float y)
 {
 	m_Translation.x = x;
 	m_Translation.y = y;
 }
 
-void minigin::Transform::AddPosition(const float x, const float y)
+void vic::Transform::AddPosition(const float x, const float y)
 {
 	m_Translation.x += x;
 	m_Translation.y += y;
 }
 
-void minigin::Transform::SetRotation(const double rotation)
+void vic::Transform::SetRotation(const double rotation)
 {
 	m_Rotation = fmod(rotation, 360.0);
 	if (m_Rotation < 0.0)
 		m_Rotation += 360.0;
 }
 
-void minigin::Transform::AddRotation(const double rotation)
+void vic::Transform::AddRotation(const double rotation)
 {
 	m_Rotation = fmod(m_Rotation + rotation, 360.0);
 	if (m_Rotation < 0.0)
 		m_Rotation += 360.0;
 }
 
-minigin::Transform minigin::Transform::operator+(const Transform& other) const
+vic::Transform vic::Transform::operator+(const Transform& other) const
 {
 	Transform result;
 
@@ -41,7 +41,7 @@ minigin::Transform minigin::Transform::operator+(const Transform& other) const
 }
 
 
-minigin::Transform minigin::Transform::operator-(const Transform& other) const
+vic::Transform vic::Transform::operator-(const Transform& other) const
 {
 	Transform result;
 
@@ -53,7 +53,7 @@ minigin::Transform minigin::Transform::operator-(const Transform& other) const
 
 
 
-minigin::Transform minigin::Transform::Multiply(const Transform& other, bool inheritRotation) const
+vic::Transform vic::Transform::Multiply(const Transform& other, bool inheritRotation) const
 {
 	Transform result{};
 
