@@ -21,7 +21,7 @@ namespace vic
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
-
+		std::string_view GetName() const { return std::string_view(m_name); }
 	private: 
 		explicit Scene(const std::string& name);
 

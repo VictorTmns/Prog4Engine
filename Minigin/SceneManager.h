@@ -13,6 +13,7 @@ namespace vic
 	{
 	public:
 		Scene* CreateScene(const std::string& name);
+		Scene* GetScene(const std::string& name);
 
 		void Update();
 		void Render(const Renderer* renderer);

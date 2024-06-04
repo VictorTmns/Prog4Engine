@@ -1,4 +1,7 @@
 #include "SceneManager.h"
+
+#include <iostream>
+
 #include "Scene.h"
 
 
@@ -36,4 +39,20 @@ vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 	auto scene = std::unique_ptr<Scene>(new Scene(name));
 	m_scenes.push_back(std::move(scene));
 	return m_scenes.back().get();
+}
+
+vic::Scene* vic::SceneManager::GetScene(const std::string& name)
+{
+	auto sceneSearchCrit = [name](const std::unique_ptr<Scene>& scenePtr) -> bool {
+		return (scenePtr->GetName() == name);
+		};
+
+	auto sceneIt = std::find_if(m_scenes.begin(), m_scenes.end(), sceneSearchCrit);
+
+	if (sceneIt != m_scenes.end())
+		return sceneIt->get();
+
+
+	throw std::runtime_error("error scene '" + name + "' not found");
+	return nullptr;
 }
