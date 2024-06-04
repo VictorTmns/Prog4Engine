@@ -15,17 +15,30 @@
 #include "Scene.h"
 #include "ResourceManager.h"
 
-void load(minigin::Minigin*)
+void BuildPlayer(vic::Minigin* engine);
+
+void load(vic::Minigin* engine)
 {
+
+	vic::SceneManager::GetInstance().CreateScene("world");
+	BuildPlayer(engine);
 }
 
 
 int main(int, char* []) {
 
 
-	minigin::Minigin engine("../Data/Testing/");
+	vic::Minigin engine("../Data/Testing/");
 	engine.Run(load);
 
 
+
 	return 0;
+}
+
+void BuildPlayer([[maybe_unused]] vic::Minigin* engine)
+{
+	vic::Scene* scene = vic::SceneManager::GetInstance().GetScene("world");
+
+	[[maybe_unused]] vic::GameObject& player{ scene->CreateGameObject() };
 }
