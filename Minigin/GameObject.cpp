@@ -7,6 +7,11 @@
 namespace vic
 {
 
+	GameObject::GameObject()
+		:m_Transform{ std::make_unique<Transform>(this)}
+	{
+	}
+
 	
 	GameObject::~GameObject()
 	{
@@ -43,48 +48,7 @@ namespace vic
 	}
 
 	// ---- TRANSFORM ----
-	//TODO add this to the transform
-	void GameObject::SetLocalTransform(const Transform& newTransform)
-	{
-		m_LocalTransform = newTransform;
-		SetTransformDirty();
-	}
-	void GameObject::SetLocalTranslate(float x, float y)
-	{
-		m_LocalTransform.SetPosition(x, y);
-		SetTransformDirty();
-	}
-	void GameObject::SetLocalRotation(double rot)
-	{
-		m_LocalTransform.SetRotation(rot);
-		SetTransformDirty();
-	}
-	void GameObject::AddLocalTranslate(float x, float y)
-	{
-		m_LocalTransform.AddPosition(x, y);
-		SetTransformDirty();
-	}
-	void GameObject::AddLocalRotation(double rot)
-	{
-		m_LocalTransform.AddRotation(rot);
-		SetTransformDirty();
-	}
 
-	Transform& GameObject::GetLocalTransform()
-	{
-		return m_LocalTransform;
-	}
-	
-	Transform GameObject::GetWorldTransform()
-	{
-		if (m_WorldTransformDirty)
-		{
-			m_WorldTransform = CalculateWorldTransform();
-			m_WorldTransformDirty = false;
-		}
-	
-		return m_WorldTransform;
-	}
 	
 	// ---- GAME OBJECT / SCENE GRAPH----
 	
@@ -110,22 +74,14 @@ namespace vic
 
 
 		// 5 Update Transforms
-		if (keepWorldPosition)
-			SetLocalTransform(GetWorldTransform() - newParentPtr->GetWorldTransform());
-		else
-			SetTransformDirty();
+		m_Transform->SetNewParent(newParentPtr, keepWorldPosition);
 
 
 
 		return true;
 	}
 	
-	Transform GameObject::CalculateWorldTransform() const
-	{
-		if (m_ParentPtr == nullptr) 
-			return m_LocalTransform;
-		return m_LocalTransform.Multiply(m_ParentPtr->CalculateWorldTransform());
-	}
+
 	
 	void GameObject::AddChild(GameObject* newChildPtr)
 	{
@@ -161,15 +117,9 @@ namespace vic
 
 
 
+
 	// ---- COMPONENTS ----
 
 	
-	void GameObject::SetTransformDirty()
-	{
-		m_WorldTransformDirty = true;
-		for (auto& childPtr : m_ChildPtrs)
-		{
-			childPtr->SetTransformDirty();
-		}
-	}
+
 }

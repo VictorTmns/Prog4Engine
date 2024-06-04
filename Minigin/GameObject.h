@@ -17,15 +17,10 @@ namespace vic
 		void Update();
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;
-		void SetLocalTransform(const Transform& newTransform);
 
+		
+		Transform& GetTransform() const { return *m_Transform; }
 
-		void SetLocalTranslate(float x, float y);
-		void SetLocalRotation(double rot);
-		void AddLocalTranslate(float x, float y);
-		void AddLocalRotation(double rot);
-		Transform& GetLocalTransform();
-		Transform GetWorldTransform();
 
 		//Components
 
@@ -49,7 +44,7 @@ namespace vic
 
 		//Constructors and destructors
 
-		GameObject() = default;
+		GameObject();
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -57,23 +52,16 @@ namespace vic
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
-		bool m_WorldTransformDirty{true};
-		Transform m_WorldTransform{};
-		Transform m_LocalTransform{};
+		std::unique_ptr<Transform> m_Transform;
 
 		std::vector<std::unique_ptr<BaseComponent>> m_ComponentPtrs;
 
 		GameObject* m_ParentPtr = nullptr;
 		std::vector<GameObject*> m_ChildPtrs {};
 
-		Transform CalculateWorldTransform() const;
-
 
 		void AddChild(GameObject* childPtr);
 		void RemoveChild(GameObject* childToRemovePtr);
-
-
-		void SetTransformDirty();
 	};
 
 	template<typename T, typename... Args>

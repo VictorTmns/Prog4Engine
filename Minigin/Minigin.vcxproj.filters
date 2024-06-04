@@ -103,9 +103,6 @@
     <ClInclude Include="Scene.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
@@ -154,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Texture2D.h">
       <Filter>Resources\ResourceContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +208,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Input</Filter>
     </ClCompile>
@@ -247,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
       <Filter>Resources\ResourceContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

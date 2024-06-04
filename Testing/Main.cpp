@@ -51,18 +51,18 @@ void load(vic::Minigin* engine)
 	// FPS GAME OBJECT
 	vic::GameObject& go = scene->CreateGameObject();
 	go.AddComponent<vic::FPSComponent>(font);
-	go.SetLocalTranslate(20.f, 430.f);
+	go.GetTransform().SetLocalPosition(20.f, 430.f);
 
 	// DAE LOGO
 	vic::GameObject& go2 = scene->CreateGameObject();
 	auto texture = go2.AddComponent<vic::TextureRenderComponent>();
 	texture->SetTexture("logo.tga");
-	go2.SetLocalTranslate(216, 180);
+	go2.GetTransform().SetLocalPosition(216, 180);
 
 	// TEXT
 	vic::GameObject& go3 = scene->CreateGameObject();
 	go3.AddComponent<vic::TextRenderComponent>(font, "Programming 4 Assignment");
-	go3.SetLocalTranslate(80, 20);
+	go3.GetTransform().SetLocalPosition(80, 20);
 
 
 	MakePlayer1(scene, engine, font, smallFont);
@@ -78,7 +78,7 @@ void MakePlayer1(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 
 	//PLAYER CHARACTER
 	vic::GameObject& go{ scene->CreateGameObject() };
-	go.SetLocalTranslate(100, 230);
+	go.GetTransform().SetLocalPosition(100, 230);
 
 	go.AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
 
@@ -137,7 +137,7 @@ void MakePlayer1(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 
 
 	vic::GameObject& go2 = scene->CreateGameObject();
-	go2.SetLocalTranslate(0, 200);
+	go2.GetTransform().SetLocalPosition(0, 200);
 
 
 	// LIVES DISPLAY 1
@@ -150,7 +150,7 @@ void MakePlayer1(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 	// SCORE DISPLAY 1
 	vic::GameObject& go4 = scene->CreateGameObject();
 	go4.SetParent(&go2, false);
-	go4.SetLocalTranslate(0, 15);
+	go4.GetTransform().SetLocalPosition(0, 15);
 	ScoreDisplayComponent* scoreDisplay = go4.AddComponent<ScoreDisplayComponent>(smallFont);
 	scoreComponent->AttachObserver(scoreDisplay);
 
@@ -165,7 +165,7 @@ void MakePlayer2(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 
 	// PLAYER CHARACTER 2
 	vic::GameObject& go{ scene->CreateGameObject() };
-	go.SetLocalTranslate(80, 300);
+	go.GetTransform().SetLocalPosition(80, 300);
 
 	go.AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
 
@@ -200,7 +200,7 @@ void MakePlayer2(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 
 
 	vic::GameObject& go2{ scene->CreateGameObject() };
-	go2.SetLocalTranslate(0, 240);
+	go2.GetTransform().SetLocalPosition(0, 240);
 
 
 	// LIVES DISPLAY 2
@@ -213,7 +213,7 @@ void MakePlayer2(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 	// SCORE DISPLAY 2
 	vic::GameObject& go4{ scene->CreateGameObject() };
 	go4.SetParent(&go2, false);
-	go4.SetLocalTranslate(0, 15);
+	go4.GetTransform().SetLocalPosition(0, 15);
 	ScoreDisplayComponent* scoreDisplay = go4.AddComponent<ScoreDisplayComponent>(smallFont);
 	scoreComponent->AttachObserver(scoreDisplay);
 
@@ -222,7 +222,7 @@ void MakePlayer2(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 void MakeManuel(vic::Scene* scene, [[maybe_unused]] vic::Minigin* engine, [[maybe_unused]] vic::Font* font, vic::Font* smallFont)
 {
 	vic::GameObject& go{ scene->CreateGameObject() };
-	go.SetLocalTranslate(300, 80);
+	go.GetTransform().SetLocalPosition(300, 80);
 
 	vic::GameObject& go2{ scene->CreateGameObject() };
 	go2.AddComponent<vic::TextRenderComponent>(
@@ -231,7 +231,7 @@ void MakeManuel(vic::Scene* scene, [[maybe_unused]] vic::Minigin* engine, [[mayb
 	go2.SetParent(&go);
 
 	vic::GameObject& go3{ scene->CreateGameObject() };
-	go3.SetLocalTranslate(10, 20);
+	go3.GetTransform().SetLocalPosition(10, 20);
 	go3.AddComponent<vic::TextRenderComponent>(
 		smallFont, "use the D-Pad to move the second player, use M to to take damage and K&L to get points",
 		vic::TextRenderComponent::TextAlignment::left);

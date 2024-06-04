@@ -12,7 +12,7 @@ CircleRenderComponent::CircleRenderComponent(vic::GameObject* owner, float radiu
 
 void CircleRenderComponent::Render(const vic::Renderer* renderer) const
 {
-	const glm::vec2 pos = GetOwner()->GetWorldTransform().GetPosition();
+	const glm::vec2 pos = GetOwner()->GetTransform().Position();
 
 	renderer->SetDrawColor(0, 0, 255, 0);
 	renderer->FillCircle(pos.x, pos.y, m_Radius, m_Color);

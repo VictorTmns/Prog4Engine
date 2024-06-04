@@ -2,33 +2,53 @@
 #include <glm/vec2.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include "BaseComponent.h"
+
 namespace vic
 {
-	class Transform final
+	class Transform final : public BaseComponent
 	{
+	private:
+		struct namePlease
+		{
+			glm::vec2 pos{};
+			double rot{};
+
+			namePlease Multiply(const namePlease& other) const;
+			namePlease operator-(const namePlease& other) const;
+		};
+
 	public:
-		Transform(glm::vec2	translation = {}, double rotation = 0.0)
-			: m_Translation{translation.x, translation.y}, m_Rotation{rotation} {}
-		Transform(float x, float y, double rotation)
-			: m_Translation{ x, y}, m_Rotation{ rotation } {}
+		Transform(GameObject* owner)
+			: BaseComponent{owner}
+			{}
 
 		//Getters
-		const glm::vec2& GetPosition() const { return m_Translation; }
-		double GetRotation() const { return m_Rotation; }
+		const glm::vec2& Position() const;
+		double Rotation() const;
+
+		const glm::vec2& LocalPosition() const { return m_LocalTransform.pos; }
+		double LocalRotation() const { return m_LocalTransform.rot; }
 
 		//setters
-		void SetPosition(const float x, const float y);
-		void AddPosition(const float x, const float y);
+		void SetLocalPosition(const float x, const float y);
+		void AddLocalPosition(const float x, const float y);
+		void SetLocalRotation(double rotation);
+		void AddLocalRotation(double rotation);
 
-		void SetRotation(double rotation);
-		void AddRotation(double rotation);
+		void SetNewParent(GameObject* newParentPtr, bool keepWorldPosition);
 
-		Transform operator+(const Transform& other) const;
-		Transform operator-(const Transform& other) const;
-		vic::Transform Multiply(const Transform& other, bool inheritRotation = true) const;
 
 	private:
-		glm::vec2 m_Translation{};
-		double m_Rotation{};
+		Transform* m_OwnerTransform{};
+
+		mutable bool m_WorldTransformDirty{ true };
+		mutable namePlease m_WorldTransform{};
+		namePlease m_LocalTransform{};
+
+	private:
+		void CleanTransform() const;
+		void SetTransformDirty() const;
+		namePlease CalculateWorldTransform() const;
 	};
 }
