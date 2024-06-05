@@ -9,13 +9,13 @@ namespace vic
 	class Transform final : public BaseComponent
 	{
 	private:
-		struct namePlease
+		struct TransformData
 		{
 			glm::vec2 pos{};
 			double rot{};
 
-			namePlease Multiply(const namePlease& other) const;
-			namePlease operator-(const namePlease& other) const;
+			TransformData Multiply(const TransformData& other) const;
+			TransformData operator-(const TransformData& other) const;
 		};
 
 	public:
@@ -43,12 +43,12 @@ namespace vic
 		Transform* m_OwnerTransform{};
 
 		mutable bool m_WorldTransformDirty{ true };
-		mutable namePlease m_WorldTransform{};
-		namePlease m_LocalTransform{};
+		mutable TransformData m_WorldTransform{};
+		TransformData m_LocalTransform{};
 
 	private:
 		void CleanTransform() const;
 		void SetTransformDirty() const;
-		namePlease CalculateWorldTransform() const;
+		TransformData CalculateWorldTransform() const;
 	};
 }

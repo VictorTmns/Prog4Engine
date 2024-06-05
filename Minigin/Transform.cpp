@@ -50,12 +50,12 @@ void vic::Transform::SetNewParent(GameObject* newParentPtr, bool keepWorldPositi
 
 	if (keepWorldPosition)
 	{
-		//make sure the transforms are clean
+		//make sure the transformData is clean
 		CleanTransform();
 		m_OwnerTransform->CleanTransform();
 
-		//set the local transform to the difference to between the parent-worldTransform
-		//and the old worldTransform
+		//set the local transformData to the difference to between the parent-worldTransformData
+		//and the old worldTransformData
 		m_LocalTransform = m_WorldTransform - m_OwnerTransform->m_WorldTransform;
 	}
 	else
@@ -74,7 +74,6 @@ void vic::Transform::SetNewParent(GameObject* newParentPtr, bool keepWorldPositi
 
 const glm::vec2& vic::Transform::Position() const
 {
-
 	CleanTransform();
 	return m_WorldTransform.pos;
 }
@@ -110,7 +109,7 @@ void vic::Transform::SetTransformDirty() const
 //===================Misc====================
 //===========================================
 
-vic::Transform::namePlease vic::Transform::CalculateWorldTransform() const
+vic::Transform::TransformData vic::Transform::CalculateWorldTransform() const
 {
 	if (m_OwnerTransform == nullptr)
 		return m_LocalTransform;
@@ -118,18 +117,18 @@ vic::Transform::namePlease vic::Transform::CalculateWorldTransform() const
 	return m_LocalTransform.Multiply(m_OwnerTransform->CalculateWorldTransform());
 }
 
-vic::Transform::namePlease vic::Transform::namePlease::Multiply(const namePlease& other) const
+vic::Transform::TransformData vic::Transform::TransformData::Multiply(const TransformData& other) const
 {
-	namePlease result{};
+	TransformData result{};
 
 	result.pos = other.pos + glm::rotate(pos, static_cast<float>(other.rot));
 
 	return result;
 }
 
-vic::Transform::namePlease vic::Transform::namePlease::operator-(const namePlease& other) const
+vic::Transform::TransformData vic::Transform::TransformData::operator-(const TransformData& other) const
 {
-	namePlease result{};
+	TransformData result{};
 	result.pos = pos - other.pos;
 	return result;
 }
