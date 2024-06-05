@@ -1,5 +1,7 @@
 ﻿#include "BaseComponent.h"
 
+#include <assert.h>
+
 #include "Observer.h"
 
 
@@ -23,6 +25,7 @@ void vic::BaseComponent::RemoveObserver(Observer* observerToRemove)
 vic::BaseComponent::BaseComponent(GameObject* ownerPtr):
 	m_OwnerPtr{ownerPtr}
 {
+	assert(ownerPtr != nullptr);
 }
 
 void vic::BaseComponent::NotifyObservers(Observer::Event event) const

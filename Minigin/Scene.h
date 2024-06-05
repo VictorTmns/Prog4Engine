@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 #include "GameObject.h"
+#include "PhysicsEngine.h"
 
 namespace vic
 {
@@ -21,9 +22,13 @@ namespace vic
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
-		std::string_view GetName() const { return std::string_view(m_name); }
+		std::string_view Name() const { return std::string_view(m_name); }
+
+		PhysicsEngine& GetPhysicsEngine() const { return *m_PhysicsEngine; }
 	private: 
 		explicit Scene(const std::string& name);
+
+		std::unique_ptr<PhysicsEngine> m_PhysicsEngine;
 
 		std::string m_name;
 		std::vector<std::unique_ptr<GameObject>> m_GameObjectPtrs;

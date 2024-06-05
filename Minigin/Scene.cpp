@@ -1,20 +1,21 @@
 #include "Scene.h"
 
-#include <algorithm>
+#include "GameTime.h"
 
 using namespace vic;
 
 unsigned int Scene::m_idCounter = 0;
 
 Scene::Scene(const std::string& name)
-	:m_name(name)
+	:m_PhysicsEngine{ std::make_unique<PhysicsEngine>()}
+	, m_name(name)
 {}
 
 
 
 GameObject& Scene::CreateGameObject()
 {
-	m_GameObjectPtrs.emplace_back(std::make_unique<GameObject>());
+	m_GameObjectPtrs.emplace_back(std::make_unique<GameObject>(this));
 	return *m_GameObjectPtrs.back();
 }
 
@@ -36,6 +37,9 @@ void Scene::Update()
 
 void Scene::FixedUpdate()
 {
+	m_PhysicsEngine->UpdatePhysics();
+
+
 	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
 		gameObjectPtr->FixedUpdate();

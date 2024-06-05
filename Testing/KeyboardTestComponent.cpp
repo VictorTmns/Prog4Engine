@@ -11,7 +11,7 @@ KeyboardTestComponent::KeyboardTestComponent(vic::GameObject* owner)
 
 void KeyboardTestComponent::Move(float x, float y)
 {
-	GetOwner()->GetTransform().AddLocalPosition(
+	Owner()->GetTransform().AddLocalPosition(
 		x * m_Speed * static_cast<float>(GameTime::GetInstance().GetDeltaTime()),
 		y * m_Speed * static_cast<float>(GameTime::GetInstance().GetDeltaTime())
 	);

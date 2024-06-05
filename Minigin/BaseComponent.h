@@ -34,7 +34,7 @@ namespace vic
 		BaseComponent(GameObject* ownerPtr);
 		void NotifyObservers(Observer::Event event) const;
 
-		GameObject* GetOwner() const { return m_OwnerPtr; }
+		GameObject* Owner() const { return m_OwnerPtr; }
 		
 	private:
 		GameObject* m_OwnerPtr;

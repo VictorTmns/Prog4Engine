@@ -12,7 +12,7 @@ namespace vic
 		struct TransformData
 		{
 			glm::vec2 pos{};
-			double rot{};
+			float rot{};
 
 			TransformData Multiply(const TransformData& other) const;
 			TransformData operator-(const TransformData& other) const;
@@ -25,16 +25,18 @@ namespace vic
 
 		//Getters
 		const glm::vec2& Position() const;
-		double Rotation() const;
+		float Rotation() const;
 
 		const glm::vec2& LocalPosition() const { return m_LocalTransform.pos; }
-		double LocalRotation() const { return m_LocalTransform.rot; }
+		float LocalRotation() const { return m_LocalTransform.rot; }
 
 		//setters
 		void SetLocalPosition(const float x, const float y);
 		void AddLocalPosition(const float x, const float y);
-		void SetLocalRotation(double rotation);
-		void AddLocalRotation(double rotation);
+		void SetLocalRotation(float rotation);
+		void SetWorldPosition(float x, float y);
+		void SetWorldRotation(float rotation);
+		void AddLocalRotation(float rotation);
 
 		void SetNewParent(GameObject* newParentPtr, bool keepWorldPosition);
 

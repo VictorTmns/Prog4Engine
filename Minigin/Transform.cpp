@@ -18,6 +18,7 @@ void vic::Transform::SetLocalPosition(const float x, const float y)
 	SetTransformDirty();
 }
 
+
 void vic::Transform::AddLocalPosition(const float x, const float y)
 {
 	m_LocalTransform.pos.x += x;
@@ -26,23 +27,42 @@ void vic::Transform::AddLocalPosition(const float x, const float y)
 	SetTransformDirty();
 }
 
-void vic::Transform::SetLocalRotation(const double rotation)
+void vic::Transform::SetLocalRotation(const float rotation)
 {
-	m_LocalTransform.rot = std::fmod(rotation, 360.0);
+	m_LocalTransform.rot = static_cast<float>(std::fmod(rotation, 360.0));
 	if (m_LocalTransform.rot < 0.0)
 		m_LocalTransform.rot += 360.0;
 
 	SetTransformDirty();
 }
 
-void vic::Transform::AddLocalRotation(const double rotation)
+
+void vic::Transform::AddLocalRotation(const float rotation)
 {
-	m_LocalTransform.rot = std::fmod(m_LocalTransform.rot + rotation, 360.0);
+	m_LocalTransform.rot = static_cast<float>(std::fmod(m_LocalTransform.rot + rotation, 360.0));
 	if (m_LocalTransform.rot < 0.0)
 		m_LocalTransform.rot += 360.0;
 
 	SetTransformDirty();
 }
+
+
+void vic::Transform::SetWorldPosition(const float x, const float y)
+{
+	m_LocalTransform.pos.x = x - m_WorldTransform.pos.x;
+	m_LocalTransform.pos.y = y - m_WorldTransform.pos.y;
+
+	SetTransformDirty();
+}
+void vic::Transform::SetWorldRotation(const float rotation)
+{
+	m_LocalTransform.rot = static_cast<float>(std::fmod(rotation - m_WorldTransform.rot, 360.0));
+	if (m_LocalTransform.rot < 0.0)
+		m_LocalTransform.rot += 360.0;
+
+	SetTransformDirty();
+}
+
 
 void vic::Transform::SetNewParent(GameObject* newParentPtr, bool keepWorldPosition)
 {
@@ -78,7 +98,7 @@ const glm::vec2& vic::Transform::Position() const
 	return m_WorldTransform.pos;
 }
 
-double vic::Transform::Rotation() const
+float vic::Transform::Rotation() const
 {
 	CleanTransform();
 	return m_WorldTransform.rot;
@@ -99,9 +119,9 @@ void vic::Transform::SetTransformDirty() const
 {
 	m_WorldTransformDirty = true;
 
-	for (int i{0}; i < GetOwner()->GetChildCount(); i++)
+	for (int i{0}; i < Owner()->GetChildCount(); i++)
 	{
-		GetOwner()->GetChildAt(i)->GetTransform().SetTransformDirty();
+		Owner()->GetChildAt(i)->GetTransform().SetTransformDirty();
 	}
 }
 
@@ -121,7 +141,7 @@ vic::Transform::TransformData vic::Transform::TransformData::Multiply(const Tran
 {
 	TransformData result{};
 
-	result.pos = other.pos + glm::rotate(pos, static_cast<float>(other.rot));
+	result.pos = other.pos + glm::rotate(pos, other.rot);
 
 	return result;
 }

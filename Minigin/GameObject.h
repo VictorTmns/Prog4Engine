@@ -4,8 +4,6 @@
 
 #include "Transform.h"
 #include "BaseComponent.h"
-#include "Observer.h"
-#include "Renderer.h"
 
 namespace vic
 {
@@ -20,6 +18,7 @@ namespace vic
 
 		
 		Transform& GetTransform() const { return *m_Transform; }
+		Scene* GetScene() const { return m_ScenePtr; }
 
 
 		//Components
@@ -44,7 +43,7 @@ namespace vic
 
 		//Constructors and destructors
 
-		GameObject();
+		GameObject(Scene* scenePtr);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -53,8 +52,9 @@ namespace vic
 
 	private:
 		std::unique_ptr<Transform> m_Transform;
-
 		std::vector<std::unique_ptr<BaseComponent>> m_ComponentPtrs;
+
+		Scene* m_ScenePtr = nullptr;
 
 		GameObject* m_ParentPtr = nullptr;
 		std::vector<GameObject*> m_ChildPtrs {};
@@ -63,6 +63,11 @@ namespace vic
 		void AddChild(GameObject* childPtr);
 		void RemoveChild(GameObject* childToRemovePtr);
 	};
+
+
+
+
+
 
 	template<typename T, typename... Args>
 	T* GameObject::AddComponent(Args&&... args)

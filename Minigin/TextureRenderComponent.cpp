@@ -7,7 +7,7 @@
 
 void vic::TextureRenderComponent::Render(const Renderer* renderer) const
 {
-	const glm::vec2 pos = GetOwner()->GetTransform().Position();
+	const glm::vec2 pos = Owner()->GetTransform().Position();
 
 	m_Texture->Draw(renderer, pos.x, pos.y);
 }

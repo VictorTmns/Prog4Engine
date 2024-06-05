@@ -7,8 +7,9 @@
 namespace vic
 {
 
-	GameObject::GameObject()
-		:m_Transform{ std::make_unique<Transform>(this)}
+	GameObject::GameObject(Scene* scenePtr)
+		: m_Transform{ std::make_unique<Transform>(this)}
+		, m_ScenePtr{scenePtr}
 	{
 	}
 
