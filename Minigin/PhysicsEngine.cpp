@@ -2,7 +2,11 @@
 
 #include <algorithm>
 #include <functional>
-#include <box2d/box2d.h>
+
+
+#pragma warning(push, 0 )
+#include "box2d/box2d.h"
+#pragma warning(pop)
 
 #include "GameTime.h"
 #include "RigidBodyComponent.h"
@@ -19,8 +23,16 @@ public:
 
 	void RegisterRigidBodyBox(RigidBodyComponent* bodyComponent, Transform* transform, const glm::vec2& boxSize, const RigidBodyComponent::BodySettings&
 	                          settings, const RigidBodyComponent::PhysicsSettings& pSettings);
-	void DestroyComponent(RigidBodyComponent* bodyComponent);
+	void DestroyRigidBodyBox(RigidBodyComponent* bodyComponent);
 
+	void ApplyForceToCenter(RigidBodyComponent* bodyComponent, const glm::vec2& force);
+	void ApplyForceToPoint(RigidBodyComponent* bodyComponent, const glm::vec2& force, const glm::vec2& point);
+	void ApplyTorque(RigidBodyComponent* bodyComponent, float torque);
+
+	glm::vec2 GetVelocity(RigidBodyComponent* bodyComponent) const;
+	float GetAngularVelocity(RigidBodyComponent* bodyComponent) const;
+	float GetGravityScale(RigidBodyComponent* bodyComponent) const;
+	float GetInertia(RigidBodyComponent* bodyComponent) const;
 
 private:
 	b2BodyType VicBodyTypeToB2BodyType(RigidBodyComponent::bodyType type);
@@ -51,7 +63,7 @@ void PhysicsEngine::PhysicsEngineImpl::UpdatePhysics()
 
 			float newRot{ body.second->GetAngle() };
 
-			body.first->ApplyPhysicsMovement(newPos, newRot);
+			body.first->ApplyPhysicsMovementCallback(newPos, newRot);
 		};
 
 	std::ranges::for_each(m_RigidBodies, applyPhysics);
@@ -98,13 +110,64 @@ void PhysicsEngine::PhysicsEngineImpl::RegisterRigidBodyBox(RigidBodyComponent* 
 		}
 	};
 
-
 	m_RigidBodies[bodyComponent] = std::move(bodyPtr);
 }
 
-void PhysicsEngine::PhysicsEngineImpl::DestroyComponent(RigidBodyComponent* bodyComponent)
+void PhysicsEngine::PhysicsEngineImpl::DestroyRigidBodyBox(RigidBodyComponent* bodyComponent)
 {
 	m_RigidBodies.erase(bodyComponent);
+}
+
+void PhysicsEngine::PhysicsEngineImpl::ApplyForceToCenter(RigidBodyComponent* bodyComponent, const glm::vec2& force)
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	m_RigidBodies.at(bodyComponent)->ApplyForceToCenter(b2Vec2{ force.x, force.y }, true);
+}
+
+void PhysicsEngine::PhysicsEngineImpl::ApplyForceToPoint(RigidBodyComponent* bodyComponent, const glm::vec2& force,
+	const glm::vec2& point)
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	m_RigidBodies.at(bodyComponent)->ApplyForce(b2Vec2{ force.x, force.y }, b2Vec2{ point.x, point.y }, true);
+}
+
+void PhysicsEngine::PhysicsEngineImpl::ApplyTorque(RigidBodyComponent* bodyComponent, float torque)
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	m_RigidBodies.at(bodyComponent)->ApplyTorque(torque, true);
+}
+
+glm::vec2 PhysicsEngine::PhysicsEngineImpl::GetVelocity(RigidBodyComponent* bodyComponent) const
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	auto [x, y] = m_RigidBodies.at(bodyComponent)->GetLinearVelocity();
+	return{ x, y };
+}
+
+float PhysicsEngine::PhysicsEngineImpl::GetAngularVelocity(RigidBodyComponent* bodyComponent) const
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	return m_RigidBodies.at(bodyComponent)->GetAngularVelocity();
+}
+
+
+float PhysicsEngine::PhysicsEngineImpl::GetGravityScale(RigidBodyComponent* bodyComponent) const
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	return m_RigidBodies.at(bodyComponent)->GetGravityScale();
+}
+
+float PhysicsEngine::PhysicsEngineImpl::GetInertia(RigidBodyComponent* bodyComponent) const
+{
+	assert(m_RigidBodies.at(bodyComponent) != nullptr);
+
+	return m_RigidBodies.at(bodyComponent)->GetInertia();
 }
 
 b2BodyType PhysicsEngine::PhysicsEngineImpl::VicBodyTypeToB2BodyType(RigidBodyComponent::bodyType type)
@@ -118,6 +181,9 @@ b2BodyType PhysicsEngine::PhysicsEngineImpl::VicBodyTypeToB2BodyType(RigidBodyCo
 	case RigidBodyComponent::bodyType::kinematicBody:
 		return b2_kinematicBody;
 	}
+
+	assert(false && "unreachable value");
+	return static_cast<b2BodyType>(-1);
 }
 
 
@@ -143,6 +209,41 @@ void PhysicsEngine::RegisterRigidBodyBox(RigidBodyComponent* bodyComponent,
 
 void PhysicsEngine::DestroyComponent(RigidBodyComponent* bodyComponent)
 {
-	m_Impl->DestroyComponent(bodyComponent);
+	m_Impl->DestroyRigidBodyBox(bodyComponent);
+}
+
+void PhysicsEngine::ApplyForceToCenter(RigidBodyComponent* bodyComponent, const glm::vec2& force)
+{
+	m_Impl->ApplyForceToCenter(bodyComponent, force);
+}
+
+void vic::PhysicsEngine::ApplyForceToPoint(RigidBodyComponent* bodyComponent, const glm::vec2& force, const glm::vec2& point)
+{
+	m_Impl->ApplyForceToPoint(bodyComponent, force, point);
+}
+
+void vic::PhysicsEngine::ApplyTorque(RigidBodyComponent* bodyComponent, float torque)
+{
+	m_Impl->ApplyTorque(bodyComponent, torque);
+}
+
+glm::vec2 PhysicsEngine::GetVelocity(RigidBodyComponent* bodyComponent) const
+{
+	return m_Impl->GetVelocity(bodyComponent);
+}
+
+float vic::PhysicsEngine::GetAngularVelocity(RigidBodyComponent* bodyComponent) const
+{
+	return m_Impl->GetAngularVelocity(bodyComponent);
+}
+
+float vic::PhysicsEngine::GetGravityScale(RigidBodyComponent* bodyComponent) const
+{
+	return m_Impl->GetGravityScale(bodyComponent);
+}
+
+float vic::PhysicsEngine::GetInertia(RigidBodyComponent* bodyComponent) const
+{
+	return m_Impl->GetInertia(bodyComponent);
 }
 

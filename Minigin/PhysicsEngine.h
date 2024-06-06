@@ -19,6 +19,15 @@ namespace vic
 		                          settings, const RigidBodyComponent::PhysicsSettings& pSettings);
 		void DestroyComponent(RigidBodyComponent* bodyComponent);
 
+		void ApplyForceToCenter(RigidBodyComponent* bodyComponent, const glm::vec2& force);
+		void ApplyForceToPoint(RigidBodyComponent* bodyComponent, const glm::vec2& force, const glm::vec2& point);
+		void ApplyTorque(RigidBodyComponent* bodyComponent, float torque);
+
+		glm::vec2 GetVelocity(RigidBodyComponent* bodyComponent) const;
+		float GetAngularVelocity(RigidBodyComponent* bodyComponent) const;
+		float GetGravityScale(RigidBodyComponent* bodyComponent) const;
+		float GetInertia(RigidBodyComponent* bodyComponent) const;
+
 
 		PhysicsEngine(const PhysicsEngine&) = delete;
 		PhysicsEngine(PhysicsEngine&&) = delete;

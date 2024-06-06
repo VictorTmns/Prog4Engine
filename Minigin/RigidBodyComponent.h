@@ -45,9 +45,20 @@ namespace vic
 
 
 		RigidBodyComponent(GameObject* ownerPtr, const glm::vec2& boxSize, const BodySettings& settings = {}, const PhysicsSettings& pSettings = {});
+		~RigidBodyComponent() override;
 
-		void ApplyPhysicsMovement(const glm::vec2& pos, const float rot);
+		void ApplyForceToCenter(const glm::vec2& force);
+		void ApplyForceToPoint(const glm::vec2& force, const glm::vec2& point);
+		void ApplyTorque(float torque);
 
+		glm::vec2 GetVelocity();
+		float GetAngularVelocity();
+		float GetGravityScale();
+		float GetInertia();
+
+		// This function is a callback
+		// DON'T CALL IT
+		void ApplyPhysicsMovementCallback(const glm::vec2& pos, const float rot);
 	private:
 		Transform* m_GOTranformPtr;
 	};

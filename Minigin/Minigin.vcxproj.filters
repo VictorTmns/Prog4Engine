@@ -20,9 +20,6 @@
     <Filter Include="Input\Commands">
       <UniqueIdentifier>{dbe9896e-9414-45e1-96b2-54493717f2a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="other\Achievements">
-      <UniqueIdentifier>{869d7cb1-ba58-473c-9225-02d9ae458ec7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects">
       <UniqueIdentifier>{448015c1-83ba-4f84-9a37-66cf44d5c2a8}</UniqueIdentifier>
     </Filter>
@@ -96,12 +93,6 @@
     </ClInclude>
     <ClInclude Include="InputTypes.h">
       <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="CSteamAchievements.h">
-      <Filter>other\Achievements</Filter>
-    </ClInclude>
-    <ClInclude Include="AchievementManager.h">
-      <Filter>other\Achievements</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>GameObjects</Filter>
@@ -207,12 +198,6 @@
     </ClCompile>
     <ClCompile Include="Commands.cpp">
       <Filter>Input\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="AchievementManager.cpp">
-      <Filter>other\Achievements</Filter>
-    </ClCompile>
-    <ClCompile Include="CSteamAchievements.cpp">
-      <Filter>other\Achievements</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>GameObjects</Filter>
