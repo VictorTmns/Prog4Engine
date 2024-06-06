@@ -222,11 +222,9 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_truetype.h" />
-    <ClInclude Include="AchievementManager.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="ControllerManager.h" />
-    <ClInclude Include="CSteamAchievements.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="InputTypes.h" />
     <ClInclude Include="ISoundSystem.h" />
@@ -272,11 +270,9 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_tables.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_widgets.cpp" />
-    <ClCompile Include="AchievementManager.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ControllerManager.cpp" />
-    <ClCompile Include="CSteamAchievements.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Font.cpp" />
