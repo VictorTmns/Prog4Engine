@@ -10,17 +10,20 @@ namespace vic
 	class PrimitivesRenderComponent : public BaseComponent
 	{
 	public:
-		enum PrimitiveType
-		{
-			rectangle,
-			oval
-		};
-
-		PrimitivesRenderComponent(GameObject* owner, PrimitiveType primitiveType, const glm::vec2& dimensions, SDL_Color color);
+		PrimitivesRenderComponent(GameObject* owner, const glm::vec2& rectDimensions, SDL_Color color, bool fill = true);
+		PrimitivesRenderComponent(GameObject* owner, float radius, SDL_Color color, bool fill = true);
 
 		void Render(const Renderer* renderer) const override;
 	private:
-		PrimitiveType m_Primitive;
+		enum class PrimitiveType
+		{
+			rectangle,
+			circle
+		};
+
+		bool m_Fill;
+
+		PrimitiveType m_PrimitiveType;
 		glm::vec2 m_Dimensions;
 		SDL_Color m_Color;
 	};

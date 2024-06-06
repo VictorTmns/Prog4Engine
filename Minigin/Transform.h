@@ -11,8 +11,8 @@ namespace vic
 	private:
 		struct TransformData
 		{
-			glm::vec2 pos{};
-			float rot{};
+			glm::vec2 pos{0, 0};
+			float rot{0};
 
 			TransformData Multiply(const TransformData& other) const;
 			TransformData operator-(const TransformData& other) const;
