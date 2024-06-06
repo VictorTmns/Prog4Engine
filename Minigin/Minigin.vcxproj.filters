@@ -158,6 +158,9 @@
     <ClInclude Include="PhysicsEngine.h">
       <Filter>other\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="PrimitivesRenderComponent.h">
+      <Filter>components\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp">
@@ -250,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsEngine.cpp">
       <Filter>other\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitivesRenderComponent.cpp">
+      <Filter>components\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

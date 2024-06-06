@@ -229,6 +229,7 @@
     <ClInclude Include="InputTypes.h" />
     <ClInclude Include="ISoundSystem.h" />
     <ClInclude Include="PhysicsEngine.h" />
+    <ClInclude Include="PrimitivesRenderComponent.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="SDL_FontCache.h" />
     <ClInclude Include="ServiceLocator.h" />
@@ -280,6 +281,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
+    <ClCompile Include="PrimitivesRenderComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="SDLInputManager.cpp" />
     <ClCompile Include="SDL_FontCache.c" />

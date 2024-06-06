@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include <functional>
+#include <memory>
 
-#include "AchievementManager.h"
+#include "Renderer.h"
+
 
 namespace vic
 {

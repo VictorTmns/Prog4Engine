@@ -7,8 +7,6 @@ class b2Body;
 
 namespace vic
 {
-	
-
 	class RigidBodyComponent : public BaseComponent
 	{
 	public:
