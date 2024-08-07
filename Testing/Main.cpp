@@ -7,15 +7,12 @@
 #endif
 
 #include <iostream>
-#pragma warning (push)
-#pragma warning (disable: 4996)
-#pragma warning (pop)
 
 #include "Minigin.h"
 #include "Scene.h"
 #include "ResourceManager.h"
 
-#include "CircleRenderComponent.h"
+#include "PrimitivesRenderComponent.h"
 #include "FPSComponent.h"
 #include "InputManager.h"
 #include "KeyboardTestComponent.h"
@@ -31,10 +28,11 @@
 #include "TextureRenderComponent.h"
 #include "ThrashTheCacheComponent.h"
 
-void MakePlayer1(vic::Scene* scene, vic::Minigin* engine, vic::Font* font, vic::Font* smallFont);
-void MakePlayer2(vic::Scene* scene, vic::Minigin* engine, vic::Font* font, vic::Font* smallFont);
-void MakeManuel(vic::Scene* scene, vic::Minigin* engine, vic::Font* font, vic::Font* smallFont);
-void MakeRotatingBalls(vic::Scene* scene, vic::Minigin* engine);
+void MakePlayer1(vic::Minigin* engine, vic::Font* font, vic::Font* smallFont);
+void MakePlayer2(vic::Minigin* engine, vic::Font* font, vic::Font* smallFont);
+void MakeManuel(vic::Minigin* engine, vic::Font* font, vic::Font* smallFont);
+void MakeColliderBoxes(vic::Minigin* engine);
+void MakeRotatingBalls(vic::Minigin* engine);
 
 void load(vic::Minigin* engine)
 {
@@ -65,22 +63,25 @@ void load(vic::Minigin* engine)
 	go3.GetTransform().SetLocalPosition(80, 20);
 
 
-	MakePlayer1(scene, engine, font, smallFont);
-	MakePlayer2(scene, engine, font, smallFont);
-	MakeManuel(scene, engine, font, smallFont);
+	//MakePlayer1(scene, engine, font, smallFont);
+	//MakePlayer2(scene, engine, font, smallFont);
 
-	MakeRotatingBalls(scene, engine);
+
+	MakeManuel(engine, font, smallFont);
+	MakeColliderBoxes(engine);
+	MakeRotatingBalls(engine);
 }
 
-void MakePlayer1(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallFont)
+void MakePlayer1(vic::Minigin*, vic::Font*, vic::Font* smallFont)
 {
+	vic::Scene* scene = vic::SceneManager::GetInstance().GetScene("Demo");
 	auto& inputManager = vic::InputManager::GetInstance();
 
 	//PLAYER CHARACTER
 	vic::GameObject& go{ scene->CreateGameObject() };
 	go.GetTransform().SetLocalPosition(100, 230);
 
-	go.AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
+	go.AddComponent<vic::PrimitivesRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
 
 
 	KeyboardTestComponent* actorComponent = go.AddComponent<KeyboardTestComponent>();
@@ -159,15 +160,16 @@ void MakePlayer1(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 
 }
 
-void MakePlayer2(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallFont)
+void MakePlayer2(vic::Minigin*, vic::Font*, vic::Font* smallFont)
 {
+	vic::Scene* scene = vic::SceneManager::GetInstance().GetScene("Demo");
 	auto& inputManager = vic::InputManager::GetInstance();
 
 	// PLAYER CHARACTER 2
 	vic::GameObject& go{ scene->CreateGameObject() };
 	go.GetTransform().SetLocalPosition(80, 300);
 
-	go.AddComponent<CircleRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
+	go.AddComponent<vic::PrimitivesRenderComponent>(10.f, SDL_Color{ 255, 255, 0, 255 });
 
 	KeyboardTestComponent* newComponent = go.AddComponent<KeyboardTestComponent>();
 	inputManager.BindToControllerThumbStick(
@@ -219,8 +221,9 @@ void MakePlayer2(vic::Scene* scene, vic::Minigin*, vic::Font*, vic::Font* smallF
 
 }
 
-void MakeManuel(vic::Scene* scene, [[maybe_unused]] vic::Minigin* engine, [[maybe_unused]] vic::Font* font, vic::Font* smallFont)
+void MakeManuel([[maybe_unused]] vic::Minigin* engine, [[maybe_unused]] vic::Font* font, vic::Font* smallFont)
 {
+	vic::Scene* scene = vic::SceneManager::GetInstance().GetScene("Demo");
 	vic::GameObject& go{ scene->CreateGameObject() };
 	go.GetTransform().SetLocalPosition(300, 80);
 
@@ -239,7 +242,51 @@ void MakeManuel(vic::Scene* scene, [[maybe_unused]] vic::Minigin* engine, [[mayb
 
 }
 
-void MakeRotatingBalls(vic::Scene* , vic::Minigin* )
+void testCollisionFunc(vic::RigidBodyComponent*, vic::RigidBodyComponent* other)
+{
+	if(other->GetOwner()->GetName() == "box1")
+		std::cout << "we are overlapping babeeeeeeeeeeeeeeeeeeeeeeeeeey \n";
+	else if (other->GetOwner()->GetName() == "box2")
+		std::cout << "we are overlapping again babeeeeeeeeeeeeeeeeeeeeeeeeeey \n";
+}
+
+void MakeColliderBoxes([[maybe_unused]] vic::Minigin* engine)
+{
+	[[maybe_unused]] vic::Scene* scene = vic::SceneManager::GetInstance().GetScene("Demo");
+
+
+	
+	vic::GameObject& box1 = scene->CreateGameObject("box1");
+	box1.GetTransform().SetLocalPosition(200, 200);
+	box1.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 20, 20 }, SDL_Color{ 255, 0, 0, 255 });
+	box1.AddComponent<vic::RigidBodyComponent>(glm::vec2{ 20, 20 });
+	
+
+	vic::GameObject& box2 = scene->CreateGameObject("box2");
+	box2.GetTransform().SetLocalPosition(240, 200);
+	box2.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 20, 20 }, SDL_Color{ 255, 0, 0, 255 });
+	box2.AddComponent<vic::RigidBodyComponent>(glm::vec2{ 20, 20 });
+
+	
+	vic::GameObject& moveBox = scene->CreateGameObject();
+	
+	
+	moveBox.GetTransform().SetLocalPosition(10, 200);
+	moveBox.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 20, 20 }, SDL_Color{ 255, 0, 0, 255 });
+	moveBox.AddComponent<vic::RigidBodyComponent>(glm::vec2{ 20, 20 }, testCollisionFunc);
+
+
+	auto moveComp = moveBox.AddComponent<KeyboardTestComponent>();
+	vic::InputManager::GetInstance().BindToKeyboard(
+		moveComp,
+		std::function<void()>([moveComp] {moveComp->Move(5, 0); }),
+		SDLK_a,
+		vic::ClickType::hold);
+}
+
+
+
+void MakeRotatingBalls(vic::Minigin* )
 {
 
 }

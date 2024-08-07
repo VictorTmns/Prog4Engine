@@ -15,5 +15,5 @@ OrbitComponent::OrbitComponent(vic::GameObject* ownerPtr, float orbitingSpeed)
 
 void OrbitComponent::Update()
 {
-	Owner()->GetTransform().AddLocalRotation(m_OrbitingSpeed * static_cast<float>(GameTime::GetInstance().GetDeltaTime()));
+	Owner()->GetTransform().AddLocalRotation(m_OrbitingSpeed * static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime()));
 }

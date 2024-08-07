@@ -219,7 +219,6 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Co
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CircleRenderComponent.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="KeyboardTestComponent.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
@@ -233,7 +232,6 @@ xcopy "$(SolutionDir)3rdParty\steamworks\steam_appid.txt" "$(OutputPath)" /Y</Co
     <ClCompile Include="ThrashTheCacheComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CircleRenderComponent.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="KeyboardTestComponent.h" />
     <ClInclude Include="LivesComponent.h" />

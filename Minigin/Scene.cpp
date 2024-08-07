@@ -13,9 +13,9 @@ Scene::Scene(const std::string& name)
 
 
 
-GameObject& Scene::CreateGameObject()
+GameObject& Scene::CreateGameObject(const std::string& name)
 {
-	m_GameObjectPtrs.emplace_back(std::make_unique<GameObject>(this));
+	m_GameObjectPtrs.emplace_back(std::make_unique<GameObject>(this, name));
 	return *m_GameObjectPtrs.back();
 }
 
@@ -37,13 +37,13 @@ void Scene::Update()
 
 void Scene::FixedUpdate()
 {
-	m_PhysicsEngine->UpdatePhysics();
-
-
 	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
 		gameObjectPtr->FixedUpdate();
 	}
+
+
+	m_PhysicsEngine->UpdateCollisions();
 }
 
 void Scene::Render(const Renderer* renderer) const

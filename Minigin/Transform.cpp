@@ -49,14 +49,14 @@ void vic::Transform::AddLocalRotation(const float rotation)
 
 void vic::Transform::SetWorldPosition(const float x, const float y)
 {
-	m_LocalTransform.pos.x = x - m_WorldTransform.pos.x;
-	m_LocalTransform.pos.y = y - m_WorldTransform.pos.y;
+	m_LocalTransform.pos.x = m_WorldTransform.pos.x - m_LocalTransform.pos.x + x;
+	m_LocalTransform.pos.y = m_WorldTransform.pos.y - m_LocalTransform.pos.y + y;
 
 	SetTransformDirty();
 }
 void vic::Transform::SetWorldRotation(const float rotation)
 {
-	m_LocalTransform.rot = static_cast<float>(std::fmod(rotation - m_WorldTransform.rot, 360.0));
+	m_LocalTransform.rot = static_cast<float>(std::fmod(m_WorldTransform.rot - m_LocalTransform.rot + rotation, 360.0));
 	if (m_LocalTransform.rot < 0.0)
 		m_LocalTransform.rot += 360.0;
 

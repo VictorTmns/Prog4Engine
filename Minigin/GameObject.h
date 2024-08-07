@@ -5,6 +5,8 @@
 #include "Transform.h"
 #include "BaseComponent.h"
 
+#include <string>
+
 namespace vic
 {
 	class Scene;
@@ -16,9 +18,10 @@ namespace vic
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;
 
-		
-		Transform& GetTransform() const { return *m_Transform; }
-		Scene* GetScene() const { return m_ScenePtr; }
+
+		[[nodiscard]] Transform& GetTransform() const { return *m_Transform; }
+		[[nodiscard]] Scene* GetScene() const { return m_ScenePtr; }
+		[[nodiscard]] std::string_view GetName() const { return m_Name; }
 
 
 		//Components
@@ -43,7 +46,7 @@ namespace vic
 
 		//Constructors and destructors
 
-		GameObject(Scene* scenePtr);
+		GameObject(Scene* scenePtr, std::string name);
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -51,6 +54,8 @@ namespace vic
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
+		std::string m_Name = {};
+
 		std::unique_ptr<Transform> m_Transform;
 		std::vector<std::unique_ptr<BaseComponent>> m_ComponentPtrs;
 

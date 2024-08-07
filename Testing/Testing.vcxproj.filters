@@ -13,9 +13,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Loading</Filter>
     </ClCompile>
-    <ClCompile Include="CircleRenderComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -49,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LivesDisplayComponent.h" />
-    <ClInclude Include="CircleRenderComponent.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="KeyboardTestComponent.h" />
     <ClInclude Include="LivesComponent.h" />
