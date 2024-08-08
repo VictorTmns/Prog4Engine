@@ -14,6 +14,10 @@ namespace vic
 		PrimitivesRenderComponent(GameObject* owner, float radius, SDL_Color color, bool fill = true);
 
 		void Render(const Renderer* renderer) const override;
+
+		void SetRectDimensions(const glm::vec2& rectDimensions) { m_Dimensions = rectDimensions; }
+		void SetCircleRadius(float radius) { m_Dimensions.s = radius; }
+		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
 	private:
 		enum class PrimitiveType
 		{
@@ -24,7 +28,8 @@ namespace vic
 		bool m_Fill;
 
 		PrimitiveType m_PrimitiveType;
-		glm::vec2 m_Dimensions;
+		glm::vec2 m_Offset = { 0.f, 0.f };
+		glm::vec2 m_Dimensions = {0.f, 0.f};
 		SDL_Color m_Color;
 	};
 }

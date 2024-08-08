@@ -142,6 +142,16 @@ void vic::Renderer::RenderRect(float left, float top, float width, float height,
 
 	const SDL_Rect drawRect{ static_cast<int>(left), static_cast<int>(top), static_cast<int>(width), static_cast<int>(height) };
 	SDL_RenderDrawRect(m_renderer, &drawRect);
+	
+}
+
+void vic::Renderer::FillRect(float left, float top, float width, float height, SDL_Color color) const
+{
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+	const SDL_Rect drawRect{ static_cast<int>(left), static_cast<int>(top), static_cast<int>(width), static_cast<int>(height) };
+	SDL_RenderFillRect(m_renderer, &drawRect);
+	
 }
 
 void vic::Renderer::FillCircle(float x, float y, float radius, SDL_Color color) const

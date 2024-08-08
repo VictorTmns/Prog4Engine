@@ -27,17 +27,24 @@ PrimitivesRenderComponent::PrimitivesRenderComponent(GameObject* owner, float ra
 
 void PrimitivesRenderComponent::Render(const Renderer* renderer) const
 {
-	const glm::vec2 pos = Owner()->GetTransform().Position();
+	const glm::vec2 pos = Owner()->GetTransform().Position() + m_Offset;
 
 	renderer->SetDrawColor(m_Color.r, m_Color.g, m_Color.b, m_Color.a);
 
 	switch (m_PrimitiveType)
 	{
 	case PrimitiveType::rectangle:
-		renderer->RenderRect(pos.x, pos.y, m_Dimensions.x, m_Dimensions.y, m_Color);
+		if (m_Fill)
+			renderer->FillRect(pos.x, pos.y, m_Dimensions.x, m_Dimensions.y, m_Color);
+		else
+			renderer->RenderRect(pos.x, pos.y, m_Dimensions.x, m_Dimensions.y, m_Color);
+
 		break;
 	case PrimitiveType::circle:
-		renderer->FillCircle(pos.x, pos.y, m_Dimensions.s, m_Color);
+		if (m_Fill)
+			renderer->FillCircle(pos.x, pos.y, m_Dimensions.s, m_Color);
+		else
+			renderer->RenderCircle(pos.x, pos.y, m_Dimensions.s, m_Color);
 		break;
 	}
 
