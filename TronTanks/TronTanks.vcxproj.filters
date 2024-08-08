@@ -8,10 +8,30 @@
     <Filter Include="Components">
       <UniqueIdentifier>{6db82331-20c0-4817-b359-d342539c0d05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="player">
+      <UniqueIdentifier>{7c03d430-8f75-4f14-9907-e6f32fc3f1f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Loading</Filter>
     </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>player</Filter>
+    </ClCompile>
+    <ClCompile Include="BarrelComponent.cpp">
+      <Filter>player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CreatePlayer.h">
+      <Filter>player</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>player</Filter>
+    </ClInclude>
+    <ClInclude Include="BarrelComponent.h">
+      <Filter>player</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

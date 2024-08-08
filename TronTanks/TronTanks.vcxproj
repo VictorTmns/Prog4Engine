@@ -213,7 +213,14 @@ xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\win64\*.dll" "$(Out
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BarrelComponent.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BarrelComponent.h" />
+    <ClInclude Include="CreatePlayer.h" />
+    <ClInclude Include="MovementComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
