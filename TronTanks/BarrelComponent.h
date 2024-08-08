@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "BulletLogicComponent.h"
 #include "GameObject.h"
 #include "PrimitivesRenderComponent.h"
 
@@ -19,7 +20,7 @@ public:
 
 private:
 	void ReloadBarrelRenderer();
-
+	static glm::vec2 DirectionToVec(Direction dir);
 private:
 	Direction m_BarrelDirection;
 	vic::PrimitivesRenderComponent* m_BarrelRenderer;

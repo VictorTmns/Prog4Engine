@@ -5,11 +5,15 @@
 #include "SceneManager.h"
 
 BarrelComponent::BarrelComponent(vic::GameObject* ownerPtr)
-	: BaseComponent{ownerPtr}, m_BarrelDirection{ Direction::down }
+	: BaseComponent{ownerPtr}
+	, m_BarrelDirection{ Direction::down }
 {
 	m_BarrelRenderer = ownerPtr->AddComponent<vic::PrimitivesRenderComponent>(
 		glm::vec2{}, SDL_Color{ 0, 255, 0, 255 });
 	ReloadBarrelRenderer();
+
+
+
 	
 }
 
@@ -18,6 +22,10 @@ void BarrelComponent::Shoot(Direction direction)
 	m_BarrelDirection = direction;
 	ReloadBarrelRenderer();
 
+
+
+	vic::GameObject& bullet = Owner()->GetScene()->CreateGameObject("bullet");
+	bullet.AddComponent<BulletLogicComponent>(Owner()->GetTransform().Position(), DirectionToVec(m_BarrelDirection));
 }
 
 void BarrelComponent::ReloadBarrelRenderer()
@@ -44,4 +52,20 @@ void BarrelComponent::ReloadBarrelRenderer()
 		break;
 	default: ;
 	}
+}
+
+glm::vec2 BarrelComponent::DirectionToVec(Direction dir)
+{
+	switch (dir)
+	{
+	case Direction::up:
+		return glm::vec2{ 0, -1 };
+	case Direction::down:
+		return glm::vec2{ 0, 1 };
+	case Direction::left:
+		return glm::vec2{ -1, 0 };
+	case Direction::right:
+		return glm::vec2{ 1, 0 };
+	}
+	return {};
 }

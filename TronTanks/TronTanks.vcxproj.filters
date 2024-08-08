@@ -11,16 +11,22 @@
     <Filter Include="player">
       <UniqueIdentifier>{7c03d430-8f75-4f14-9907-e6f32fc3f1f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tanks">
+      <UniqueIdentifier>{744bc0d2-e001-4fa0-a9d5-647cb44c1108}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Loading</Filter>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
-      <Filter>player</Filter>
+      <Filter>tanks</Filter>
     </ClCompile>
     <ClCompile Include="BarrelComponent.cpp">
-      <Filter>player</Filter>
+      <Filter>tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletLogicComponent.cpp">
+      <Filter>tanks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -28,10 +34,13 @@
       <Filter>player</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
-      <Filter>player</Filter>
+      <Filter>tanks</Filter>
     </ClInclude>
     <ClInclude Include="BarrelComponent.h">
-      <Filter>player</Filter>
+      <Filter>tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletLogicComponent.h">
+      <Filter>tanks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
