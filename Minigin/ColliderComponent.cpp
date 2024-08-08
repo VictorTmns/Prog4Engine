@@ -14,7 +14,7 @@ ColliderComponent::ColliderComponent(GameObject* ownerPtr, const glm::vec2& dime
 	, m_CollisionFunc{std::move(collisionFunc)}
 	, m_HasOverlapBehavior{ true }
 {
-	ownerPtr->GetScene()->GetPhysicsEngine().RegisterRigidBodyBox(this);
+	ownerPtr->GetScene()->GetPhysicsEngine().RegisterCollider(this);
 }
 
 ColliderComponent::ColliderComponent(GameObject* ownerPtr, const glm::vec2& dimensions)
@@ -24,7 +24,7 @@ ColliderComponent::ColliderComponent(GameObject* ownerPtr, const glm::vec2& dime
 	, m_CollisionFunc{  }
 	, m_HasOverlapBehavior{ false }
 {
-	ownerPtr->GetScene()->GetPhysicsEngine().RegisterRigidBodyBox(this);
+	ownerPtr->GetScene()->GetPhysicsEngine().RegisterCollider(this);
 }
 
 ColliderComponent::~ColliderComponent()

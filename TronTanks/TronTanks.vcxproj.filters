@@ -5,14 +5,17 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Components">
-      <UniqueIdentifier>{6db82331-20c0-4817-b359-d342539c0d05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="player">
       <UniqueIdentifier>{7c03d430-8f75-4f14-9907-e6f32fc3f1f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="tanks">
       <UniqueIdentifier>{744bc0d2-e001-4fa0-a9d5-647cb44c1108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Wall">
+      <UniqueIdentifier>{0f98022a-a14b-446f-88db-41348f2bc1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tanks\Bullet">
+      <UniqueIdentifier>{9ab0186f-a91a-4fa4-a4c5-0cafea638d77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -26,7 +29,7 @@
       <Filter>tanks</Filter>
     </ClCompile>
     <ClCompile Include="BulletLogicComponent.cpp">
-      <Filter>tanks</Filter>
+      <Filter>tanks\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,8 +42,14 @@
     <ClInclude Include="BarrelComponent.h">
       <Filter>tanks</Filter>
     </ClInclude>
+    <ClInclude Include="CreateWall.h">
+      <Filter>Wall</Filter>
+    </ClInclude>
     <ClInclude Include="BulletLogicComponent.h">
-      <Filter>tanks</Filter>
+      <Filter>tanks\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateBullet.h">
+      <Filter>tanks\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

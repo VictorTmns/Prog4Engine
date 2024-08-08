@@ -15,7 +15,7 @@ namespace vic
 
 		void UpdateCollisions();
 
-		void RegisterRigidBodyBox(ColliderComponent* bodyComponent);
+		void RegisterCollider(ColliderComponent* bodyComponent);
 		void UnregisterRigidbodyBox(ColliderComponent* bodyComponent);
 
 

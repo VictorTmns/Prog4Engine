@@ -34,14 +34,13 @@ inline void AddWASDMovement(vic::BaseComponent* moveComp, std::function<void(flo
 		SDLK_d,
 		vic::ClickType::hold);
 }
-inline vic::GameObject& BuildPlayer()
+inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos)
 {
-	vic::Scene* scene = vic::SceneManager::GetInstance().GetScene("main");
 	auto& inputManager = vic::InputManager::GetInstance();
 
 
 	vic::GameObject& player{ scene->CreateGameObject("player") };
-	player.GetTransform().SetLocalPosition(50, 50);
+	player.GetTransform().SetLocalPosition(pos.x, pos.y);
 
 	//Movement
 		MovementComponent* moveComp = player.AddComponent<MovementComponent>(50.f);

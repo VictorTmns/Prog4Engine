@@ -43,6 +43,8 @@ vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 
 vic::Scene* vic::SceneManager::GetScene(const std::string& name)
 {
+	assert(name != "");
+
 	auto sceneSearchCrit = [name](const std::unique_ptr<Scene>& scenePtr) -> bool {
 		return (scenePtr->Name() == name);
 		};

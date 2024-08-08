@@ -31,7 +31,7 @@ void PhysicsEngine::UpdateCollisions()
 	}
 }
 
-void PhysicsEngine::RegisterRigidBodyBox(ColliderComponent* bodyComponent)
+void PhysicsEngine::RegisterCollider(ColliderComponent* bodyComponent)
 {
 	m_Bodies.push_back(bodyComponent);
 }

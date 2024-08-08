@@ -1,19 +1,18 @@
 ﻿#include "BulletLogicComponent.h"
 
 #include "GameObject.h"
+#include "GameTime.h"
 #include "PrimitivesRenderComponent.h"
 
-BulletLogicComponent::BulletLogicComponent(vic::GameObject* ownerPtr, const glm::vec2& startPos, const glm::vec2& direction)
-	: BaseComponent{ownerPtr}, m_Direction{}
+BulletLogicComponent::BulletLogicComponent(vic::GameObject* ownerPtr, const glm::vec2& direction)
+	: BaseComponent{ownerPtr}, m_Direction{ direction }
 {
-	ownerPtr->AddComponent<vic::PrimitivesRenderComponent>(5.f, SDL_Color{0, 0, 255, 0});
-
-	Owner()->GetTransform().SetWorldPosition(startPos.x, startPos.y);
-	m_Direction = direction;
-
 }
 
 void BulletLogicComponent::Update()
 {
-	Owner()->GetTransform().AddLocalPosition(m_Direction.x * m_Speed, m_Direction.y * m_Speed);
+	Owner()->GetTransform().AddLocalPosition(
+		m_Direction.x * m_Speed * static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime()),
+		m_Direction.y * m_Speed * static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime())
+	);
 }

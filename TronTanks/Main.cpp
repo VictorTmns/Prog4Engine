@@ -22,8 +22,8 @@
 void load(vic::Minigin*)
 {
 
-	vic::SceneManager::GetInstance().CreateScene("main");
-	BuildPlayer();
+	vic::Scene* level1 = vic::SceneManager::GetInstance().CreateScene("level 1");
+	BuildPlayer(level1, glm::vec2{50, 50});
 }
 
 

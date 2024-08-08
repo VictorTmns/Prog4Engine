@@ -1,5 +1,6 @@
 ﻿#include "BarrelComponent.h"
 
+#include "CreateBullet.h"
 #include "PrimitivesRenderComponent.h"
 #include "Scene.h"
 #include "SceneManager.h"
@@ -22,10 +23,7 @@ void BarrelComponent::Shoot(Direction direction)
 	m_BarrelDirection = direction;
 	ReloadBarrelRenderer();
 
-
-
-	vic::GameObject& bullet = Owner()->GetScene()->CreateGameObject("bullet");
-	bullet.AddComponent<BulletLogicComponent>(Owner()->GetTransform().Position(), DirectionToVec(m_BarrelDirection));
+	CreateBullet(Owner()->GetScene(), Owner()->GetTransform().Position(), DirectionToVec(m_BarrelDirection));
 }
 
 void BarrelComponent::ReloadBarrelRenderer()
