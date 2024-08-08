@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "RigidBodyComponent.h"
+#include "ColliderComponent.h"
 
 
 
@@ -11,12 +11,12 @@ using namespace vic;
 
 void PhysicsEngine::UpdateCollisions()
 {
-	for (RigidBodyComponent* body : m_Bodies)
+	for (ColliderComponent* body : m_Bodies)
 	{
 		if(!body->m_HasOverlapBehavior)
 			continue;
 
-		for (RigidBodyComponent* body2 : m_Bodies)
+		for (ColliderComponent* body2 : m_Bodies)
 		{
 			if(body == body2)
 				continue;
@@ -31,12 +31,12 @@ void PhysicsEngine::UpdateCollisions()
 	}
 }
 
-void PhysicsEngine::RegisterRigidBodyBox(RigidBodyComponent* bodyComponent)
+void PhysicsEngine::RegisterRigidBodyBox(ColliderComponent* bodyComponent)
 {
 	m_Bodies.push_back(bodyComponent);
 }
 
-void PhysicsEngine::UnregisterRigidbodyBox(RigidBodyComponent* bodyComponent)
+void PhysicsEngine::UnregisterRigidbodyBox(ColliderComponent* bodyComponent)
 {
 	auto bodyIt = std::ranges::find(m_Bodies, bodyComponent);
 

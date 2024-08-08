@@ -1,4 +1,4 @@
-#include "RigidBodyComponent.h"
+#include "ColliderComponent.h"
 
 #include <utility>
 
@@ -7,7 +7,7 @@
 
 using namespace vic;
 
-RigidBodyComponent::RigidBodyComponent(GameObject* ownerPtr, const glm::vec2& dimensions, std::function<void(RigidBodyComponent*, RigidBodyComponent*)> collisionFunc)
+ColliderComponent::ColliderComponent(GameObject* ownerPtr, const glm::vec2& dimensions, std::function<void(ColliderComponent*, ColliderComponent*)> collisionFunc)
 	: BaseComponent{ownerPtr}
 	, m_GOTransformPtr{&ownerPtr->GetTransform()}
 	, m_Dimensions{dimensions}
@@ -17,7 +17,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* ownerPtr, const glm::vec2& di
 	ownerPtr->GetScene()->GetPhysicsEngine().RegisterRigidBodyBox(this);
 }
 
-RigidBodyComponent::RigidBodyComponent(GameObject* ownerPtr, const glm::vec2& dimensions)
+ColliderComponent::ColliderComponent(GameObject* ownerPtr, const glm::vec2& dimensions)
 	: BaseComponent{ ownerPtr }
 	, m_GOTransformPtr{ &ownerPtr->GetTransform() }
 	, m_Dimensions{ dimensions }
@@ -27,7 +27,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* ownerPtr, const glm::vec2& di
 	ownerPtr->GetScene()->GetPhysicsEngine().RegisterRigidBodyBox(this);
 }
 
-RigidBodyComponent::~RigidBodyComponent()
+ColliderComponent::~ColliderComponent()
 {
 	BaseComponent::Owner()->GetScene()->GetPhysicsEngine().UnregisterRigidbodyBox(this);
 }

@@ -242,7 +242,7 @@ void MakeManuel([[maybe_unused]] vic::Minigin* engine, [[maybe_unused]] vic::Fon
 
 }
 
-void testCollisionFunc(vic::RigidBodyComponent*, vic::RigidBodyComponent* other)
+void testCollisionFunc(vic::ColliderComponent*, vic::ColliderComponent* other)
 {
 	if(other->GetOwner()->GetName() == "box1")
 		std::cout << "we are overlapping babeeeeeeeeeeeeeeeeeeeeeeeeeey \n";
@@ -259,13 +259,13 @@ void MakeColliderBoxes([[maybe_unused]] vic::Minigin* engine)
 	vic::GameObject& box1 = scene->CreateGameObject("box1");
 	box1.GetTransform().SetLocalPosition(200, 200);
 	box1.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 20, 20 }, SDL_Color{ 255, 0, 0, 255 });
-	box1.AddComponent<vic::RigidBodyComponent>(glm::vec2{ 20, 20 });
+	box1.AddComponent<vic::ColliderComponent>(glm::vec2{ 20, 20 });
 	
 
 	vic::GameObject& box2 = scene->CreateGameObject("box2");
 	box2.GetTransform().SetLocalPosition(240, 200);
 	box2.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 20, 20 }, SDL_Color{ 255, 0, 0, 255 });
-	box2.AddComponent<vic::RigidBodyComponent>(glm::vec2{ 20, 20 });
+	box2.AddComponent<vic::ColliderComponent>(glm::vec2{ 20, 20 });
 
 	
 	vic::GameObject& moveBox = scene->CreateGameObject();
@@ -273,7 +273,7 @@ void MakeColliderBoxes([[maybe_unused]] vic::Minigin* engine)
 	
 	moveBox.GetTransform().SetLocalPosition(10, 200);
 	moveBox.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 20, 20 }, SDL_Color{ 255, 0, 0, 255 });
-	moveBox.AddComponent<vic::RigidBodyComponent>(glm::vec2{ 20, 20 }, testCollisionFunc);
+	moveBox.AddComponent<vic::ColliderComponent>(glm::vec2{ 20, 20 }, testCollisionFunc);
 
 
 	auto moveComp = moveBox.AddComponent<KeyboardTestComponent>();

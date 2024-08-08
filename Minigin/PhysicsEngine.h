@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-#include "RigidBodyComponent.h"
+#include "ColliderComponent.h"
 
 
 
@@ -15,8 +15,8 @@ namespace vic
 
 		void UpdateCollisions();
 
-		void RegisterRigidBodyBox(RigidBodyComponent* bodyComponent);
-		void UnregisterRigidbodyBox(RigidBodyComponent* bodyComponent);
+		void RegisterRigidBodyBox(ColliderComponent* bodyComponent);
+		void UnregisterRigidbodyBox(ColliderComponent* bodyComponent);
 
 
 		PhysicsEngine(const PhysicsEngine&) = delete;
@@ -25,7 +25,7 @@ namespace vic
 		PhysicsEngine& operator=(PhysicsEngine&&) = delete;
 
 	private:
-		std::vector<RigidBodyComponent*> m_Bodies;
+		std::vector<ColliderComponent*> m_Bodies;
 
 		bool IsOverlapping(const glm::vec2& tr1, const glm::vec2& tr2, const glm::vec2& dim1, const glm::vec2 dim2);
 	};
