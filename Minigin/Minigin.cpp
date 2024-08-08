@@ -1,4 +1,3 @@
-#include <stdexcept>
 #define WIN32_LEAN_AND_MEAN 
 #include <windows.h>
 #include <SDL.h>
@@ -9,6 +8,7 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <stdexcept>
 
 #include "InputManager.h"
 #include "SceneManager.h"
