@@ -222,6 +222,7 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_truetype.h" />
+    <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="ControllerManager.h" />
@@ -230,7 +231,7 @@
     <ClInclude Include="ISoundSystem.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PrimitivesRenderComponent.h" />
-    <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="OverlapComponent.h" />
     <ClInclude Include="SDL_FontCache.h" />
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="SoundLogWrapper.h" />
@@ -272,6 +273,7 @@
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_tables.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_widgets.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ControllerManager.cpp" />
     <ClCompile Include="GameTime.cpp" />
@@ -282,7 +284,7 @@
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PrimitivesRenderComponent.cpp" />
-    <ClCompile Include="ColliderComponent.cpp" />
+    <ClCompile Include="OverlapComponent.cpp" />
     <ClCompile Include="SDLInputManager.cpp" />
     <ClCompile Include="SDL_FontCache.c" />
     <ClCompile Include="ServiceLocator.cpp" />

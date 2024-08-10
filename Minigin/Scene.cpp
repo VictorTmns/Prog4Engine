@@ -42,8 +42,8 @@ void Scene::FixedUpdate()
 		gameObjectPtr->FixedUpdate();
 	}
 
-
-	m_PhysicsEngine->UpdateCollisions();
+	m_PhysicsEngine->CheckColliders();
+	m_PhysicsEngine->CheckOverlaps();
 }
 
 void Scene::Render(const Renderer* renderer) const

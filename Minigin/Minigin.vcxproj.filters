@@ -41,9 +41,6 @@
     <Filter Include="components\Physics">
       <UniqueIdentifier>{ce7ecc60-79ff-4de9-8adb-841665c4634d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="other\Physics">
-      <UniqueIdentifier>{3ea303a4-5a1a-425d-a285-65faf743bfde}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseComponent.h">
@@ -152,14 +149,17 @@
     <ClInclude Include="Transform.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderComponent.h">
+    <ClInclude Include="OverlapComponent.h">
       <Filter>components\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsEngine.h">
-      <Filter>other\Physics</Filter>
     </ClInclude>
     <ClInclude Include="PrimitivesRenderComponent.h">
       <Filter>components\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>components\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,14 +248,17 @@
     <ClCompile Include="Transform.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="ColliderComponent.cpp">
+    <ClCompile Include="OverlapComponent.cpp">
       <Filter>components\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsEngine.cpp">
-      <Filter>other\Physics</Filter>
     </ClCompile>
     <ClCompile Include="PrimitivesRenderComponent.cpp">
       <Filter>components\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngine.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>components\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

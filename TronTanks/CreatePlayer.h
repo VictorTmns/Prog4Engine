@@ -52,6 +52,9 @@ inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos)
 	//rendering
 		player.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{40, 40}, SDL_Color{ 255, 0, 0, 0 }, true);
 
+	//collisions
+		player.AddComponent<vic::ColliderComponent>(glm::vec2{ 40, 40 }, moveComp->GetVelocityPointer());
+
 	//barrel
 		vic::GameObject& barrel{ scene->CreateGameObject("barrel") };
 		barrel.SetParent(&player);

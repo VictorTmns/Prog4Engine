@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "ColliderComponent.h"
+#include "OverlapComponent.h"
 
 
 
@@ -13,10 +14,13 @@ namespace vic
 		PhysicsEngine() = default;
 		~PhysicsEngine() = default;
 
-		void UpdateCollisions();
+		void RegisterOverlapComp(OverlapComponent* bodyComponent);
+		void UnregisterOverlapComp(OverlapComponent* bodyComponent);
+		void CheckOverlaps();
 
-		void RegisterCollider(ColliderComponent* bodyComponent);
-		void UnregisterRigidbodyBox(ColliderComponent* bodyComponent);
+		void RegisterColliderComp(ColliderComponent* bodyComponent);
+		void UnregisterColliderComp(ColliderComponent* bodyComponent);
+		void CheckColliders();
 
 
 		PhysicsEngine(const PhysicsEngine&) = delete;
@@ -24,9 +28,26 @@ namespace vic
 		PhysicsEngine& operator=(const PhysicsEngine&) = delete;
 		PhysicsEngine& operator=(PhysicsEngine&&) = delete;
 
-	private:
-		std::vector<ColliderComponent*> m_Bodies;
+		struct HitInfo
+		{
+			float lambda;
+			glm::vec2 intersectPoint;
+			glm::vec2 normal;
+		};
 
-		bool IsOverlapping(const glm::vec2& tr1, const glm::vec2& tr2, const glm::vec2& dim1, const glm::vec2 dim2);
+		struct Rectf
+		{
+			glm::vec2 pos;
+			glm::vec2 size;
+		};
+
+		bool Raycast(const glm::vec2* vertices, const size_t nrVertices, const glm::vec2& rayP1, const glm::vec2& rayP2, HitInfo& hitInfo);
+
+	private:
+		std::vector<OverlapComponent*> m_Bodies;
+		std::vector<ColliderComponent*> m_DynamicColliders;
+		std::vector<ColliderComponent*> m_StaticColliders;
+
+		static bool IsOverlapping(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& dim1, const glm::vec2 dim2);
 	};
 }

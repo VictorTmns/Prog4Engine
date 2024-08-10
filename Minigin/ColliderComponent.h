@@ -1,4 +1,5 @@
-#pragma once
+﻿#pragma once
+#include <glm/vec2.hpp>
 
 #include "BaseComponent.h"
 #include "Transform.h"
@@ -6,26 +7,23 @@
 namespace vic
 {
 	class PhysicsEngine;
-}
 
-namespace vic
-{
-	class ColliderComponent : public BaseComponent
+
+	class ColliderComponent final : public BaseComponent
 	{
 	public:
-		ColliderComponent(GameObject* ownerPtr, const glm::vec2& dimensions, std::function<void(ColliderComponent*, ColliderComponent*)> collisionFunc);
+		ColliderComponent(GameObject* ownerPtr, const glm::vec2& dimensions, glm::vec2* velocityPtr);
 		ColliderComponent(GameObject* ownerPtr, const glm::vec2& dimensions);
 		~ColliderComponent() override;
-
-		GameObject* GetOwner() const { return BaseComponent::Owner(); }
-
+	
+		void ChangeVelocityPtr(glm::vec2* newVelocityPointer) { m_VelocityPtr = newVelocityPointer; }
+	
 	private:
+		const bool m_staticObject;
 		Transform* m_GOTransformPtr;
 		glm::vec2 m_Dimensions;
-		std::function<void(ColliderComponent* self, ColliderComponent* other)> m_CollisionFunc;
-		bool m_HasOverlapBehavior;
-
+		glm::vec2* m_VelocityPtr;
+	
 		friend PhysicsEngine;
 	};
-
 }

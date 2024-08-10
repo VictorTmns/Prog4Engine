@@ -16,3 +16,13 @@ void BulletLogicComponent::Update()
 		m_Direction.y * m_Speed * static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime())
 	);
 }
+
+void BulletLogicComponent::BounceOutWall(const glm::vec2&, const glm::vec2&)
+{
+}
+
+void BulletLogicComponent::MoveOutOfWall(const glm::vec2&, const glm::vec2&)
+{
+
+}
+

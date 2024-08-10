@@ -16,7 +16,7 @@
 #include "ResourceManager.h"
 
 #include "CreatePlayer.h"
-
+#include "CreateWall.h"
 
 
 void load(vic::Minigin*)
@@ -24,6 +24,7 @@ void load(vic::Minigin*)
 
 	vic::Scene* level1 = vic::SceneManager::GetInstance().CreateScene("level 1");
 	BuildPlayer(level1, glm::vec2{50, 50});
+	CreateWall(level1, glm::vec2{ 100, 100 });
 }
 
 
