@@ -180,7 +180,7 @@ void PhysicsEngine::CheckColliders()
 			Rectf staRect{ m_StaticColliders[i]->m_GOTransformPtr->Position(), m_StaticColliders[i]->m_Dimensions };
 			if (aabb::DynamicRectVsRect(&dynRect, *dyn->m_VelocityPtr, fElapsedTime, staRect, cp, cn, t))
 			{
-				z.push_back({ i, t });
+				z.push_back({ static_cast<int>(i), t });
 			}
 		}
 
