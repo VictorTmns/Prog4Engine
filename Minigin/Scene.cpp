@@ -54,3 +54,8 @@ void Scene::Render(const Renderer* renderer) const
 	}
 }
 
+void Scene::RemoveDeadGameObjects()
+{
+	m_GameObjectPtrs.remove_if([](const std::unique_ptr<GameObject>& gameObjectPtr) { return gameObjectPtr->IsDead(); });
+}
+

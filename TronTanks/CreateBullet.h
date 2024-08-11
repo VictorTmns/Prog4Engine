@@ -16,18 +16,17 @@ inline vic::GameObject* CreateBullet(vic::Scene* scene, const glm::vec2& startPo
 
 
 	std::function<void(vic::OverlapComponent*, vic::OverlapComponent*)> collisionFunc =
-	{ [](vic::OverlapComponent*, vic::OverlapComponent* other){
+	{ [](vic::OverlapComponent* self, vic::OverlapComponent* other){
 
 		std::string_view otherName{other->GetOwner()->GetName()};
 		if (otherName == "wall")
 		{
-			//BulletLogicComponent* logic = self->GetOwner()->GetComponent<BulletLogicComponent>();
-			//logic->BounceOutWall(other->GetOwner()->GetTransform().Position(), );
+			BulletLogicComponent* logicSelf = self->GetOwner()->GetComponent<BulletLogicComponent>();
+			logicSelf->BounceOutWall();
 		}
-
 	}};
 
-	bullet.AddComponent<vic::OverlapComponent>(bulletLeftBottom, collisionFunc);
+	bullet.AddComponent<vic::OverlapComponent>(glm::vec2{ bulletSize, bulletSize }, collisionFunc);
 
 	return &bullet;
 }

@@ -14,6 +14,7 @@ vic::GameObject* CreateWall(vic::Scene* scene, const glm::vec2& pos)
 
 	wall.AddComponent<vic::PrimitivesRenderComponent>(dimensions, SDL_Color{ 255, 255, 255, 0 });
 	wall.AddComponent<vic::ColliderComponent>(dimensions);
+	wall.AddComponent<vic::OverlapComponent>(dimensions);
 
 	return &wall;
 }

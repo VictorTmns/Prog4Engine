@@ -20,9 +20,10 @@ namespace vic
 		GameObject* GetOwner() const { return BaseComponent::Owner(); }
 		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
 
+		glm::vec2 GetDimensions() const { return m_Dimensions; }
 	private:
 		Transform* m_GOTransformPtr;
-		glm::vec2 m_Dimensions;
+		const glm::vec2 m_Dimensions;
 		glm::vec2 m_Offset = { 0.f, 0.f };
 		std::function<void(OverlapComponent* self, OverlapComponent* other)> m_CollisionFunc;
 		bool m_HasOverlapBehavior;

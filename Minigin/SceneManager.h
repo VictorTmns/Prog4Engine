@@ -28,6 +28,8 @@ namespace vic
 		SceneManager& operator=(SceneManager&& other) = delete;
 	private:
 		friend class Singleton<SceneManager>;
+
+		int m_ActiveScene = 0;
 		SceneManager();
 		std::vector<std::unique_ptr<Scene>> m_scenes;
 	};

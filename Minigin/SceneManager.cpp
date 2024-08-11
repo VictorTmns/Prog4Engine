@@ -10,32 +10,26 @@ vic::SceneManager::SceneManager() = default;
 
 void vic::SceneManager::Update()
 {
-	for(auto& scene : m_scenes)
-	{
-		scene->Update();
-	}
+	m_scenes[m_ActiveScene]->Update();
+
+	m_scenes[m_ActiveScene]->RemoveDeadGameObjects();
 }
 
 void vic::SceneManager::Render(const vic::Renderer* renderer)
 {
-	for (const auto& scene : m_scenes)
-	{
-		scene->Render(renderer);
-	}
+	m_scenes[m_ActiveScene]->Render(renderer);
 }
 
 void vic::SceneManager::FixedUpdate()
 {
-	for (auto& scene : m_scenes)
-	{
-		scene->FixedUpdate();
-	}
+	m_scenes[m_ActiveScene]->FixedUpdate();
 }
 
 
 
 vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 {
+	assert(name != "");
 	auto scene = std::unique_ptr<Scene>(new Scene(name));
 	m_scenes.push_back(std::move(scene));
 	return m_scenes.back().get();

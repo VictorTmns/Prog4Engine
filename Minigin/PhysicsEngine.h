@@ -41,7 +41,13 @@ namespace vic
 			glm::vec2 size;
 		};
 
-		bool Raycast(const glm::vec2* vertices, const size_t nrVertices, const glm::vec2& rayP1, const glm::vec2& rayP2, HitInfo& hitInfo);
+		static bool ResolveDynamicRectVsRect(const Rectf& dynamicRect, glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect);
+		static bool DynamicRectVsRect(const Rectf& dynamicRect, const glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect,
+		                              glm::vec2& contactPoint, glm::vec2& contactNormal, float& contactTime);
+		static bool RayVsRect(const glm::vec2& rayOrigin, const glm::vec2& rayDir, const Rectf* target, glm::vec2& contactPoint, glm::vec2& contactNormal, float& tHitNear);
+		static bool PointVsRect(const glm::vec2& p, const Rectf& r);
+		static bool RectVsRect(const Rectf& r1, const Rectf& r2);
+		static bool RectVsRect(const glm::vec2& pos1, const glm::vec2& dim1, const glm::vec2& pos2, const glm::vec2& dim2);
 
 	private:
 		std::vector<OverlapComponent*> m_Bodies;

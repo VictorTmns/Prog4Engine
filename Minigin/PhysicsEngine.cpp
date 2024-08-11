@@ -7,104 +7,8 @@
 #include "GameTime.h"
 #include "OverlapComponent.h"
 
+
 using namespace vic;
-
-namespace aabb
-{
-	bool PointVsRect(const glm::vec2& p, const PhysicsEngine::Rectf* r)
-	{
-		return (p.x >= r->pos.x && p.y >= r->pos.y && p.x < r->pos.x + r->size.x && p.y < r->pos.y + r->size.y);
-	}
-
-	bool RectVsRect(const PhysicsEngine::Rectf* r1, const PhysicsEngine::Rectf* r2)
-	{
-		return (r1->pos.x < r2->pos.x + r2->size.x && r1->pos.x + r1->size.x > r2->pos.x && r1->pos.y < r2->pos.y + r2->size.y && r1->pos.y + r1->size.y > r2->pos.y);
-	}
-
-	bool RayVsRect(const glm::vec2& ray_origin, const glm::vec2& ray_dir, const PhysicsEngine::Rectf* target, glm::vec2& contact_point, glm::vec2& contact_normal, float& t_hit_near)
-	{
-		contact_normal = { 0,0 };
-		contact_point = { 0,0 };
-
-		// Cache division
-		glm::vec2 invdir = 1.0f / ray_dir;
-
-		// Calculate intersections with rectangle bounding axes
-		glm::vec2 t_near = (target->pos - ray_origin) * invdir;
-		glm::vec2 t_far = (target->pos + target->size - ray_origin) * invdir;
-
-		if (std::isnan(t_far.y) || std::isnan(t_far.x)) return false;
-		if (std::isnan(t_near.y) || std::isnan(t_near.x)) return false;
-
-		// Sort distances
-		if (t_near.x > t_far.x) std::swap(t_near.x, t_far.x);
-		if (t_near.y > t_far.y) std::swap(t_near.y, t_far.y);
-
-		// Early rejection		
-		if (t_near.x > t_far.y || t_near.y > t_far.x) return false;
-
-		// Closest 'time' will be the first contact
-		t_hit_near = std::max(t_near.x, t_near.y);
-
-		// Furthest 'time' is contact on opposite side of target
-		float t_hit_far = std::min(t_far.x, t_far.y);
-
-		// Reject if ray direction is pointing away from object
-		if (t_hit_far < 0)
-			return false;
-
-		// Contact point of collision from parametric line equation
-		contact_point = ray_origin + t_hit_near * ray_dir;
-
-		if (t_near.x > t_near.y)
-			if (invdir.x < 0)
-				contact_normal = { 1, 0 };
-			else
-				contact_normal = { -1, 0 };
-		else if (t_near.x < t_near.y)
-			if (invdir.y < 0)
-				contact_normal = { 0, 1 };
-			else
-				contact_normal = { 0, -1 };
-
-		// Note if t_near == t_far, collision is principly in a diagonal
-		// so pointless to resolve. By returning a CN={0,0} even though its
-		// considered a hit, the resolver wont change anything.
-		return true;
-	}
-
-	bool DynamicRectVsRect(const PhysicsEngine::Rectf* dynamicRect, const glm::vec2& dynamicRectVel, const float fTimeStep, const PhysicsEngine::Rectf& r_static,
-		glm::vec2& contact_point, glm::vec2& contact_normal, float& contact_time)
-	{
-		// Expand target rectangle by source dimensions
-		PhysicsEngine::Rectf expanded_target;
-		expanded_target.pos = r_static.pos - glm::vec2{ dynamicRect->size.x / 2, dynamicRect->size.y / 2 };
-		expanded_target.size = r_static.size + dynamicRect->size;
-
-		if (RayVsRect(dynamicRect->pos + glm::vec2{ dynamicRect->size.x / 2, dynamicRect->size.y / 2 }, dynamicRectVel * fTimeStep, &expanded_target, contact_point, contact_normal, contact_time))
-			return (contact_time >= 0.0f && contact_time < 1.0f);
-		else
-			return false;
-	}
-
-
-
-	bool ResolveDynamicRectVsRect(PhysicsEngine::Rectf* r_dynamic, glm::vec2& dynamicRectVel, const float fTimeStep, PhysicsEngine::Rectf* r_static)
-	{
-		glm::vec2 contact_point, contact_normal;
-		float contact_time = 0.0f;
-		if (DynamicRectVsRect(r_dynamic, dynamicRectVel, fTimeStep, *r_static, contact_point, contact_normal, contact_time))
-		{
-			dynamicRectVel += contact_normal * glm::vec2(std::abs(dynamicRectVel.x), std::abs(dynamicRectVel.y)) * (1 - contact_time);
-			return true;
-		}
-
-		return false;
-	}
-}
-
-
-
 
 void PhysicsEngine::CheckOverlaps()
 {
@@ -119,9 +23,11 @@ void PhysicsEngine::CheckOverlaps()
 				continue;
 
 
-			if (!IsOverlapping(
-				body->m_GOTransformPtr->Position() + body->m_Offset, body2->m_GOTransformPtr->Position() + body2->m_Offset, 
-				body->m_Dimensions, body2->m_Dimensions)
+			if (!RectVsRect(
+				body->m_GOTransformPtr->Position() + body->m_Offset,
+				body->m_Dimensions,
+				body2->m_GOTransformPtr->Position() + body2->m_Offset, 
+				body2->m_Dimensions)
 				)
 				continue;
 
@@ -178,7 +84,7 @@ void PhysicsEngine::CheckColliders()
 		for (size_t i = 0; i < m_StaticColliders.size(); i++)
 		{
 			Rectf staRect{ m_StaticColliders[i]->m_GOTransformPtr->Position(), m_StaticColliders[i]->m_Dimensions };
-			if (aabb::DynamicRectVsRect(&dynRect, *dyn->m_VelocityPtr, fElapsedTime, staRect, cp, cn, t))
+			if (DynamicRectVsRect(dynRect, *dyn->m_VelocityPtr, fElapsedTime, staRect, cp, cn, t))
 			{
 				z.push_back({ static_cast<int>(i), t });
 			}
@@ -191,10 +97,10 @@ void PhysicsEngine::CheckColliders()
 		});
 
 		// Now resolve the collision in correct order 
-		for (auto j : z)
+		for (auto& j : z)
 		{
 			Rectf staRect{m_StaticColliders[j.first]->m_GOTransformPtr->Position(), m_StaticColliders[j.first]->m_Dimensions};
-			aabb::ResolveDynamicRectVsRect(&dynRect, *dyn->m_VelocityPtr, fElapsedTime, &staRect);
+			ResolveDynamicRectVsRect(dynRect, *dyn->m_VelocityPtr, fElapsedTime, staRect);
 		}
 
 
@@ -218,16 +124,106 @@ void PhysicsEngine::UnregisterOverlapComp(OverlapComponent* bodyComponent)
 	m_Bodies.erase(bodyIt);
 }
 
-bool PhysicsEngine::IsOverlapping(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& dim1,
-	const glm::vec2 dim2)
+
+
+
+
+bool PhysicsEngine::ResolveDynamicRectVsRect(const Rectf& dynamicRect, glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect)
 {
-	return (
-		   pos1.x			< (pos2.x + dim2.x)
-		&& (pos1.x + dim1.x) > pos2.x
-		&& (pos1.y + dim1.y) > pos2.y
-		&& pos1.y			< (pos2.y + dim2.y)
-		);
+	glm::vec2 contact_point, contact_normal;
+	float contact_time = 0.0f;
+	if (DynamicRectVsRect(dynamicRect, dynamicRectVel, fixedTimeStep, staticRect, contact_point, contact_normal, contact_time))
+	{
+		dynamicRectVel += contact_normal * glm::vec2(std::abs(dynamicRectVel.x), std::abs(dynamicRectVel.y)) * (1 - contact_time);
+		return true;
+	}
+
+	return false;
+}
+bool PhysicsEngine::DynamicRectVsRect(const Rectf& dynamicRect, const glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect,
+	glm::vec2& contactPoint, glm::vec2& contactNormal, float& contactTime)
+{
+	// Expand target rectangle by source dimensions
+	PhysicsEngine::Rectf expanded_target;
+	expanded_target.pos = staticRect.pos - glm::vec2{ dynamicRect.size.x / 2, dynamicRect.size.y / 2 };
+	expanded_target.size = staticRect.size + dynamicRect.size;
+
+	if (RayVsRect(dynamicRect.pos + glm::vec2{ dynamicRect.size.x / 2, dynamicRect.size.y / 2 }, dynamicRectVel * fixedTimeStep, &expanded_target, contactPoint, contactNormal, contactTime))
+		return (contactTime >= 0.0f && contactTime < 1.0f);
+	else
+		return false;
+}
+bool PhysicsEngine::RayVsRect(const glm::vec2& rayOrigin, const glm::vec2& rayDir, const Rectf* target, glm::vec2& contactPoint,
+	glm::vec2& contactNormal, float& tHitNear)
+{
+	contactNormal = { 0,0 };
+	contactPoint = { 0,0 };
+
+	// Cache division
+	glm::vec2 invdir = 1.0f / rayDir;
+
+	// Calculate intersections with rectangle bounding axes
+	glm::vec2 tNear = (target->pos - rayOrigin) * invdir;
+	glm::vec2 tFar = (target->pos + target->size - rayOrigin) * invdir;
+
+	if (std::isnan(tFar.y) || std::isnan(tFar.x)) return false;
+	if (std::isnan(tNear.y) || std::isnan(tNear.x)) return false;
+
+	// Sort distances
+	if (tNear.x > tFar.x) std::swap(tNear.x, tFar.x);
+	if (tNear.y > tFar.y) std::swap(tNear.y, tFar.y);
+
+	// Early rejection		
+	if (tNear.x > tFar.y || tNear.y > tFar.x) return false;
+
+	// Closest 'time' will be the first contact
+	tHitNear = std::max(tNear.x, tNear.y);
+
+	// Furthest 'time' is contact on opposite side of target
+	float tHitFar = std::min(tFar.x, tFar.y);
+
+	// Reject if ray direction is pointing away from object
+	if (tHitFar < 0)
+		return false;
+
+	// Contact point of collision from parametric line equation
+	contactPoint = rayOrigin + tHitNear * rayDir;
+
+	if (tNear.x > tNear.y)
+		if (invdir.x < 0)
+			contactNormal = { 1, 0 };
+		else
+			contactNormal = { -1, 0 };
+	else if (tNear.x < tNear.y)
+		if (invdir.y < 0)
+			contactNormal = { 0, 1 };
+		else
+			contactNormal = { 0, -1 };
+
+	// Note if t_near == t_far, collision is principly in a diagonal
+	// so pointless to resolve. By returning a CN={0,0} even though its
+	// considered a hit, the resolver wont change anything.
+	return true;
 }
 
 
+bool PhysicsEngine::PointVsRect(const glm::vec2& p, const Rectf& r)
+{
+	return (p.x >= r.pos.x && p.y >= r.pos.y && p.x < r.pos.x + r.size.x && p.y < r.pos.y + r.size.y);
+}
+bool PhysicsEngine::RectVsRect(const Rectf& r1, const Rectf& r2)
+{
+	return RectVsRect(r1.pos, r1.size, r2.pos, r2.size);
+}
+bool PhysicsEngine::RectVsRect(const glm::vec2& pos1, const glm::vec2& dim1, const glm::vec2& pos2, const glm::vec2& dim2)
+{
+	//return (r1->pos.x < r2->pos.x + r2->size.x 
+	//	&& r1->pos.x + r1->size.x > r2->pos.x 
+	//	&& r1->pos.y < r2->pos.y + r2->size.y 
+	//	&& r1->pos.y + r1->size.y > r2->pos.y);
+	return (pos1.x < pos2.x + dim2.x 
+		&& pos1.x + dim1.x > pos2.x 
+		&& pos1.y < pos2.y + dim2.y 
+		&& pos1.y + dim1.y > pos2.y);
 
+}

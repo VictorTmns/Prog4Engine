@@ -53,7 +53,17 @@ namespace vic
 
 	
 	// ---- GAME OBJECT / SCENE GRAPH----
-	
+
+	void GameObject::Destroy()
+	{
+		m_Dead = true;
+
+		for (auto childPtr : m_ChildPtrs)
+		{
+			childPtr->Destroy();
+		}
+	}
+
 	bool GameObject::SetParent(GameObject* newParentPtr, bool keepWorldPosition)
 	{
 		// 1 check if parent is valid

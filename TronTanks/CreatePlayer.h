@@ -43,7 +43,7 @@ inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos)
 	player.GetTransform().SetLocalPosition(pos.x, pos.y);
 
 	//Movement
-		MovementComponent* moveComp = player.AddComponent<MovementComponent>(50.f);
+		MovementComponent* moveComp = player.AddComponent<MovementComponent>(500.f);
 		AddWASDMovement(moveComp, [moveComp](auto&& PH1, auto&& PH2)
 		{
 			moveComp->Move(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2));

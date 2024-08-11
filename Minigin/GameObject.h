@@ -37,6 +37,9 @@ namespace vic
 
 
 		//GameObjects
+		void Destroy();
+		bool IsDead() const { return m_Dead; }
+
 		bool SetParent(GameObject* newParentPtr, bool keepWorldPosition = false);
 
 		GameObject* GetParent() const { return m_ParentPtr; }
@@ -54,6 +57,8 @@ namespace vic
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
+		bool m_Dead = false;
+
 		std::string m_Name = {};
 
 		std::unique_ptr<Transform> m_Transform;

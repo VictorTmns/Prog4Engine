@@ -17,6 +17,9 @@
     <Filter Include="tanks\Bullet">
       <UniqueIdentifier>{9ab0186f-a91a-4fa4-a4c5-0cafea638d77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{b38b1b11-9e61-4cff-99d0-9305d7022f46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -30,6 +33,15 @@
     </ClCompile>
     <ClCompile Include="BulletLogicComponent.cpp">
       <Filter>tanks\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerLogic.cpp">
+      <Filter>player</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAIComp.cpp">
+      <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +62,12 @@
     </ClInclude>
     <ClInclude Include="CreateBullet.h">
       <Filter>tanks\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerLogic.h">
+      <Filter>player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAIComp.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

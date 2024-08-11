@@ -15,6 +15,7 @@ namespace vic
 		void Update();
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;
+		void RemoveDeadGameObjects();
 
 		~Scene() = default;
 		Scene(const Scene& other) = delete;
@@ -23,7 +24,6 @@ namespace vic
 		Scene& operator=(Scene&& other) = delete;
 
 		std::string_view Name() const { return std::string_view(m_name); }
-
 		PhysicsEngine& GetPhysicsEngine() const { return *m_PhysicsEngine; }
 	private: 
 		explicit Scene(const std::string& name);
@@ -31,7 +31,7 @@ namespace vic
 		std::unique_ptr<PhysicsEngine> m_PhysicsEngine;
 
 		std::string m_name;
-		std::vector<std::unique_ptr<GameObject>> m_GameObjectPtrs;
+		std::list<std::unique_ptr<GameObject>> m_GameObjectPtrs;
 
 		static unsigned int m_idCounter; 
 	};
