@@ -164,7 +164,7 @@ void PhysicsEngine::UnregisterColliderComp(ColliderComponent* bodyComponent)
 
 void PhysicsEngine::CheckColliders()
 {
-	const float fElapsedTime{ static_cast<float>(GameTime::GetInstance().GetFixedTimeStep()) };
+	const float fElapsedTime{ static_cast<float>(GameTime::GetInstance().GetDeltaTime()) };
 	for (auto dyn : m_DynamicColliders)
 	{
 		Rectf dynRect{ dyn->m_GOTransformPtr->Position(), dyn->m_Dimensions };

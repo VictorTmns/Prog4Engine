@@ -17,5 +17,5 @@ public:
 private:
 	float m_Speed;
 	glm::vec2 m_Velocity;
-	bool m_CanOverride;
+	bool m_ResetVelocity;
 };

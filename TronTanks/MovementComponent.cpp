@@ -13,24 +13,22 @@ MovementComponent::MovementComponent(vic::GameObject* ownerPtr, float speed)
 
 void MovementComponent::Update()
 {
-	m_CanOverride = true;
+	if (m_ResetVelocity == true)
+		m_Velocity = glm::vec2{ 0.f, 0.f };
+	m_ResetVelocity = true;
 }
 
 
 void MovementComponent::Move(float x, float y)
 {
-	//BaseComponent::Owner()->GetTransform().AddLocalPosition(
-	//	x * static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime()) * m_Speed,
-	//	y * static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime()) * m_Speed);
-	//
-	//if (m_CanOverride)
-	//	m_Velocity = glm::vec2{ x, y };
-	//else
-	//{
-	//	m_Velocity.x += x;
-	//	m_Velocity.y += y;
-	//}
-	m_Velocity.x += x;
-	m_Velocity.y += y;
-
+	if (m_ResetVelocity)
+	{
+		m_Velocity = glm::vec2{x * m_Speed, y * m_Speed};
+		m_ResetVelocity = false;
+	}
+	else
+	{
+		m_Velocity.x += x * m_Speed;
+		m_Velocity.y += y * m_Speed;
+	}
 }
