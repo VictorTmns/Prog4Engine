@@ -125,8 +125,16 @@ void PhysicsEngine::UnregisterOverlapComp(OverlapComponent* bodyComponent)
 }
 
 
+bool PhysicsEngine::CollidesWithStatics(const glm::vec2& pos, const glm::vec2& size)
+{
+	for (auto& staticCollider : m_StaticColliders)
+	{
+		if (RectVsRect(pos, size, staticCollider->m_GOTransformPtr->Position(), staticCollider->m_Dimensions))
+			return true;
+	}
 
-
+	return false;
+}
 
 bool PhysicsEngine::ResolveDynamicRectVsRect(const Rectf& dynamicRect, glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect)
 {

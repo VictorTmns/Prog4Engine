@@ -11,6 +11,12 @@ namespace vic
 	class PhysicsEngine final
 	{
 	public:
+		struct Rectf
+		{
+			glm::vec2 pos;
+			glm::vec2 size;
+		};
+
 		PhysicsEngine() = default;
 		~PhysicsEngine() = default;
 
@@ -28,18 +34,9 @@ namespace vic
 		PhysicsEngine& operator=(const PhysicsEngine&) = delete;
 		PhysicsEngine& operator=(PhysicsEngine&&) = delete;
 
-		struct HitInfo
-		{
-			float lambda;
-			glm::vec2 intersectPoint;
-			glm::vec2 normal;
-		};
 
-		struct Rectf
-		{
-			glm::vec2 pos;
-			glm::vec2 size;
-		};
+		bool CollidesWithStatics(const glm::vec2& pos, const glm::vec2& size);
+
 
 		static bool ResolveDynamicRectVsRect(const Rectf& dynamicRect, glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect);
 		static bool DynamicRectVsRect(const Rectf& dynamicRect, const glm::vec2& dynamicRectVel, const float fixedTimeStep, const Rectf& staticRect,
