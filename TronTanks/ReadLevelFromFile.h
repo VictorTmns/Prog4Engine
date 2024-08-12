@@ -25,7 +25,7 @@ void ReadLevelFromFile(vic::Scene* scene, const std::string& filename) {
     int y = 0;
 
     while (std::getline(file, line)) {
-        for (int x = 0; x < line.size(); ++x) {
+        for (int x = 0; x < static_cast<int>(line.size()); ++x) {
             glm::vec2 pos{ x * gridSize , y * gridSize };
 
             char ch = line[x];
