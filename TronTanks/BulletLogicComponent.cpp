@@ -4,8 +4,8 @@
 #include "GameTime.h"
 #include "PrimitivesRenderComponent.h"
 
-BulletLogicComponent::BulletLogicComponent(vic::GameObject* ownerPtr, const glm::vec2& direction)
-	: BaseComponent{ownerPtr}, m_Direction{ direction }
+BulletLogicComponent::BulletLogicComponent(vic::GameObject* ownerPtr, const glm::vec2& direction, int team)
+	: BaseComponent{ownerPtr}, m_Direction{ direction }, m_Team{team}
 {
 }
 

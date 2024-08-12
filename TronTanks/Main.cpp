@@ -11,6 +11,7 @@
 #pragma warning (disable: 4996)
 #pragma warning (pop)
 
+#include "CreateEnemies.h"
 #include "Minigin.h"
 #include "Scene.h"
 #include "ResourceManager.h"
@@ -23,9 +24,11 @@ void load(vic::Minigin*)
 {
 
 	vic::Scene* level1 = vic::SceneManager::GetInstance().CreateScene("level 1");
-	BuildPlayer(level1, glm::vec2{50, 50});
+	BuildPlayer(level1, glm::vec2{50, 50}, 0);
 	CreateWall(level1, glm::vec2{ 100, 100 });
 	CreateWall(level1, glm::vec2{ 300, 100 });
+
+	CreateBlueTank(level1, glm::vec2{ 400, 400 }, false);
 }
 
 

@@ -37,9 +37,6 @@
     <ClCompile Include="PlayerLogic.cpp">
       <Filter>player</Filter>
     </ClCompile>
-    <ClCompile Include="CreateEnemy.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyAIComp.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
       <Filter>player</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAIComp.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateEnemies.h">
       <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>

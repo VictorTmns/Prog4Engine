@@ -18,12 +18,12 @@ BarrelComponent::BarrelComponent(vic::GameObject* ownerPtr)
 	
 }
 
-void BarrelComponent::Shoot(Direction direction)
+void BarrelComponent::Shoot(Direction direction, int team)
 {
 	m_BarrelDirection = direction;
 	ReloadBarrelRenderer();
 
-	CreateBullet(Owner()->GetScene(), Owner()->GetTransform().Position(), DirectionToVec(m_BarrelDirection));
+	CreateBullet(Owner()->GetScene(), Owner()->GetTransform().Position(), DirectionToVec(m_BarrelDirection), team);
 }
 
 void BarrelComponent::ReloadBarrelRenderer()

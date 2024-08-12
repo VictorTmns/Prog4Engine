@@ -16,7 +16,7 @@ public:
 
 	BarrelComponent(vic::GameObject* ownerPtr);
 
-	void Shoot(Direction direction);
+	void Shoot(Direction direction, int team);
 
 private:
 	void ReloadBarrelRenderer();

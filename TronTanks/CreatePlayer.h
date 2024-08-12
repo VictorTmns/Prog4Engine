@@ -34,7 +34,7 @@ inline void AddWASDMovement(vic::BaseComponent* moveComp, std::function<void(flo
 		SDLK_d,
 		vic::ClickType::hold);
 }
-inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos)
+inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos, int team)
 {
 	auto& inputManager = vic::InputManager::GetInstance();
 
@@ -63,25 +63,25 @@ inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos)
 
 		inputManager.BindToKeyboard(
 			barrelComp,
-			[barrelComp] {barrelComp->Shoot(BarrelComponent::Direction::left); },
+			[barrelComp, team] {barrelComp->Shoot(BarrelComponent::Direction::left, team); },
 			SDLK_LEFT,
 			vic::ClickType::pressed
 		);
 		inputManager.BindToKeyboard(
 			barrelComp,
-			[barrelComp] {barrelComp->Shoot(BarrelComponent::Direction::up); },
+			[barrelComp, team] {barrelComp->Shoot(BarrelComponent::Direction::up, team); },
 			SDLK_UP,
 			vic::ClickType::pressed
 		);
 		inputManager.BindToKeyboard(
 			barrelComp,
-			[barrelComp] {barrelComp->Shoot(BarrelComponent::Direction::right); },
+			[barrelComp, team] {barrelComp->Shoot(BarrelComponent::Direction::right, team); },
 			SDLK_RIGHT,
 			vic::ClickType::pressed
 		);
 		inputManager.BindToKeyboard(
 			barrelComp,
-			[barrelComp] {barrelComp->Shoot(BarrelComponent::Direction::down); },
+			[barrelComp, team] {barrelComp->Shoot(BarrelComponent::Direction::down, team); },
 			SDLK_DOWN,
 			vic::ClickType::pressed
 		);
