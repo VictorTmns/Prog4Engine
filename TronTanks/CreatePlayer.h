@@ -34,10 +34,11 @@ inline void AddWASDMovement(vic::BaseComponent* moveComp, std::function<void(flo
 		SDLK_d,
 		vic::ClickType::hold);
 }
-inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos, int team)
+inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, int team)
 {
 	auto& inputManager = vic::InputManager::GetInstance();
 
+	const glm::vec2 playerDim{ 20.f, 20.f };
 
 	vic::GameObject& player{ scene->CreateGameObject("player") };
 	player.GetTransform().SetLocalPosition(pos.x, pos.y);
@@ -50,15 +51,15 @@ inline vic::GameObject& BuildPlayer(vic::Scene* scene, const glm::vec2& pos, int
 		});
 
 	//rendering
-		player.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{40, 40}, SDL_Color{ 255, 0, 0, 0 }, true);
+		player.AddComponent<vic::PrimitivesRenderComponent>(playerDim, SDL_Color{ 255, 0, 0, 0 }, true);
 
 	//collisions
-		player.AddComponent<vic::ColliderComponent>(glm::vec2{ 40, 40 }, moveComp->GetVelocityPointer());
+		player.AddComponent<vic::ColliderComponent>(playerDim, moveComp->GetVelocityPointer());
 
 	//barrel
 		vic::GameObject& barrel{ scene->CreateGameObject("barrel") };
 		barrel.SetParent(&player);
-		barrel.GetTransform().SetLocalPosition(20, 20);
+		barrel.GetTransform().SetLocalPosition(playerDim.x/2, playerDim.y / 2);
 		auto barrelComp = barrel.AddComponent<BarrelComponent>();
 
 		inputManager.BindToKeyboard(

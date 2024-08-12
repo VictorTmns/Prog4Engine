@@ -212,6 +212,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="CreateEnemies.h" />
     <ClInclude Include="CreateWall.h" />
     <ClInclude Include="EnemyAIComp.h" />
+    <ClInclude Include="ReadLevelFromFile.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PlayerLogic.h" />
   </ItemGroup>

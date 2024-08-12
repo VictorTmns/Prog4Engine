@@ -7,7 +7,7 @@
 #include "MovementComponent.h"
 #include "Scene.h"
 
-void CreateBlueTank(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
+void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
 {
 	constexpr glm::vec2 dim{ 40, 40 };
 

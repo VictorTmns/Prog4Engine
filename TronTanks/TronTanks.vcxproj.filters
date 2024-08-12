@@ -69,5 +69,6 @@
     <ClInclude Include="CreateEnemies.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="ReadLevelFromFile.h" />
   </ItemGroup>
 </Project>

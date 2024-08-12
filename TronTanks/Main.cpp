@@ -18,17 +18,19 @@
 
 #include "CreatePlayer.h"
 #include "CreateWall.h"
+#include "ReadLevelFromFile.h"
 
 
 void load(vic::Minigin*)
 {
 
 	vic::Scene* level1 = vic::SceneManager::GetInstance().CreateScene("level 1");
-	BuildPlayer(level1, glm::vec2{50, 50}, 0);
-	CreateWall(level1, glm::vec2{ 100, 100 });
-	CreateWall(level1, glm::vec2{ 300, 100 });
-
-	CreateBlueTank(level1, glm::vec2{ 400, 400 }, false);
+	//CreatePlayer(level1, glm::vec2{50, 50}, 0);
+	//CreateWall(level1, glm::vec2{ 100, 100 });
+	//CreateWall(level1, glm::vec2{ 300, 100 });
+	//
+	//CreateEnemy(level1, glm::vec2{ 400, 400 }, false);
+	ReadLevelFromFile(level1, "../Data/Levels/level1.txt");
 }
 
 
