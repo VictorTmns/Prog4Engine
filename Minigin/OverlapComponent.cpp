@@ -31,3 +31,14 @@ OverlapComponent::~OverlapComponent()
 {
 	BaseComponent::Owner()->GetScene()->GetPhysicsEngine().UnregisterOverlapComp(this);
 }
+
+bool OverlapComponent::Overlaps(const glm::vec2& pos, const glm::vec2& size) const
+{
+	return PhysicsEngine::RectVsRect(pos, size, m_GOTransformPtr->Position(), m_Dimensions);
+}
+
+void OverlapComponent::OverlapCheck(OverlapComponent& other)
+{
+	if( PhysicsEngine::RectVsRect(other.m_GOTransformPtr->Position(), other.m_Dimensions, m_GOTransformPtr->Position(), m_Dimensions))
+		m_CollisionFunc(this, &other);
+}

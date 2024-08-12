@@ -2,7 +2,9 @@
 #include <glm/glm.hpp>
 
 #include "CreatePlayer.h"
-#include "EnemyAIComp.h"
+#include "EnemyLogicComp.h"
+#include "EnemyMovementAIComp.h"
+#include "EnemyShootingAIComp.h"
 #include "InputTypes.h"
 #include "VelocityMovementComponent.h"
 #include "Scene.h"
@@ -42,23 +44,24 @@ void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
 	auto barrelComp = barrel.AddComponent<BarrelComponent>();
 
 	//AI
-	EnemyAIComp* enemyAI = enemy.AddComponent<EnemyAIComp>(moveComp, barrelComp);
-
+	enemy.AddComponent<EnemyMovementAIComp>(moveComp);
+	enemy.AddComponent<EnemyShootingAIComp>(barrelComp);
+	EnemyLogicComp* enemyLogic = enemy.AddComponent<EnemyLogicComp>();
 
 	//collisions
 	enemy.AddComponent<vic::ColliderComponent>(dim, moveComp->GetVelocityPointer());
 
 	//overlaps
 	std::function<void(vic::OverlapComponent*, vic::OverlapComponent*)> collisionFunc =
-	{ [enemyAI](vic::OverlapComponent*, vic::OverlapComponent* other) {
+	{ [enemyLogic](vic::OverlapComponent*, vic::OverlapComponent* other) {
 
-		std::string_view otherName{other->GetOwner()->GetName()};
+		std::string_view otherName{other->Owner()->GetName()};
 		if (otherName == "bullet")
 		{
-			if (other->GetOwner()->GetComponent<BulletLogicComponent>()->GetBulletTeam() != 200)
+			if (other->Owner()->GetComponent<BulletLogicComponent>()->GetBulletTeam() != 200)
 			{
-				enemyAI->Hit();
-				other->GetOwner()->Destroy();
+				enemyLogic->Hit();
+				other->Owner()->Destroy();
 			}
 		}
 	} };

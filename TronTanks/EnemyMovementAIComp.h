@@ -5,15 +5,14 @@
 #include "BaseComponent.h"
 #include "VelocityMovementComponent.h"
 
-class EnemyAIComp : public vic::BaseComponent
+class EnemyMovementAIComp : public vic::BaseComponent
 {
 public:
-	EnemyAIComp(vic::GameObject* ownerPtr, VelocityMovementComponent* movComp, BarrelComponent* barrelComp);
+	EnemyMovementAIComp(vic::GameObject* ownerPtr, VelocityMovementComponent* movComp);
 
 	void OnStart() override;
 
 	void Update() override;
-	void Hit();
 private:
 	bool CanMoveTo(const glm::vec2 dir);
 	bool CanKeepMoveingTo(const glm::vec2 dir);
@@ -23,7 +22,6 @@ private:
 
 private:
 	VelocityMovementComponent* m_MovComp;
-	BarrelComponent* m_BarrelComp;
 
 	glm::vec2 m_Direction;
 	float m_ElapsedTime;

@@ -1,14 +1,12 @@
 ﻿#pragma once
 #include "BaseComponent.h"
 
-class PlayerLogic : public vic::BaseComponent
+class EnemyLogicComp : public vic::BaseComponent
 {
 public:
-	PlayerLogic(vic::GameObject* owner);
+	EnemyLogicComp(vic::GameObject* ownerPtr);
 
 	void Hit();
-
 private:
-
 	int m_LivesLeft;
 };

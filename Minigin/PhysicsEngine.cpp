@@ -14,7 +14,7 @@ void PhysicsEngine::CheckOverlaps()
 {
 	for (OverlapComponent* body : m_Bodies)
 	{
-		if(!body->m_HasOverlapBehavior)
+		if(!body->HasOverlapBehaviour())
 			continue;
 
 		for (OverlapComponent* body2 : m_Bodies)
@@ -23,16 +23,7 @@ void PhysicsEngine::CheckOverlaps()
 				continue;
 
 
-			if (!RectVsRect(
-				body->m_GOTransformPtr->Position() + body->m_Offset,
-				body->m_Dimensions,
-				body2->m_GOTransformPtr->Position() + body2->m_Offset, 
-				body2->m_Dimensions)
-				)
-				continue;
-
-
-			body->m_CollisionFunc(body, body2);
+			body->OverlapCheck(*body2);
 		}
 	}
 }

@@ -244,9 +244,9 @@ void MakeManuel([[maybe_unused]] vic::Minigin* engine, [[maybe_unused]] vic::Fon
 
 void testCollisionFunc(vic::OverlapComponent*, vic::OverlapComponent* other)
 {
-	if(other->GetOwner()->GetName() == "box1")
+	if(other->Owner()->GetName() == "box1")
 		std::cout << "we are overlapping babeeeeeeeeeeeeeeeeeeeeeeeeeey \n";
-	else if (other->GetOwner()->GetName() == "box2")
+	else if (other->Owner()->GetName() == "box2")
 		std::cout << "we are overlapping again babeeeeeeeeeeeeeeeeeeeeeeeeeey \n";
 }
 

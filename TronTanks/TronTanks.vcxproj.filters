@@ -37,8 +37,17 @@
     <ClCompile Include="PlayerLogic.cpp">
       <Filter>player</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyAIComp.cpp">
+    <ClCompile Include="EnemyMovementAIComp.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShootingAIComp.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyLogicComp.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,12 +72,19 @@
     <ClInclude Include="PlayerLogic.h">
       <Filter>player</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyAIComp.h">
+    <ClInclude Include="EnemyMovementAIComp.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CreateEnemies.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ReadLevelFromFile.h" />
+    <ClInclude Include="EnemyShootingAIComp.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyLogicComp.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h" />
   </ItemGroup>
 </Project>

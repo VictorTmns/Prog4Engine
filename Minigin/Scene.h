@@ -26,6 +26,8 @@ namespace vic
 
 		std::string_view Name() const { return std::string_view(m_name); }
 		PhysicsEngine& GetPhysicsEngine() const { return *m_PhysicsEngine; }
+
+		std::vector<GameObject*> GetGameObjectsByName(const std::string& name) const;
 	private: 
 		explicit Scene(const std::string& name);
 

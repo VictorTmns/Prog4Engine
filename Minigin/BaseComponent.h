@@ -31,11 +31,13 @@ namespace vic
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
+
+
+		GameObject* Owner() const { return m_OwnerPtr; }
 	protected:
 		BaseComponent(GameObject* ownerPtr);
 		void NotifyObservers(Observer::Event event) const;
 
-		GameObject* Owner() const { return m_OwnerPtr; }
 		
 	private:
 		GameObject* m_OwnerPtr;

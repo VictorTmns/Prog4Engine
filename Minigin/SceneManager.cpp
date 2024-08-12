@@ -36,7 +36,7 @@ void vic::SceneManager::FixedUpdate()
 
 vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 {
-	assert(name != "");
+	assert(!name.empty());
 	auto scene = std::unique_ptr<Scene>(new Scene(name));
 	m_scenes.push_back(std::move(scene));
 	return m_scenes.back().get();
@@ -44,7 +44,7 @@ vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 
 vic::Scene* vic::SceneManager::GetScene(const std::string& name)
 {
-	assert(name != "");
+	assert(!name.empty());
 
 	auto sceneSearchCrit = [name](const std::unique_ptr<Scene>& scenePtr) -> bool {
 		return (scenePtr->Name() == name);

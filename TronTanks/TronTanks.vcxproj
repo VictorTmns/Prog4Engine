@@ -199,7 +199,10 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
   <ItemGroup>
     <ClCompile Include="BarrelComponent.cpp" />
     <ClCompile Include="BulletLogicComponent.cpp" />
-    <ClCompile Include="EnemyAIComp.cpp" />
+    <ClCompile Include="EnemyLogicComp.cpp" />
+    <ClCompile Include="EnemyMovementAIComp.cpp" />
+    <ClCompile Include="EnemyShootingAIComp.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="VelocityMovementComponent.cpp" />
     <ClCompile Include="PlayerLogic.cpp" />
@@ -211,7 +214,10 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="CreatePlayer.h" />
     <ClInclude Include="CreateEnemies.h" />
     <ClInclude Include="CreateWall.h" />
-    <ClInclude Include="EnemyAIComp.h" />
+    <ClInclude Include="EnemyLogicComp.h" />
+    <ClInclude Include="EnemyMovementAIComp.h" />
+    <ClInclude Include="EnemyShootingAIComp.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="ReadLevelFromFile.h" />
     <ClInclude Include="VelocityMovementComponent.h" />
     <ClInclude Include="PlayerLogic.h" />

@@ -18,10 +18,10 @@ inline vic::GameObject* CreateBullet(vic::Scene* scene, const glm::vec2& startPo
 	std::function<void(vic::OverlapComponent*, vic::OverlapComponent*)> collisionFunc =
 	{ [](vic::OverlapComponent* self, vic::OverlapComponent* other){
 
-		std::string_view otherName{other->GetOwner()->GetName()};
+		std::string_view otherName{other->Owner()->GetName()};
 		if (otherName == "wall")
 		{
-			BulletLogicComponent* logicSelf = self->GetOwner()->GetComponent<BulletLogicComponent>();
+			BulletLogicComponent* logicSelf = self->Owner()->GetComponent<BulletLogicComponent>();
 			logicSelf->BounceOutWall();
 		}
 	}};

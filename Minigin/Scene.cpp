@@ -6,6 +6,19 @@ using namespace vic;
 
 unsigned int Scene::m_idCounter = 0;
 
+std::vector<GameObject*> Scene::GetGameObjectsByName(const std::string& name) const
+{
+	std::vector<GameObject*> gameObjects;
+
+	for (const auto & gameObjectPtr : m_GameObjectPtrs)
+	{
+		if (gameObjectPtr->GetName() == name)
+			gameObjects.push_back(gameObjectPtr.get());
+	}
+
+	return gameObjects;
+}
+
 Scene::Scene(const std::string& name)
 	:m_PhysicsEngine{ std::make_unique<PhysicsEngine>()}
 	, m_name(name)

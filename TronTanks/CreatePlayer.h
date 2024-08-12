@@ -2,6 +2,7 @@
 #include "BarrelComponent.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "PlayerLogic.h"
 #include "Scene.h"
 
 
@@ -43,6 +44,9 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 	vic::GameObject& player{ scene->CreateGameObject("player") };
 	player.GetTransform().SetLocalPosition(pos.x, pos.y);
 
+	//logic
+		PlayerLogic* playerLogic = player.AddComponent<PlayerLogic>();
+
 	//Movement
 		VelocityMovementComponent* moveComp = player.AddComponent<VelocityMovementComponent>(500.f);
 		AddWASDMovement(moveComp, [moveComp](auto&& PH1, auto&& PH2)
@@ -55,6 +59,23 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 
 	//collisions
 		player.AddComponent<vic::ColliderComponent>(playerDim, moveComp->GetVelocityPointer());
+
+	//overlaps
+		std::function<void(vic::OverlapComponent*, vic::OverlapComponent*)> collisionFunc =
+		{ [playerLogic, team](vic::OverlapComponent*, vic::OverlapComponent* other) {
+
+			std::string_view otherName{other->Owner()->GetName()};
+			if (otherName == "bullet")
+			{
+				if (other->Owner()->GetComponent<BulletLogicComponent>()->GetBulletTeam() != team)
+				{
+					playerLogic->Hit();
+					other->Owner()->Destroy();
+				}
+			}
+		} };
+
+		player.AddComponent<vic::OverlapComponent>(playerDim);
 
 	//barrel
 		vic::GameObject& barrel{ scene->CreateGameObject("barrel") };

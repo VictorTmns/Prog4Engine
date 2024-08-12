@@ -1,26 +1,24 @@
-﻿#include "EnemyAIComp.h"
+﻿#include "EnemyMovementAIComp.h"
 
 #include "GameTime.h"
 #include "PhysicsEngine.h"
 #include "Scene.h"
 
-EnemyAIComp::EnemyAIComp(vic::GameObject* ownerPtr, VelocityMovementComponent* movComp, BarrelComponent* barrelComp)
+EnemyMovementAIComp::EnemyMovementAIComp(vic::GameObject* ownerPtr, VelocityMovementComponent* movComp)
 	: BaseComponent{ownerPtr}
 	, m_MovComp{movComp}
-	, m_BarrelComp{barrelComp}
 	, m_Direction{ glm::vec2{0.f, 1.f } }
 	, m_ElapsedTime{0}
 	, m_EnemySize{}
-	, m_LivesLeft{3}
 {
 }
 
-void EnemyAIComp::OnStart()
+void EnemyMovementAIComp::OnStart()
 {
 	m_EnemySize = Owner()->GetComponent<vic::OverlapComponent>()->GetDimensions();
 }
 
-void EnemyAIComp::Update()
+void EnemyMovementAIComp::Update()
 {
 	m_MovComp->SetVelocity(m_Direction.x, m_Direction.y);
 	m_ElapsedTime += static_cast<float>(vic::GameTime::GetInstance().GetDeltaTime());
@@ -28,7 +26,7 @@ void EnemyAIComp::Update()
 	UpdateDirection();
 }
 
-bool EnemyAIComp::CanMoveTo(const glm::vec2 dir)
+bool EnemyMovementAIComp::CanMoveTo(const glm::vec2 dir)
 {
 	return !Owner()->GetScene()->GetPhysicsEngine().CollidesWithStatics(
 		Owner()->GetTransform().Position() + m_EnemySize * dir
@@ -36,7 +34,7 @@ bool EnemyAIComp::CanMoveTo(const glm::vec2 dir)
 	);
 }
 
-bool EnemyAIComp::CanKeepMoveingTo(const glm::vec2 dir)
+bool EnemyMovementAIComp::CanKeepMoveingTo(const glm::vec2 dir)
 {
 	glm::vec2 miniCollider(m_EnemySize / 10.f);
 
@@ -50,12 +48,12 @@ bool EnemyAIComp::CanKeepMoveingTo(const glm::vec2 dir)
 }
 
 
-void EnemyAIComp::ChangeDir(glm::vec2 newDir)
+void EnemyMovementAIComp::ChangeDir(glm::vec2 newDir)
 {
 	m_ElapsedTime = 0.f;
 	m_Direction = newDir;
 }
-void EnemyAIComp::UpdateDirection()
+void EnemyMovementAIComp::UpdateDirection()
 {
 	bool needsToChangeDir{ !CanKeepMoveingTo(m_Direction)};
 
@@ -100,10 +98,4 @@ void EnemyAIComp::UpdateDirection()
 				ChangeDir(glm::vec2{ 0, 1 });
 		}
 	}
-}
-
-void EnemyAIComp::Hit()
-{
-	m_LivesLeft--;
-	if (m_LivesLeft == 0) Owner()->Destroy();
 }
