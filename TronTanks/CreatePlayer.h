@@ -5,7 +5,7 @@
 #include "Scene.h"
 
 
-#include "MovementComponent.h"
+#include "VelocityMovementComponent.h"
 #include "PrimitivesRenderComponent.h"
 
 
@@ -44,10 +44,10 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 	player.GetTransform().SetLocalPosition(pos.x, pos.y);
 
 	//Movement
-		MovementComponent* moveComp = player.AddComponent<MovementComponent>(500.f);
+		VelocityMovementComponent* moveComp = player.AddComponent<VelocityMovementComponent>(500.f);
 		AddWASDMovement(moveComp, [moveComp](auto&& PH1, auto&& PH2)
 		{
-			moveComp->Move(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2));
+			moveComp->AddVelocity(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2));
 		});
 
 	//rendering

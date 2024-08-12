@@ -201,7 +201,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClCompile Include="BulletLogicComponent.cpp" />
     <ClCompile Include="EnemyAIComp.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="VelocityMovementComponent.cpp" />
     <ClCompile Include="PlayerLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +213,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="CreateWall.h" />
     <ClInclude Include="EnemyAIComp.h" />
     <ClInclude Include="ReadLevelFromFile.h" />
-    <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="VelocityMovementComponent.h" />
     <ClInclude Include="PlayerLogic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

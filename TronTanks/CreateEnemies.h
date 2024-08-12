@@ -4,12 +4,12 @@
 #include "CreatePlayer.h"
 #include "EnemyAIComp.h"
 #include "InputTypes.h"
-#include "MovementComponent.h"
+#include "VelocityMovementComponent.h"
 #include "Scene.h"
 
 void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
 {
-	constexpr glm::vec2 dim{ 40, 40 };
+	constexpr glm::vec2 dim{ 20, 20 };
 
 	std::string goName{};
 	if (isRecognizer)
@@ -22,11 +22,11 @@ void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
 	enemy.GetTransform().SetLocalPosition(pos.x, pos.y);
 
 	//Movement
-	MovementComponent* moveComp {};
-	if (isRecognizer)
-		moveComp = enemy.AddComponent<MovementComponent>(500.f);
+	VelocityMovementComponent* moveComp {};
+	if (!isRecognizer)
+		moveComp = enemy.AddComponent<VelocityMovementComponent>(100.f);
 	else
-		moveComp = enemy.AddComponent<MovementComponent>(800.f);
+		moveComp = enemy.AddComponent<VelocityMovementComponent>(800.f);
 
 	
 
