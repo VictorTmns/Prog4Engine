@@ -152,7 +152,7 @@ bool PhysicsEngine::DynamicRectVsRect(const Rectf& dynamicRect, const glm::vec2&
 	glm::vec2& contactPoint, glm::vec2& contactNormal, float& contactTime)
 {
 	// Expand target rectangle by source dimensions
-	PhysicsEngine::Rectf expanded_target;
+	Rectf expanded_target{};
 	expanded_target.pos = staticRect.pos - glm::vec2{ dynamicRect.size.x / 2, dynamicRect.size.y / 2 };
 	expanded_target.size = staticRect.size + dynamicRect.size;
 

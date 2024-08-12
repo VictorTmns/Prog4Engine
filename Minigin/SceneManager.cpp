@@ -9,8 +9,8 @@ vic::SceneManager::~SceneManager() = default;
 
 void vic::SceneManager::OnStart()
 {
-	for (auto scene : m_scenes)
-		scene.OnStart();
+	for (auto& scene : m_scenes)
+		scene->OnStart();
 }
 
 vic::SceneManager::SceneManager() = default;

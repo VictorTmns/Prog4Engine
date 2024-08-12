@@ -29,7 +29,7 @@ void Scene::DeleteAll()
 
 void Scene::OnStart()
 {
-	for (auto gameObjectPtr : m_GameObjectPtrs)
+	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
 		gameObjectPtr->OnStart();
 	}

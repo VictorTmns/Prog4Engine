@@ -69,7 +69,6 @@ namespace vic
 
 		GameObject* m_ParentPtr = nullptr;
 		std::vector<GameObject*> m_ChildPtrs {};
-		std::list<GameObject*> m_ChildPtrs {};
 
 
 		void AddChild(GameObject* childPtr);
