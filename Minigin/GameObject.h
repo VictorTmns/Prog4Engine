@@ -14,6 +14,7 @@ namespace vic
 	class GameObject final
 	{
 	public:
+		void OnStart();
 		void Update();
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;
@@ -50,7 +51,7 @@ namespace vic
 		//Constructors and destructors
 
 		GameObject(Scene* scenePtr, std::string name);
-		~GameObject();
+		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -68,6 +69,7 @@ namespace vic
 
 		GameObject* m_ParentPtr = nullptr;
 		std::vector<GameObject*> m_ChildPtrs {};
+		std::list<GameObject*> m_ChildPtrs {};
 
 
 		void AddChild(GameObject* childPtr);

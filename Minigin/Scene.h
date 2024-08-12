@@ -12,6 +12,7 @@ namespace vic
 		GameObject& CreateGameObject(const std::string& name = "");
 		void DeleteAll();
 
+		void OnStart();
 		void Update();
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;

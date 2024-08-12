@@ -21,6 +21,7 @@ namespace vic
 
 
 		~SceneManager() override;
+		void OnStart();
 
 		SceneManager(const SceneManager& other) = delete;
 		SceneManager(SceneManager&& other) = delete;

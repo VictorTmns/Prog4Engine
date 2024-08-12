@@ -16,6 +16,7 @@ namespace vic
 	public:
 		virtual ~BaseComponent() = default;
 
+		virtual void OnStart() {};
 		virtual void Update() {}
 		virtual void FixedUpdate() {}
 		virtual void Render(const Renderer*) const {}

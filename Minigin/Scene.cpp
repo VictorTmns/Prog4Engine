@@ -27,6 +27,14 @@ void Scene::DeleteAll()
 	}
 }
 
+void Scene::OnStart()
+{
+	for (auto gameObjectPtr : m_GameObjectPtrs)
+	{
+		gameObjectPtr->OnStart();
+	}
+}
+
 void Scene::Update()
 {
 	for (auto& gameObjectPtr : m_GameObjectPtrs)

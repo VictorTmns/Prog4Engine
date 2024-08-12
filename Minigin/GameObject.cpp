@@ -14,17 +14,18 @@ namespace vic
 	{
 	}
 
-	
-	GameObject::~GameObject()
-	{
-		for (int idx = 0; idx < static_cast<int>(m_ComponentPtrs.size()); ++idx)
-		{
-			m_ComponentPtrs[idx].reset();
-		}
-	}
+
 	
 	// ---- FUNCTIONALITY ----
-	
+
+	void GameObject::OnStart()
+	{
+		for (auto& pComponent : m_ComponentPtrs)
+		{
+			pComponent->OnStart();
+		}
+	}
+
 	void GameObject::Update()
 	{
 		for (auto& pComponent : m_ComponentPtrs)
