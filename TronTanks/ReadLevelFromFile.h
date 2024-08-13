@@ -42,12 +42,12 @@ inline void ReadLevelFromFile(vic::Scene* scene, const std::string& filename, Pl
                 if(playerNr == 0
                     || (playerNr == 1 && mode == GameManager::PlayMode::multiplayer))
                 {
-                    CreatePlayer(scene, pos, 0, playingState);
+                    CreatePlayer(scene, pos, 0, playingState, true);
                     playerNr++;
                 }
                 else if((playerNr == 1 && mode == GameManager::PlayMode::versus))
                 {
-                    CreatePlayer(scene, pos, 1, playingState);
+                    CreatePlayer(scene, pos, 1, playingState, false);
                     playerNr++;
 
                 }

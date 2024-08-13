@@ -9,15 +9,38 @@ bool vic::InputManager::ProcessInput()
 	return false;
 }
 
-bool vic::InputManager::ButtonPressed(int controllerIdx, ControllerButton button) const
+bool vic::InputManager::KeyPressed(SDL_KeyCode keyCode) const
 {
-	return m_ControllerManager.IsPressed(controllerIdx, button);
+	return m_SdlManager.KeyPressed(keyCode);
 }
 
-bool vic::InputManager::ButtonPressed(SDL_KeyCode keyCode) const
+bool vic::InputManager::KeyDown(SDL_KeyCode keyCode) const
 {
-	return m_SdlManager.ButtonPressed(keyCode);
+	return m_SdlManager.KeyPressed(keyCode);
 }
+
+bool vic::InputManager::KeyUp(SDL_KeyCode keyCode) const
+{
+	return m_SdlManager.KeyPressed(keyCode);
+}
+
+bool vic::InputManager::ButtonPressed(int controllerIdx, ControllerButton button) const
+{
+	return m_ControllerManager.ButtonPressed(controllerIdx, button);
+}
+
+bool vic::InputManager::ButtonUp(int controllerIdx, ControllerButton button) const
+{
+	return m_ControllerManager.ButtonUp(controllerIdx, button);
+
+}
+
+bool vic::InputManager::ButtonDown(int controllerIdx, ControllerButton button) const
+{
+	return m_ControllerManager.ButtonDown(controllerIdx, button);
+
+}
+
 
 void vic::InputManager::BindToKeyboard(
 	BaseComponent* componentPtr, std::function<void()> function, SDL_KeyCode keyCode, ClickType

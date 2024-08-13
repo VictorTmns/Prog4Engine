@@ -41,9 +41,7 @@ MenuState::MenuState()
 
 	vic::GameObject& modeSelectedText = m_MenuScene->CreateGameObject();
 	modeSelectedText.GetTransform().SetWorldPosition(320, 380);
-	m_ModePrimRenderComponent = modeSelectedText.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 100, 30 }, SDL_Color{ 255, 0, 0 });
 	m_ModeRenderComponent = modeSelectedText.AddComponent<vic::TextRenderComponent>(simpleSmallFont, "singlePlayer", vic::Font::TextAlignment::center);
-	m_ModePrimRenderComponent->SetOffset(glm::vec2{ -50, -15 });
 
 
 }
@@ -55,8 +53,9 @@ MenuState::~MenuState()
 
 std::unique_ptr<BaseState> MenuState::Update()
 {
-	if (vic::InputManager::GetInstance().ButtonPressed(SDLK_LSHIFT)
-		|| vic::InputManager::GetInstance().ButtonPressed(SDLK_RSHIFT))
+	if (vic::InputManager::GetInstance().KeyDown(SDLK_LSHIFT)
+		|| vic::InputManager::GetInstance().KeyDown(SDLK_RSHIFT)
+		|| vic::InputManager::GetInstance().ButtonDown(0, vic::ControllerButton::y))
 	{
 		switch (m_SelectedMode)
 		{
@@ -76,7 +75,8 @@ std::unique_ptr<BaseState> MenuState::Update()
 		}
 	}
 
-	if (vic::InputManager::GetInstance().ButtonPressed(SDLK_SPACE))
+	if (vic::InputManager::GetInstance().KeyDown(SDLK_SPACE)
+		|| vic::InputManager::GetInstance().ButtonDown(0, vic::ControllerButton::a))
 		return std::make_unique<PlayingState>(m_SelectedMode);
 
 	return nullptr;

@@ -22,7 +22,9 @@ namespace vic
 		void AddMouseMovementCommand(VectorCommand* commandPtr);
 		void AddMouseWheelCommand(ScalarCommand* commandPtr);
 
-		bool ButtonPressed(SDL_KeyCode keyCode) const;
+		bool KeyPressed(SDL_KeyCode key) const;
+		bool KeyDown(SDL_KeyCode key)  const;
+		bool KeyUp(SDL_KeyCode key)  const;
 
 		void RemoveCommand(BaseCommand* commandPtr);
 	private:
@@ -51,6 +53,10 @@ namespace vic
 		};
 
 		std::unordered_multimap<CommandType, BaseCommand*, CommandTypeHash> m_Commands;
+
+
+		std::unordered_map<SDL_Scancode, bool> m_CurrentKeyStates;
+		std::unordered_map<SDL_Scancode, bool> m_PreviousKeyStates;
 
 		void HandleKeyButtonEvent(SDL_Event& e);
 		void CallAllMouseMovementCommands(float x, float y);

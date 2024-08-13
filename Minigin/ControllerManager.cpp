@@ -34,7 +34,8 @@ namespace vic
 	
 		void RemoveCommand(BaseCommand* commandPtr);
 
-
+		bool IsDownThisFrame(int controllerIdx, ControllerButton button) const;
+		bool IsUpThisFrame(int controllerIdx, ControllerButton button) const;
 		bool IsPressed(int controllerIdx, ControllerButton button) const;
 	private:
 	
@@ -81,8 +82,7 @@ namespace vic
 	
 	
 	
-		bool IsDownThisFrame(int controllerIdx, ControllerButton button) const;
-		bool IsUpThisFrame(int controllerIdx, ControllerButton button) const;
+
 		glm::vec2 GetThumbStickNormalized(int controllerIdx, bool leftStick) const;
 		float GetTriggerNormalized(int controllerIdx, bool leftTrigger) const;
 	
@@ -369,9 +369,19 @@ namespace vic
 		m_Impl->AddThumbStickCommand(controllerIdx, isLeft, commandPtr);
 	}
 
-	bool ControllerManager::IsPressed(int controllerIdx, ControllerButton button) const
+	bool ControllerManager::ButtonPressed(int controllerIdx, ControllerButton button) const
 	{
 		return m_Impl->IsPressed(controllerIdx, button);
+	}
+
+	bool ControllerManager::ButtonDown(int controllerIdx, ControllerButton button) const
+	{
+		return m_Impl->IsDownThisFrame(controllerIdx, button);
+	}
+
+	bool ControllerManager::ButtonUp(int controllerIdx, ControllerButton button) const
+	{
+		return m_Impl->IsUpThisFrame(controllerIdx, button);
 	}
 
 	void ControllerManager::RemoveCommand(BaseCommand* commandPtr)

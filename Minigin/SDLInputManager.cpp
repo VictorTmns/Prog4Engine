@@ -62,6 +62,18 @@ bool vic::SDLInputManager::ProcessInput()
 		}
 	}
 
+
+	// Save previous state
+	m_PreviousKeyStates = m_CurrentKeyStates;
+
+	// Get current state
+	const Uint8* currentKeyStateArray = SDL_GetKeyboardState(NULL);
+
+	// Update key states
+	for (int i = 0; i < SDL_NUM_SCANCODES; ++i) {
+		m_CurrentKeyStates[static_cast<SDL_Scancode>(i)] = currentKeyStateArray[i] != 0;
+	}
+
 	return true;
 }
 
@@ -94,15 +106,22 @@ void vic::SDLInputManager::AddMouseWheelCommand(ScalarCommand* commandPtr)
 	});
 }
 
-bool vic::SDLInputManager::ButtonPressed(SDL_KeyCode keyCode) const
+bool vic::SDLInputManager::KeyPressed(SDL_KeyCode key) const
+ {
+	SDL_Scancode scancode = SDL_GetScancodeFromKey(key);
+	return m_CurrentKeyStates.at(scancode) && !m_PreviousKeyStates.at(scancode);
+}
+
+bool vic::SDLInputManager::KeyDown(SDL_KeyCode key) const
+ {
+	SDL_Scancode scancode = SDL_GetScancodeFromKey(key);
+	return m_CurrentKeyStates.at(scancode);
+}
+
+bool vic::SDLInputManager::KeyUp(SDL_KeyCode key) const
 {
-	SDL_Scancode scancode = SDL_GetScancodeFromKey(keyCode);
-	const Uint8* state = SDL_GetKeyboardState(nullptr);
-
-	if (state[scancode])
-		return true;
-
-	return false;
+	SDL_Scancode scancode = SDL_GetScancodeFromKey(key);
+	return !m_CurrentKeyStates.at(scancode) && m_PreviousKeyStates.at(scancode);
 }
 
 void vic::SDLInputManager::RemoveCommand(BaseCommand* commandPtr)
