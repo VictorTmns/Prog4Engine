@@ -3,7 +3,7 @@
 #include "BaseState.h"
 #include "Observer.h"
 
-class GameManager : public vic::BaseComponent
+class GameManager final : public vic::BaseComponent
 {
 public:
 	GameManager(vic::GameObject* owner);

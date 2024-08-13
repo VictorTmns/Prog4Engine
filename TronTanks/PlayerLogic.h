@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "BaseComponent.h"
 
-class PlayerLogic : public vic::BaseComponent
+class PlayerLogic final : public vic::BaseComponent
 {
 public:
 	PlayerLogic(vic::GameObject* owner);

@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "PrimitivesRenderComponent.h"
 
-class BarrelComponent : public vic::BaseComponent
+class BarrelComponent final : public vic::BaseComponent
 {
 public:
 	enum class Direction
