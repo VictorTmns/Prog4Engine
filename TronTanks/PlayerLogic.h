@@ -7,4 +7,5 @@ public:
 	PlayerLogic(vic::GameObject* owner);
 
 	void Hit();
+	void RandomSpawn();
 };

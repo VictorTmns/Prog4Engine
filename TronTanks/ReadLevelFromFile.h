@@ -5,6 +5,7 @@
 #include <ostream>
 #include <string>
 
+#include "CreateDiamond.h"
 #include "CreateEnemies.h"
 #include "CreatePlayer.h"
 #include "CreateWall.h"
@@ -61,6 +62,10 @@ inline void ReadLevelFromFile(vic::Scene* scene, const glm::vec2& topLeft, const
                 break;
             case 'R':
                 CreateEnemy(scene, pos, true, playingState);
+                nrOfEnemies++;
+                break;
+            	case 'D':
+                CreateDiamond(scene, pos);
                 nrOfEnemies++;
                 break;
             default:

@@ -12,3 +12,8 @@ void PlayerLogic::Hit()
 
 	NotifyObservers(vic::Observer::Event::playerHit);
 }
+
+void PlayerLogic::RandomSpawn()
+{
+	NotifyObservers(vic::Observer::Event::randomRespawn);
+}

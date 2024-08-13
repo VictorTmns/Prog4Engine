@@ -6,15 +6,14 @@
 #include "TextRenderComponent.h"
 
 MenuState::MenuState()
-	: m_SelectedMode{GameManager::PlayMode::singleplayer}
+	: m_ModePrimRenderComponent{nullptr}, m_SelectedMode{GameManager::PlayMode::singleplayer}
 {
 	m_MenuScene = vic::SceneManager::GetInstance().CreateScene("menu");
 
-	const int menuSize{ 40 };
+	const int menuSize{40};
 	vic::Font* titleFont = vic::ResourceManager::GetInstance().LoadFont("Fonts/TRON.TTF", menuSize);
 	vic::Font* simpleFont = vic::ResourceManager::GetInstance().LoadFont("Fonts/Lingua.otf", 30);
 	vic::Font* simpleSmallFont = vic::ResourceManager::GetInstance().LoadFont("Fonts/Lingua.otf", 20);
-
 
 
 	vic::GameObject& titleGO = m_MenuScene->CreateGameObject("title");
@@ -22,28 +21,27 @@ MenuState::MenuState()
 
 	titleGO.AddComponent<vic::TextRenderComponent>(titleFont, "TRON:", vic::Font::TextAlignment::center);
 	titleGO.AddComponent<vic::TextRenderComponent>(titleFont, "BATTLE TANKS", vic::Font::TextAlignment::center)
-		->SetOffset(glm::vec2{0, menuSize });
+	       ->SetOffset(glm::vec2{0, menuSize});
 
 
 	vic::GameObject& starttext = m_MenuScene->CreateGameObject();
 	starttext.GetTransform().SetWorldPosition(320, 200);
 	starttext.AddComponent<vic::TextRenderComponent>(simpleFont, "Press Space or A", vic::Font::TextAlignment::center);
 	starttext.AddComponent<vic::TextRenderComponent>(simpleFont, "to Start", vic::Font::TextAlignment::center)
-		->SetOffset(glm::vec2{ 0, 30 });;
+	         ->SetOffset(glm::vec2{0, 30});;
 
 
 	vic::GameObject& modeText = m_MenuScene->CreateGameObject();
 	modeText.GetTransform().SetWorldPosition(320, 300);
 	modeText.AddComponent<vic::TextRenderComponent>(simpleFont, "Press tab or Y", vic::Font::TextAlignment::center);
 	modeText.AddComponent<vic::TextRenderComponent>(simpleFont, "to change play mode", vic::Font::TextAlignment::center)
-		->SetOffset(glm::vec2{ 0, 30 });
+	        ->SetOffset(glm::vec2{0, 30});
 
 
 	vic::GameObject& modeSelectedText = m_MenuScene->CreateGameObject();
 	modeSelectedText.GetTransform().SetWorldPosition(320, 380);
-	m_ModeRenderComponent = modeSelectedText.AddComponent<vic::TextRenderComponent>(simpleSmallFont, "singlePlayer", vic::Font::TextAlignment::center);
-
-
+	m_ModeRenderComponent = modeSelectedText.AddComponent<vic::TextRenderComponent>(
+		simpleSmallFont, "singlePlayer", vic::Font::TextAlignment::center);
 }
 
 MenuState::~MenuState()

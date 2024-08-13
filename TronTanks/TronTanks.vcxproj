@@ -215,6 +215,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\$(PlatformTarget)\*.dll" "$(OutputP
     <ClInclude Include="BarrelComponent.h" />
     <ClInclude Include="BulletLogicComponent.h" />
     <ClInclude Include="CreateBullet.h" />
+    <ClInclude Include="CreateDiamond.h" />
     <ClInclude Include="CreatePlayer.h" />
     <ClInclude Include="CreateEnemies.h" />
     <ClInclude Include="CreateWall.h" />

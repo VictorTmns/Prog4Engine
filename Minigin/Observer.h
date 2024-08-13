@@ -17,6 +17,7 @@ namespace vic
 			scoreChange,
 			playerHit,
 			enemyDied,
+			randomRespawn,
 		};
 	
 		virtual ~Observer();

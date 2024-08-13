@@ -1,10 +1,12 @@
 ﻿#include "GameManager.h"
 
+#include "HighScoreState.h"
 #include "PlayingState.h"
 
 GameManager::GameManager(vic::GameObject* owner)
 	: BaseComponent{owner}
 	, m_State{std::make_unique<MenuState>()}
+
 {
 }
 
@@ -18,7 +20,3 @@ void GameManager::Update()
 	}
 }
 
-void GameManager::Notify(Event, const BaseComponent*)
-{
-	
-}

@@ -170,6 +170,10 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 					other->Owner()->Destroy();
 				}
 			}
+			else if(otherName == "diamond")
+			{
+				playerLogic->RandomSpawn();
+			}
 		} };
 
 		player.AddComponent<vic::OverlapComponent>(playerDim, collisionFunc);

@@ -21,10 +21,15 @@ private:
 
     void HandleEnemyDiedEvent(const vic::BaseComponent* enemyLogic);
 
+    void SetRandomPlace(const vic::BaseComponent* component);
+
 private:
     std::vector<std::pair<vic::Scene*, std::string>> m_Levels;
 
     vic::Scene* m_Hud;
+
+    glm::vec2 m_LevelTopLeft;
+    glm::vec2 m_LevelDimension;
 
     vic::TextRenderComponent* m_ScoreRenderComponent;
 

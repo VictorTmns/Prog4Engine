@@ -8,6 +8,7 @@
 PlayingState::PlayingState(GameManager::PlayMode mode)
 	: m_CurrentLevel{ 0 }
 	, m_Mode{mode}
+	, m_LevelTopLeft{50, 50}
 {
 	m_Hud = vic::SceneManager::GetInstance().CreateScene("hud");
 
@@ -34,7 +35,7 @@ PlayingState::~PlayingState()
 std::unique_ptr<BaseState> PlayingState::Update()
 {
 	if (m_ShowHighScore)
-		return std::make_unique<HighScoreState>();
+		return std::make_unique<HighScoreState>(m_Score);
 
 	if (m_ReloadLevel)
 	{
@@ -67,6 +68,9 @@ void PlayingState::Notify(Event event, const vic::BaseComponent* component)
 		else
 			m_ShowHighScore = true;
 		break;
+	case Event::randomRespawn:
+		SetRandomPlace(component);
+		break;
 	}
 }
 
@@ -82,8 +86,7 @@ void PlayingState::SetLevel(int idx)
 {
 	m_Levels[idx].first->Enable();
 
-	glm::vec2 levelSize{};
-	ReadLevelFromFile(m_Levels[idx].first, glm::vec2{ 60, 60 }, m_Levels[idx].second, this, m_Mode, m_EnemiesRemaining, levelSize);
+	ReadLevelFromFile(m_Levels[idx].first, m_LevelTopLeft, m_Levels[idx].second, this, m_Mode, m_EnemiesRemaining, m_LevelDimension);
 	m_Levels[idx].first->ResetFirstAction();
 }
 
@@ -102,4 +105,26 @@ void PlayingState::HandleEnemyDiedEvent(const vic::BaseComponent* enemyLogic)
 		IncrementLevel();
 		SetLevel(m_CurrentLevel);
 	}
+}
+
+void PlayingState::SetRandomPlace(const vic::BaseComponent* component)
+{
+	vic::OverlapComponent* overlapComp = component->Owner()->GetComponent<vic::OverlapComponent>();
+
+	while (true)
+	{
+		glm::vec2 randomPos
+		{
+			std::rand() % static_cast<int>(m_LevelDimension.x - 40),
+			std::rand() % static_cast<int>(m_LevelDimension.y - 40)
+		};
+		randomPos += m_LevelTopLeft;
+
+		if (!component->Owner()->GetScene()->GetPhysicsEngine().CollidesWithStatics(randomPos, overlapComp->GetDimensions()))
+		{
+			component->Owner()->GetTransform().SetWorldPosition(randomPos.x, randomPos.y);
+			break;
+		}
+	}
+
 }

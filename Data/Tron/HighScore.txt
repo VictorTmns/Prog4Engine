@@ -1,0 +1,8 @@
+Siegfried 200
+Gethrude 200
+Frankaart 200
+Joris 100
+Fred 100
+Banker 100
+Roto 0
+Smelly 0
