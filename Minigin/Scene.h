@@ -30,6 +30,8 @@ namespace vic
 		void Disable() { m_Enabled = false; }
 		bool IsEnabled() const { return m_Enabled; }
 
+		void ResetFirstAction() { m_FirstAction = true; };
+
 		std::string_view Name() const { return std::string_view(m_name); }
 		PhysicsEngine& GetPhysicsEngine() const { return *m_PhysicsEngine; }
 

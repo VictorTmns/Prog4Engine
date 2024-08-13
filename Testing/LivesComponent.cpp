@@ -13,5 +13,5 @@ void LivesComponent::TakeDamage()
 		return;
 
 	m_NrOfRemainingLives--;
-	NotifyObservers(vic::Observer::Event::playerHealthChanges);
+	NotifyObservers(vic::Observer::Event::playerHit);
 }

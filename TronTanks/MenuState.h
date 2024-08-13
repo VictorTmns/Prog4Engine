@@ -10,7 +10,7 @@ class MenuState final :
 {
 public:
 	MenuState();
-	~MenuState();
+	~MenuState() override;
 
 	std::unique_ptr<BaseState> Update() override;
 

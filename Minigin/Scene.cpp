@@ -34,7 +34,10 @@ GameObject& Scene::CreateGameObject(const std::string& name)
 
 void Scene::DeleteAll()
 {
-	m_GameObjectPtrs.clear();
+	for (auto& gameObjectPtr : m_GameObjectPtrs)
+	{
+		gameObjectPtr->Destroy();
+	}
 }
 
 void Scene::OnStart()

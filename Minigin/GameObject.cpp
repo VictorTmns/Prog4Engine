@@ -14,8 +14,15 @@ namespace vic
 	{
 	}
 
+	GameObject::~GameObject()
+	{
+		for (auto childPtr : m_ChildPtrs)
+		{
+			childPtr->Destroy();
+		}
+	}
 
-	
+
 	// ---- FUNCTIONALITY ----
 
 	void GameObject::OnSceneStart()
@@ -58,11 +65,8 @@ namespace vic
 	void GameObject::Destroy()
 	{
 		m_Dead = true;
-
-		for (auto childPtr : m_ChildPtrs)
-		{
+		for (auto& childPtr : m_ChildPtrs)
 			childPtr->Destroy();
-		}
 	}
 
 	bool GameObject::SetParent(GameObject* newParentPtr, bool keepWorldPosition)

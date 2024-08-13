@@ -162,7 +162,7 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 		{ [playerLogic, team](vic::OverlapComponent*, vic::OverlapComponent* other) {
 
 			std::string_view otherName{other->Owner()->GetName()};
-			if (otherName == "bullet")
+			if (otherName == "bullet" && !other->Owner()->IsDead())
 			{
 				if (other->Owner()->GetComponent<BulletLogicComponent>()->GetBulletTeam() != team)
 				{
@@ -172,7 +172,7 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 			}
 		} };
 
-		player.AddComponent<vic::OverlapComponent>(playerDim);
+		player.AddComponent<vic::OverlapComponent>(playerDim, collisionFunc);
 
 	//barrel
 		vic::GameObject& barrel{ scene->CreateGameObject("barrel") };
@@ -183,11 +183,11 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 	if (player1)
 	{
 		AddArrowShooting(barrelComp, team);
-		AddControllerShooting(barrelComp, 0, team);
+		AddControllerShooting(barrelComp, 1, team);
 	}
 	else
 	{
-		AddControllerShooting(barrelComp, 1, team);
+		AddControllerShooting(barrelComp, 0, team);
 	}
 
 	return { player };

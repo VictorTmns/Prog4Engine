@@ -14,6 +14,7 @@ OverlapComponent::OverlapComponent(GameObject* ownerPtr, const glm::vec2& dimens
 	, m_CollisionFunc{std::move(collisionFunc)}
 	, m_HasOverlapBehavior{ true }
 {
+	assert(m_GOTransformPtr != nullptr);
 	ownerPtr->GetScene()->GetPhysicsEngine().RegisterOverlapComp(this);
 }
 
@@ -24,6 +25,7 @@ OverlapComponent::OverlapComponent(GameObject* ownerPtr, const glm::vec2& dimens
 	, m_CollisionFunc{  }
 	, m_HasOverlapBehavior{ false }
 {
+	assert(m_GOTransformPtr != nullptr);
 	ownerPtr->GetScene()->GetPhysicsEngine().RegisterOverlapComp(this);
 }
 

@@ -1,11 +1,14 @@
 ﻿#include "PlayerLogic.h"
 
+#include "GameObject.h"
+
 PlayerLogic::PlayerLogic(vic::GameObject* owner)
-	: BaseComponent{owner}, m_LivesLeft{3}
+	: BaseComponent{owner}
 {
 }
 
 void PlayerLogic::Hit()
 {
-	
+
+	NotifyObservers(vic::Observer::Event::playerHit);
 }

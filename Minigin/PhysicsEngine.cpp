@@ -69,20 +69,22 @@ void PhysicsEngine::CheckColliders()
 		// Sort collisions in order of distance
 		glm::vec2 cp, cn;
 		float t = 0;
-		std::vector<std::pair<int, float>> z;
+		std::vector<std::pair<std::list<ColliderComponent*>::iterator, float>> z;
 
 		// Work out collision point, add it to vector along with rect ID
-		for (size_t i = 0; i < m_StaticColliders.size(); i++)
+		int i{};
+		for (auto staticColliderIt = m_StaticColliders.begin(); staticColliderIt != m_StaticColliders.end(); ++staticColliderIt, ++i)
 		{
-			Rectf staRect{ m_StaticColliders[i]->m_GOTransformPtr->Position(), m_StaticColliders[i]->m_Dimensions };
+			
+			Rectf staRect{ (*staticColliderIt)->m_GOTransformPtr->Position(), (*staticColliderIt)->m_Dimensions };
 			if (DynamicRectVsRect(dynRect, *dyn->m_VelocityPtr, fElapsedTime, staRect, cp, cn, t))
 			{
-				z.push_back({ static_cast<int>(i), t });
+				z.emplace_back(staticColliderIt, t);
 			}
 		}
 
 		// Do the sort
-		std::sort(z.begin(), z.end(), [](const std::pair<int, float>& a, const std::pair<int, float>& b)
+		std::sort(z.begin(), z.end(), [](const std::pair<std::list<ColliderComponent*>::iterator, float>& a, const std::pair<std::list<ColliderComponent*>::iterator, float>& b)
 		{
 			return a.second < b.second;
 		});
@@ -90,7 +92,7 @@ void PhysicsEngine::CheckColliders()
 		// Now resolve the collision in correct order 
 		for (auto& j : z)
 		{
-			Rectf staRect{m_StaticColliders[j.first]->m_GOTransformPtr->Position(), m_StaticColliders[j.first]->m_Dimensions};
+			Rectf staRect{(*j.first)->m_GOTransformPtr->Position(), (*j.first)->m_Dimensions};
 			ResolveDynamicRectVsRect(dynRect, *dyn->m_VelocityPtr, fElapsedTime, staRect);
 		}
 

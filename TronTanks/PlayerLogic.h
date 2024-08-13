@@ -7,8 +7,4 @@ public:
 	PlayerLogic(vic::GameObject* owner);
 
 	void Hit();
-
-private:
-
-	int m_LivesLeft;
 };

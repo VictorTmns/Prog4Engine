@@ -51,7 +51,7 @@ namespace vic
 		//Constructors and destructors
 
 		GameObject(Scene* scenePtr, std::string name);
-		~GameObject() = default;
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;

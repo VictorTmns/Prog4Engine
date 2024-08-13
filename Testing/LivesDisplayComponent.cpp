@@ -17,7 +17,7 @@ namespace vic
 
 	void LivesDisplayComponent::Notify(Event event, const vic::BaseComponent* actorComponent)
 	{
-		if(event != Event::playerHealthChanges && event != Event::subjectAttached)
+		if(event != Event::playerHit && event != Event::subjectAttached)
 			return;
 
 		int nrOfRemainingLives = dynamic_cast<const LivesComponent*>(actorComponent)->GetNrOfLives();

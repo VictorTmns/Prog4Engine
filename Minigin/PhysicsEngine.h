@@ -47,9 +47,9 @@ namespace vic
 		static bool RectVsRect(const glm::vec2& pos1, const glm::vec2& dim1, const glm::vec2& pos2, const glm::vec2& dim2);
 
 	private:
-		std::vector<OverlapComponent*> m_Bodies;
-		std::vector<ColliderComponent*> m_DynamicColliders;
-		std::vector<ColliderComponent*> m_StaticColliders;
+		std::list<OverlapComponent*> m_Bodies;
+		std::list<ColliderComponent*> m_DynamicColliders;
+		std::list<ColliderComponent*> m_StaticColliders;
 
 		static bool IsOverlapping(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& dim1, const glm::vec2 dim2);
 	};
