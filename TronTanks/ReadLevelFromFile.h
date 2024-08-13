@@ -10,9 +10,9 @@
 #include "CreateWall.h"
 #include "GameObject.h"
 
-void ReadLevelFromFile(vic::Scene* scene, const std::string& filename) {
+inline void ReadLevelFromFile(vic::Scene* scene, const std::string& filename, PlayingState* playingState, int& nrOfEnemies) {
     const float gridSize{ 30 };
-
+    nrOfEnemies = 0;
 
     std::ifstream file(filename);
     if (!file.is_open()) 
@@ -34,10 +34,15 @@ void ReadLevelFromFile(vic::Scene* scene, const std::string& filename) {
                 CreateWall(scene, pos);
                 break;
             case 'P':
-                CreatePlayer(scene, pos, 0);
+                CreatePlayer(scene, pos, 0, playingState);
                 break;
             case 'E':
-                CreateEnemy(scene, pos, false);
+                CreateEnemy(scene, pos, false, playingState);
+                nrOfEnemies++;
+                break;
+            case 'R':
+                CreateEnemy(scene, pos, true, playingState);
+                nrOfEnemies++;
                 break;
             default:
                 break;

@@ -57,6 +57,16 @@ namespace vic
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
+		void Disable()
+		{
+			for (auto& baseCommand : m_ComponentPtrs)
+				baseCommand->Disable();
+		}
+		void Enable()
+		{
+			for (auto& baseCommand : m_ComponentPtrs)
+				baseCommand->Enable();
+		}
 	private:
 		bool m_Dead = false;
 

@@ -2,12 +2,19 @@
 
 #include <assert.h>
 
+#include "GameObject.h"
 #include "Observer.h"
+#include "Scene.h"
 
 
 void vic::BaseComponent::AddCommand(std::unique_ptr<BaseCommand>&& baseCommand)
 {
 	m_Commands.emplace_back(std::move(baseCommand));
+
+	if (Owner()->GetScene()->IsEnabled())
+		m_Commands.back()->Enable();
+	else
+		m_Commands.back()->Disable();
 }
 void vic::BaseComponent::AttachObserver(Observer* observer)
 {

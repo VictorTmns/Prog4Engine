@@ -14,8 +14,11 @@ namespace vic
 			subjectAttached,
 			subjectDestroyed,
 
-			playerHealthChanges,
 			scoreChange,
+			playerHealthChanges,
+			enemyDied,
+			respawn,
+
 		};
 	
 		virtual ~Observer();

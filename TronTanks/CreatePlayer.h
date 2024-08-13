@@ -35,7 +35,7 @@ inline void AddWASDMovement(vic::BaseComponent* moveComp, std::function<void(flo
 		SDLK_d,
 		vic::ClickType::hold);
 }
-inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, int team)
+inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, int team, PlayingState* playingState)
 {
 	auto& inputManager = vic::InputManager::GetInstance();
 
@@ -46,6 +46,7 @@ inline vic::GameObject& CreatePlayer(vic::Scene* scene, const glm::vec2& pos, in
 
 	//logic
 		PlayerLogic* playerLogic = player.AddComponent<PlayerLogic>();
+		playerLogic->AttachObserver(playingState);
 
 	//Movement
 		VelocityMovementComponent* moveComp = player.AddComponent<VelocityMovementComponent>(500.f);

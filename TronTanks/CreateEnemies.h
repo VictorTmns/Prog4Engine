@@ -9,7 +9,7 @@
 #include "VelocityMovementComponent.h"
 #include "Scene.h"
 
-void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
+void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer, PlayingState* playingState)
 {
 	constexpr glm::vec2 dim{ 20, 20 };
 
@@ -28,7 +28,7 @@ void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
 	if (!isRecognizer)
 		moveComp = enemy.AddComponent<VelocityMovementComponent>(100.f);
 	else
-		moveComp = enemy.AddComponent<VelocityMovementComponent>(800.f);
+		moveComp = enemy.AddComponent<VelocityMovementComponent>(200.f);
 
 	
 
@@ -47,6 +47,7 @@ void CreateEnemy(vic::Scene* scene, const glm::vec2& pos, bool isRecognizer)
 	enemy.AddComponent<EnemyMovementAIComp>(moveComp);
 	enemy.AddComponent<EnemyShootingAIComp>(barrelComp);
 	EnemyLogicComp* enemyLogic = enemy.AddComponent<EnemyLogicComp>();
+	enemyLogic->AttachObserver(playingState);
 
 	//collisions
 	enemy.AddComponent<vic::ColliderComponent>(dim, moveComp->GetVelocityPointer());

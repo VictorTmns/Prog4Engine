@@ -8,6 +8,12 @@ namespace vic
     {
     public:
         virtual ~BaseCommand();
+
+        void Enable() {m_Enabled = true; }
+        void Disable() { m_Enabled = false; }
+        bool IsEnabled() const { return m_Enabled; }
+    private:
+        bool m_Enabled = true;
     };
 
 
@@ -43,19 +49,5 @@ namespace vic
     private:
         std::function<void(float value)> m_Command;
     };
-    // REVIEW
-    //template<typename T>
-    //class Command {
-    //public:
-    //    Command(std::function<void(BaseComponent* actor, T... args)> function, BaseComponent* actor)
-    //	: m_Command([=](T... args) { function(actor, args...); })
-    //	{}
-    //
-    //    void Execute(T... args) {
-    //        m_Command(args...);
-    //    }
-    //
-    //private:
-    //    std::function<void(T...)> m_Command;
-    //};
+
 }

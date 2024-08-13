@@ -16,7 +16,7 @@ namespace vic
 		Scene* GetScene(const std::string& name);
 
 		void Update();
-		void Render(const Renderer* renderer);
+		void Render(const Renderer* renderer) const;
 		void FixedUpdate();
 
 
@@ -30,7 +30,6 @@ namespace vic
 	private:
 		friend class Singleton<SceneManager>;
 
-		int m_ActiveScene = 0;
 		SceneManager();
 		std::vector<std::unique_ptr<Scene>> m_scenes;
 	};

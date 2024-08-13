@@ -13,5 +13,9 @@ EnemyLogicComp::EnemyLogicComp(vic::GameObject* ownerPtr)
 void EnemyLogicComp::Hit()
 {
 	m_LivesLeft--;
-	if (m_LivesLeft == 0) Owner()->Destroy();
+	if (m_LivesLeft == 0)
+	{
+		NotifyObservers(vic::Observer::Event::enemyDied);
+		Owner()->Destroy();
+	}
 }

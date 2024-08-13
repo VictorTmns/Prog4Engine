@@ -20,11 +20,11 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{b38b1b11-9e61-4cff-99d0-9305d7022f46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Loading\States">
+      <UniqueIdentifier>{fe3f9dd6-3e4c-446d-bf70-499bdcfcd78c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Loading</Filter>
-    </ClCompile>
     <ClCompile Include="VelocityMovementComponent.cpp">
       <Filter>tanks</Filter>
     </ClCompile>
@@ -48,6 +48,16 @@
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="BaseState.cpp">
+      <Filter>Loading\States</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Loading\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayingState.cpp">
+      <Filter>Loading\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,13 +88,26 @@
     <ClInclude Include="CreateEnemies.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ReadLevelFromFile.h" />
     <ClInclude Include="EnemyShootingAIComp.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyLogicComp.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameManager.h">
+      <Filter>Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadLevelFromFile.h">
+      <Filter>Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseState.h">
+      <Filter>Loading\States</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Loading\States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingState.h">
+      <Filter>Loading\States</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

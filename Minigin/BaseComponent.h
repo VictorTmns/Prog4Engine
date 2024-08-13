@@ -16,7 +16,7 @@ namespace vic
 	public:
 		virtual ~BaseComponent() = default;
 
-		virtual void OnStart() {};
+		virtual void OnStart() {}
 		virtual void Update() {}
 		virtual void FixedUpdate() {}
 		virtual void Render(const Renderer*) const {}
@@ -31,6 +31,16 @@ namespace vic
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
+		void Disable()
+		{
+			for (auto& baseCommand : m_Commands)
+				baseCommand->Disable();
+		}
+		void Enable()
+		{
+			for (auto& baseCommand : m_Commands)
+				baseCommand->Enable();
+		}
 
 
 		GameObject* Owner() const { return m_OwnerPtr; }

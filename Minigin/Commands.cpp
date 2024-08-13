@@ -20,7 +20,8 @@ vic::ButtonCommand::ButtonCommand(std::function<void()> function)
 
 void vic::ButtonCommand::Execute()
 {
-	m_Command();
+	if(IsEnabled())
+		m_Command();
 }
 
 
@@ -33,7 +34,8 @@ vic::VectorCommand::VectorCommand(std::function<void( float deltaX, float deltaY
 
 void vic::VectorCommand::Execute(float x, float y)
 {
-	m_Command(x, y);
+	if(IsEnabled())
+		m_Command(x, y);
 }
 
 
@@ -46,5 +48,6 @@ vic::ScalarCommand::ScalarCommand(std::function<void( float x)> function)
 
 void vic::ScalarCommand::Execute(float x)
 {
-	m_Command(x);
+	if(IsEnabled())
+		m_Command(x);
 }

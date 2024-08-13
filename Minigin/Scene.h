@@ -12,11 +12,13 @@ namespace vic
 		GameObject& CreateGameObject(const std::string& name = "");
 		void DeleteAll();
 
+
 		void OnStart();
 		void Update();
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;
 		void RemoveDeadGameObjects();
+
 
 		~Scene() = default;
 		Scene(const Scene& other) = delete;
@@ -24,12 +26,18 @@ namespace vic
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
+		void Enable() {m_Enabled = true; }
+		void Disable() { m_Enabled = false; }
+		bool IsEnabled() const { return m_Enabled; }
+
 		std::string_view Name() const { return std::string_view(m_name); }
 		PhysicsEngine& GetPhysicsEngine() const { return *m_PhysicsEngine; }
 
 		std::vector<GameObject*> GetGameObjectsByName(const std::string& name) const;
 	private: 
 		explicit Scene(const std::string& name);
+
+		bool m_Enabled = true;
 
 		std::unique_ptr<PhysicsEngine> m_PhysicsEngine;
 

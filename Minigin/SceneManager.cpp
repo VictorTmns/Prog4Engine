@@ -17,19 +17,28 @@ vic::SceneManager::SceneManager() = default;
 
 void vic::SceneManager::Update()
 {
-	m_scenes[m_ActiveScene]->Update();
-
-	m_scenes[m_ActiveScene]->RemoveDeadGameObjects();
+	for (auto& scene : m_scenes)
+	{
+		if(scene->IsEnabled())
+		{
+			scene->Update();
+			scene->RemoveDeadGameObjects();
+		}
+	}
 }
 
-void vic::SceneManager::Render(const vic::Renderer* renderer)
+void vic::SceneManager::Render(const vic::Renderer* renderer) const
 {
-	m_scenes[m_ActiveScene]->Render(renderer);
+	for (const auto& scene : m_scenes)
+		if (scene->IsEnabled())
+			scene->Render(renderer);
 }
 
 void vic::SceneManager::FixedUpdate()
 {
-	m_scenes[m_ActiveScene]->FixedUpdate();
+	for (auto& scene : m_scenes)
+		if (scene->IsEnabled())
+			scene->FixedUpdate();
 }
 
 
