@@ -12,6 +12,10 @@ namespace vic
 	public:
 		bool ProcessInput();
 
+		bool ButtonPressed(SDL_KeyCode keyCode) const;
+		bool ButtonPressed(int controllerIdx, ControllerButton button) const;
+
+
 		void BindToKeyboard(BaseComponent* componentPtr, std::function<void()> function, SDL_KeyCode keyCode, ClickType clickType);
 
 		void BindToMouseWheel(BaseComponent* componentPtr, std::function<void( float x)> function);

@@ -39,9 +39,13 @@ void Scene::DeleteAll()
 
 void Scene::OnStart()
 {
+	if(!m_FirstAction)
+		return;
+
+	m_FirstAction = false;
 	for (auto& gameObjectPtr : m_GameObjectPtrs)
 	{
-		gameObjectPtr->OnStart();
+		gameObjectPtr->OnSceneStart();
 	}
 }
 

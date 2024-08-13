@@ -79,12 +79,12 @@ void vic::Minigin::Run(const std::function<void(Minigin*)>& load)
 
 
 	load(this);
-	sceneManager.OnStart();
 
 	bool doContinue = true;
 	while (doContinue)
 	{
 		time.Update();
+		sceneManager.CheckOnStart();
 
 		doContinue = input.ProcessInput();
 		while (time.LagRemaining())

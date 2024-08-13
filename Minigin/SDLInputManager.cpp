@@ -94,6 +94,17 @@ void vic::SDLInputManager::AddMouseWheelCommand(ScalarCommand* commandPtr)
 	});
 }
 
+bool vic::SDLInputManager::ButtonPressed(SDL_KeyCode keyCode) const
+{
+	SDL_Scancode scancode = SDL_GetScancodeFromKey(keyCode);
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
+
+	if (state[scancode])
+		return true;
+
+	return false;
+}
+
 void vic::SDLInputManager::RemoveCommand(BaseCommand* commandPtr)
 {
 	for (auto it = m_Commands.begin(); it != m_Commands.end(); ) {

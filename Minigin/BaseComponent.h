@@ -16,7 +16,7 @@ namespace vic
 	public:
 		virtual ~BaseComponent() = default;
 
-		virtual void OnStart() {}
+		virtual void OnSceneStart() {}
 		virtual void Update() {}
 		virtual void FixedUpdate() {}
 		virtual void Render(const Renderer*) const {}
@@ -50,6 +50,8 @@ namespace vic
 
 		
 	private:
+		bool m_OnStart = true;
+
 		GameObject* m_OwnerPtr;
 
 		std::vector<std::unique_ptr<BaseCommand>> m_Commands;

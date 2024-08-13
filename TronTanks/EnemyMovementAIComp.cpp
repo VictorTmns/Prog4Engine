@@ -6,14 +6,15 @@
 
 EnemyMovementAIComp::EnemyMovementAIComp(vic::GameObject* ownerPtr, VelocityMovementComponent* movComp)
 	: BaseComponent{ownerPtr}
-	, m_MovComp{movComp}
-	, m_Direction{ glm::vec2{0.f, 1.f } }
-	, m_ElapsedTime{0}
-	, m_EnemySize{}
+	  , m_MovComp{movComp}
+	  , m_Direction{glm::vec2{0.f, 1.f}}
+	  , m_ElapsedTime{0}
+	  , m_RotationCooldown{2}, m_EnemySize{}
 {
+	m_ElapsedTime = m_RotationCooldown;
 }
 
-void EnemyMovementAIComp::OnStart()
+void EnemyMovementAIComp::OnSceneStart()
 {
 	m_EnemySize = Owner()->GetComponent<vic::OverlapComponent>()->GetDimensions();
 }

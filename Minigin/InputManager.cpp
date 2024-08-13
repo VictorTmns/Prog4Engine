@@ -9,6 +9,16 @@ bool vic::InputManager::ProcessInput()
 	return false;
 }
 
+bool vic::InputManager::ButtonPressed(int controllerIdx, ControllerButton button) const
+{
+	return m_ControllerManager.IsPressed(controllerIdx, button);
+}
+
+bool vic::InputManager::ButtonPressed(SDL_KeyCode keyCode) const
+{
+	return m_SdlManager.ButtonPressed(keyCode);
+}
+
 void vic::InputManager::BindToKeyboard(
 	BaseComponent* componentPtr, std::function<void()> function, SDL_KeyCode keyCode, ClickType
 	clickType)

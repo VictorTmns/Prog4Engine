@@ -18,11 +18,11 @@ namespace vic
 	
 	// ---- FUNCTIONALITY ----
 
-	void GameObject::OnStart()
+	void GameObject::OnSceneStart()
 	{
 		for (auto& pComponent : m_ComponentPtrs)
 		{
-			pComponent->OnStart();
+			pComponent->OnSceneStart();
 		}
 	}
 

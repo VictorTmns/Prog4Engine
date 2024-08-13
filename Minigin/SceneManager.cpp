@@ -7,38 +7,39 @@
 
 vic::SceneManager::~SceneManager() = default;
 
-void vic::SceneManager::OnStart()
+void vic::SceneManager::CheckOnStart()
 {
-	for (auto& scene : m_scenes)
-		scene->OnStart();
+	for (auto& scene : m_Scenes)
+		if(scene->IsEnabled())
+			scene->OnStart();
 }
 
 vic::SceneManager::SceneManager() = default;
 
 void vic::SceneManager::Update()
 {
-	for (auto& scene : m_scenes)
+	for (SIZE_T i = 0; i < m_Scenes.size(); ++i)
 	{
-		if(scene->IsEnabled())
+		if(m_Scenes[i]->IsEnabled())
 		{
-			scene->Update();
-			scene->RemoveDeadGameObjects();
+			m_Scenes[i]->Update();
+			m_Scenes[i]->RemoveDeadGameObjects();
 		}
 	}
 }
 
 void vic::SceneManager::Render(const vic::Renderer* renderer) const
 {
-	for (const auto& scene : m_scenes)
+	for (const auto& scene : m_Scenes)
 		if (scene->IsEnabled())
 			scene->Render(renderer);
 }
 
 void vic::SceneManager::FixedUpdate()
 {
-	for (auto& scene : m_scenes)
-		if (scene->IsEnabled())
-			scene->FixedUpdate();
+	for (SIZE_T i = 0; i < m_Scenes.size(); ++i)
+		if (m_Scenes[i]->IsEnabled())
+			m_Scenes[i]->FixedUpdate();
 }
 
 
@@ -47,8 +48,8 @@ vic::Scene* vic::SceneManager::CreateScene(const std::string& name)
 {
 	assert(!name.empty());
 	auto scene = std::unique_ptr<Scene>(new Scene(name));
-	m_scenes.push_back(std::move(scene));
-	return m_scenes.back().get();
+	m_Scenes.push_back(std::move(scene));
+	return m_Scenes.back().get();
 }
 
 vic::Scene* vic::SceneManager::GetScene(const std::string& name)
@@ -59,9 +60,9 @@ vic::Scene* vic::SceneManager::GetScene(const std::string& name)
 		return (scenePtr->Name() == name);
 		};
 
-	auto sceneIt = std::find_if(m_scenes.begin(), m_scenes.end(), sceneSearchCrit);
+	auto sceneIt = std::find_if(m_Scenes.begin(), m_Scenes.end(), sceneSearchCrit);
 
-	if (sceneIt != m_scenes.end())
+	if (sceneIt != m_Scenes.end())
 		return sceneIt->get();
 
 

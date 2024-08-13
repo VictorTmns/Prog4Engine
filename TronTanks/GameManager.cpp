@@ -4,7 +4,7 @@
 
 GameManager::GameManager(vic::GameObject* owner)
 	: BaseComponent{owner}
-	, m_State{std::make_unique<PlayingState>(PlayMode::singleplayer)}
+	, m_State{std::make_unique<MenuState>()}
 {
 }
 

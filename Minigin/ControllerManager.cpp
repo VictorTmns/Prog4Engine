@@ -33,7 +33,9 @@ namespace vic
 		void AddThumbStickCommand(int controllerIdx, bool isLeft, VectorCommand* commandPtr);
 	
 		void RemoveCommand(BaseCommand* commandPtr);
-	
+
+
+		bool IsPressed(int controllerIdx, ControllerButton button) const;
 	private:
 	
 	
@@ -81,7 +83,6 @@ namespace vic
 	
 		bool IsDownThisFrame(int controllerIdx, ControllerButton button) const;
 		bool IsUpThisFrame(int controllerIdx, ControllerButton button) const;
-		bool IsPressed(int controllerIdx, ControllerButton button) const;
 		glm::vec2 GetThumbStickNormalized(int controllerIdx, bool leftStick) const;
 		float GetTriggerNormalized(int controllerIdx, bool leftTrigger) const;
 	
@@ -366,6 +367,11 @@ namespace vic
 	void ControllerManager::AddThumbStickCommand(int controllerIdx, bool isLeft, VectorCommand* commandPtr)
 	{
 		m_Impl->AddThumbStickCommand(controllerIdx, isLeft, commandPtr);
+	}
+
+	bool ControllerManager::IsPressed(int controllerIdx, ControllerButton button) const
+	{
+		return m_Impl->IsPressed(controllerIdx, button);
 	}
 
 	void ControllerManager::RemoveCommand(BaseCommand* commandPtr)

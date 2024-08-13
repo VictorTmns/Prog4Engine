@@ -1,5 +1,10 @@
 ﻿#include "EnemyShootingAIComp.h"
 
+#include "BarrelComponent.h"
+#include "BarrelComponent.h"
+#include "BarrelComponent.h"
+#include "BarrelComponent.h"
+#include "BarrelComponent.h"
 #include "GameTime.h"
 #include "Scene.h"
 
@@ -9,7 +14,7 @@ EnemyShootingAIComp::EnemyShootingAIComp(vic::GameObject* ownerPtr, BarrelCompon
 {
 }
 
-void EnemyShootingAIComp::OnStart()
+void EnemyShootingAIComp::OnSceneStart()
 {
 	for (vic::GameObject* go : Owner()->GetScene()->GetGameObjectsByName("player"))
 	{
@@ -26,7 +31,7 @@ void EnemyShootingAIComp::Update()
 		return;
 
 
-	m_ElapsedSec = 0.f;
+
 
 	auto pos{ m_BarrelComp->Owner()->GetTransform().Position() };
 	for (const auto & target : m_Targets)
@@ -35,17 +40,26 @@ void EnemyShootingAIComp::Update()
 		if(abs(targetPos.x - pos.x) < target->GetDimensions().x / 2.f)
 		{
 			if (pos.y < targetPos.y)
-				m_BarrelComp->Shoot(BarrelComponent::Direction::down, 200);
+				TryShoot(BarrelComponent::Direction::down, targetPos);
 			else
-				m_BarrelComp->Shoot(BarrelComponent::Direction::up, 200);
-
+				TryShoot(BarrelComponent::Direction::up, targetPos);
 		}
 		else if(abs(targetPos.y - pos.y) < target->GetDimensions().y / 2.f)
 		{
 			if (pos.x < targetPos.x)
-				m_BarrelComp->Shoot(BarrelComponent::Direction::right, 200);
+				TryShoot(BarrelComponent::Direction::right, targetPos);
 			else
-				m_BarrelComp->Shoot(BarrelComponent::Direction::left, 200);
+				TryShoot(BarrelComponent::Direction::left, targetPos);
 		}
 	}
+}
+
+void EnemyShootingAIComp::TryShoot(BarrelComponent::Direction dir, const glm::vec2& targetPos)
+{
+	if(Owner()->GetScene()->GetPhysicsEngine().CollidesWithStatics(
+		Owner()->GetTransform().Position(), targetPos - Owner()->GetTransform().Position()))
+		return;
+
+	m_ElapsedSec = 0.f;
+	m_BarrelComp->Shoot(dir, 200);
 }

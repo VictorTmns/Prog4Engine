@@ -25,6 +25,8 @@ namespace vic
 		void AddTriggerCommand(int controllerIdx, bool isLeft, ScalarCommand* commandPtr);
 		void AddThumbStickCommand(int controllerIdx, bool isLeft, VectorCommand* commandPtr);
 
+		bool IsPressed(int controllerIdx, ControllerButton button) const;
+
 		void RemoveCommand(BaseCommand* commandPtr);
 
 	private:

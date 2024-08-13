@@ -14,7 +14,7 @@ namespace vic
 	class GameObject final
 	{
 	public:
-		void OnStart();
+		void OnSceneStart();
 		void Update();
 		void FixedUpdate();
 		void Render(const Renderer* renderer) const;

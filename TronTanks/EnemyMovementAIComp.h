@@ -10,7 +10,7 @@ class EnemyMovementAIComp : public vic::BaseComponent
 public:
 	EnemyMovementAIComp(vic::GameObject* ownerPtr, VelocityMovementComponent* movComp);
 
-	void OnStart() override;
+	void OnSceneStart() override;
 
 	void Update() override;
 private:
@@ -25,7 +25,7 @@ private:
 
 	glm::vec2 m_Direction;
 	float m_ElapsedTime;
-	const float m_RotationCooldown = 2.f;
+	const float m_RotationCooldown;
 
 	glm::vec2 m_EnemySize;
 

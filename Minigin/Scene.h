@@ -37,6 +37,7 @@ namespace vic
 	private: 
 		explicit Scene(const std::string& name);
 
+		bool m_FirstAction = true;
 		bool m_Enabled = true;
 
 		std::unique_ptr<PhysicsEngine> m_PhysicsEngine;

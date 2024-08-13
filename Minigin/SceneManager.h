@@ -21,7 +21,7 @@ namespace vic
 
 
 		~SceneManager() override;
-		void OnStart();
+		void CheckOnStart();
 
 		SceneManager(const SceneManager& other) = delete;
 		SceneManager(SceneManager&& other) = delete;
@@ -31,6 +31,6 @@ namespace vic
 		friend class Singleton<SceneManager>;
 
 		SceneManager();
-		std::vector<std::unique_ptr<Scene>> m_scenes;
+		std::vector<std::unique_ptr<Scene>> m_Scenes;
 	};
 }
