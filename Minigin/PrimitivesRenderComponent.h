@@ -18,6 +18,7 @@ namespace vic
 		void SetRectDimensions(const glm::vec2& rectDimensions) { m_Dimensions = rectDimensions; }
 		void SetCircleRadius(float radius) { m_Dimensions.s = radius; }
 		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
+		void SetColor(SDL_Color color) { m_Color = color; }
 	private:
 		enum class PrimitiveType
 		{

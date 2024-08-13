@@ -13,6 +13,7 @@ MenuState::MenuState()
 	const int menuSize{ 40 };
 	vic::Font* titleFont = vic::ResourceManager::GetInstance().LoadFont("Fonts/TRON.TTF", menuSize);
 	vic::Font* simpleFont = vic::ResourceManager::GetInstance().LoadFont("Fonts/Lingua.otf", 30);
+	vic::Font* simpleSmallFont = vic::ResourceManager::GetInstance().LoadFont("Fonts/Lingua.otf", 20);
 
 
 
@@ -36,6 +37,15 @@ MenuState::MenuState()
 	modeText.AddComponent<vic::TextRenderComponent>(simpleFont, "Press tab or Y", vic::Font::TextAlignment::center);
 	modeText.AddComponent<vic::TextRenderComponent>(simpleFont, "to change play mode", vic::Font::TextAlignment::center)
 		->SetOffset(glm::vec2{ 0, 30 });
+
+
+	vic::GameObject& modeSelectedText = m_MenuScene->CreateGameObject();
+	modeSelectedText.GetTransform().SetWorldPosition(320, 380);
+	m_ModePrimRenderComponent = modeSelectedText.AddComponent<vic::PrimitivesRenderComponent>(glm::vec2{ 100, 30 }, SDL_Color{ 255, 0, 0 });
+	m_ModeRenderComponent = modeSelectedText.AddComponent<vic::TextRenderComponent>(simpleSmallFont, "singlePlayer", vic::Font::TextAlignment::center);
+	m_ModePrimRenderComponent->SetOffset(glm::vec2{ -50, -15 });
+
+
 }
 
 MenuState::~MenuState()
@@ -47,7 +57,24 @@ std::unique_ptr<BaseState> MenuState::Update()
 {
 	if (vic::InputManager::GetInstance().ButtonPressed(SDLK_LSHIFT)
 		|| vic::InputManager::GetInstance().ButtonPressed(SDLK_RSHIFT))
-		 m_SelectedMode = static_cast<GameManager::PlayMode>((static_cast<int>(m_SelectedMode) + 1) % 3);
+	{
+		switch (m_SelectedMode)
+		{
+		case GameManager::PlayMode::singleplayer:
+			m_SelectedMode = GameManager::PlayMode::multiplayer;
+			m_ModeRenderComponent->SetText("multiplayer");
+			break;
+		case GameManager::PlayMode::multiplayer:
+			m_SelectedMode = GameManager::PlayMode::versus;
+			m_ModeRenderComponent->SetText("versus");
+			break;
+		case GameManager::PlayMode::versus:
+			m_SelectedMode = GameManager::PlayMode::singleplayer;
+			m_ModeRenderComponent->SetText("singleplayer");
+			break;
+		default: ;
+		}
+	}
 
 	if (vic::InputManager::GetInstance().ButtonPressed(SDLK_SPACE))
 		return std::make_unique<PlayingState>(m_SelectedMode);
