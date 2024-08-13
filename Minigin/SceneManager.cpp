@@ -65,6 +65,5 @@ vic::Scene* vic::SceneManager::GetScene(const std::string& name)
 		return sceneIt->get();
 
 
-	throw std::runtime_error("error scene '" + name + "' not found");
 	return nullptr;
 }

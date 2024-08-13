@@ -2,18 +2,27 @@
 
 #include "ReadLevelFromFile.h"
 
-PlayingState::PlayingState()
-	: m_CurrentLevel{0}
+
+PlayingState::PlayingState(GameManager::PlayMode mode)
+	: m_CurrentLevel{ 0 }
+	, m_Mode{mode}
 {
-	m_Levels.emplace_back(vic::SceneManager::GetInstance().CreateScene("level1"), "../Data/Levels/level1.txt");
-	m_Levels.emplace_back(vic::SceneManager::GetInstance().CreateScene("level2"), "../Data/Levels/level2.txt");
-	m_Levels.emplace_back(vic::SceneManager::GetInstance().CreateScene("level3"), "../Data/Levels/level3.txt");
+	m_Levels.emplace_back(vic::SceneManager::GetInstance().CreateScene("level1"), "../Data/Tron/Levels/level1.txt");
+	m_Levels.emplace_back(vic::SceneManager::GetInstance().CreateScene("level2"), "../Data/Tron/Levels/level2.txt");
+	m_Levels.emplace_back(vic::SceneManager::GetInstance().CreateScene("level3"), "../Data/Tron/Levels/level3.txt");
 
 	SetLevel(m_CurrentLevel);
 }
 
-void PlayingState::Update()
+PlayingState::~PlayingState()
 {
+	for (const auto& level : m_Levels)
+		level.first->Disable();
+}
+
+std::unique_ptr<BaseState> PlayingState::Update()
+{
+	return nullptr;
 }
 
 void PlayingState::Notify(Event event, const vic::BaseComponent* component)
@@ -43,7 +52,7 @@ void PlayingState::SetLevel(int idx)
 		level.first->Disable();
 
 	m_Levels[idx].first->Enable();
-	ReadLevelFromFile(m_Levels[idx].first, m_Levels[idx].second, this, m_EnemiesRemaining);
+	ReadLevelFromFile(m_Levels[idx].first, m_Levels[idx].second, this, m_EnemiesRemaining, m_Mode);
 }
 
 void PlayingState::HandleEnemyDiedEvent(const vic::BaseComponent* enemyLogic)

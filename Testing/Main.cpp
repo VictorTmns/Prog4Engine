@@ -230,14 +230,14 @@ void MakeManuel([[maybe_unused]] vic::Minigin* engine, [[maybe_unused]] vic::Fon
 	vic::GameObject& go2{ scene->CreateGameObject() };
 	go2.AddComponent<vic::TextRenderComponent>(
 		smallFont, "use the WASD to move the first player, use P to to take damage and I&O to get points",
-		vic::TextRenderComponent::TextAlignment::left);
+		vic::Font::TextAlignment::left);
 	go2.SetParent(&go);
 
 	vic::GameObject& go3{ scene->CreateGameObject() };
 	go3.GetTransform().SetLocalPosition(10, 20);
 	go3.AddComponent<vic::TextRenderComponent>(
 		smallFont, "use the D-Pad to move the second player, use M to to take damage and K&L to get points",
-		vic::TextRenderComponent::TextAlignment::left);
+		vic::Font::TextAlignment::left);
 	go3.SetParent(&go);
 
 }

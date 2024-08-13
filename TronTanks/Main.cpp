@@ -29,7 +29,7 @@ void load(vic::Minigin*)
 
 int main(int, char* [])
 {
-	vic::Minigin engine("../Data/Testing/");
+	vic::Minigin engine("../Data/Tron/");
 	engine.Run(load);
 
 	return 0;

@@ -20,8 +20,20 @@ vic::Font::~Font()
 	FC_FreeFont(m_font);
 }
 
-void vic::Font::Draw(const std::string& text, const Renderer* renderer, float x, float y) const
+void vic::Font::Draw(const std::string& text, const Renderer* renderer, float x, float y, TextAlignment alignment) const
 {
-	FC_Draw(m_font, renderer->GetSDLRenderer(),x, y, text.data());
+	switch (alignment)
+	{
+	case TextAlignment::left:
+		FC_DrawAlign(m_font, renderer->GetSDLRenderer(), x, y, FC_ALIGN_LEFT, text.data());
+		break;
+	case TextAlignment::center:
+		FC_DrawAlign(m_font, renderer->GetSDLRenderer(), x, y, FC_ALIGN_CENTER, text.data());
+		break;
+	case TextAlignment::right:
+		FC_DrawAlign(m_font, renderer->GetSDLRenderer(), x, y, FC_ALIGN_RIGHT, text.data());
+			break;
+	}
+	
 }
 

@@ -13,23 +13,22 @@ namespace vic
 	class TextRenderComponent final : public BaseComponent
 	{
 	public:
-		enum class TextAlignment
-		{
-			center,
-			left,
-			right
-		};
 
 
 		void Render(const Renderer* renderer) const override;
 
 		void SetText(const std::string& text);
 
-		TextRenderComponent(GameObject* owner, Font* font, const std::string& text = {}, TextAlignment alignment = TextAlignment::center);
+
+		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
+
+		TextRenderComponent(GameObject* owner, Font* font, const std::string& text = {}, Font::TextAlignment alignment = Font::TextAlignment::center);
 	private:
+		glm::vec2 m_Offset;
+
 		bool m_needsUpdate;
 		std::string m_text;
 		Font* m_font;
-		TextAlignment m_Alignment;
+		Font::TextAlignment m_Alignment;
 	};
 }

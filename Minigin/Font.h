@@ -13,7 +13,15 @@ namespace vic
 		Font(SDL_Renderer* renderer, std::string fullPath, unsigned size);
 		~Font();
 
-		void Draw(const std::string& text, const Renderer* renderer, float x, float y) const;
+
+		enum class TextAlignment
+		{
+			center,
+			left,
+			right
+		};
+
+		void Draw(const std::string& text, const Renderer* renderer, float x, float y, TextAlignment alignment) const;
 
 		Font(const Font &) = delete;
 		Font(Font &&) = delete;

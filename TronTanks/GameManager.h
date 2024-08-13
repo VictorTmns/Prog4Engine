@@ -9,6 +9,13 @@ public:
 	GameManager(vic::GameObject* owner);
 	~GameManager() override = default;
 
+	enum class PlayMode
+	{
+		singleplayer,
+		multiplayer,
+		versus
+	};
+
 	void Update() override;
 	void Notify(Event event, const BaseComponent* subject) override;
 
